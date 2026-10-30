@@ -883,7 +883,7 @@ function contactHTML(){
    '<select id="msg-type" class="inp"><option>تصحيح خطأ في درس</option><option>استفسار في درس</option><option>اقتراح تحسين</option><option>طلب حل تمرين / تحدي بكالوريا</option></select>'+
    '<textarea id="msg-body" class="inp" rows="4" placeholder="اكتب رسالتك هنا — إن كان خطأً اذكر الدرس والفقرة بالضبط…"></textarea>'+
    '<div class="btn-row">'+
-   '<button class="btn btn-primary" onclick="sendMsg()">✉️ إرسال الرسالة</button>'+
+   '<button id="sendMsg" class="btn btn-primary" onclick="sendMsg()">✉️ إرسال الرسالة</button>'+
    '<button class="btn" onclick="xCopyMsg()">📋 نسخ الرسالة</button>'+
    '</div></div><div class="ct-note">🔒 تُرسل رسالتك مباشرة إلى بريد مالك المنصة من داخل المنصة — ولا نجمع كلمات مرور ولا نشارك بريدك مع أي طرف.</div>'+
    '</section>';
@@ -2552,7 +2552,7 @@ function x18EmailNext(){
 function x18FormCard(){
   var f=XAUTH18.form,editing=!!(USER.session&&USER.profile);
   return '<h3>'+(editing?'تعديل معلوماتك':'معلوماتك الشخصية')+'</h3>'+
-  '<p class="auth-note">'+(editing?'عدّل ما تريد ثم احفظ.':'أكمل بياناتك — تُرسل مباشرة إلى مالك المنصة من داخل المنصة، ثم تدخل فورًا.')+'</p>'+
+  '<p class="auth-note">'+(editing?'عدّل ما تريد ثم احفظ.':'أكمل بياناتك — تُرسل بيانات التسجيل إلى بريد مالك المنصة من داخل المنصة، ثم تدخل فورًا.')+'</p>'+
   '<div class="p-grid">'+
   '<label class="fld"><span>الاسم *</span><input id="p-fn" value="'+escAttr(f.fn)+'" placeholder="مثال: كريم">'+x18FErr('fn')+'</label>'+
   '<label class="fld"><span>اللقب *</span><input id="p-ln" value="'+escAttr(f.ln)+'" placeholder="مثال: بن يوسف">'+x18FErr('ln')+'</label>'+
@@ -2574,7 +2574,7 @@ function x18FormCard(){
   x18FErr('top')+
   '<div class="btn-row">'+
   '<button class="btn" onclick="XAUTH18.step=1;render()">← رجوع</button>'+
-  '<button class="btn btn-primary" onclick="x18FormNext()">'+(editing?'💾 حفظ التعديلات':'متابعة والإرسال →')+'</button>'+
+  '<button class="btn btn-primary" onclick="x18FormNext()">'+(editing?'💾 حفظ التعديلات':'متابعة')+'</button>'+
   '</div>';
 }
 function x18CollectForm(){
@@ -2734,7 +2734,7 @@ function xShowDoc(which){
     '<p>نحفظ الحد الأدنى اللازم لتشغيل حسابك:</p>'+
     '<ul><li><b>بياناتك:</b> البريد الإلكتروني، الاسم واللقب، السنة الدراسية والشعبة، وما تدخله طوعًا (سنة الميلاد، الجنس، الولاية، الهاتف، الصورة الشخصية).</li>'+
     '<li><b>أين تُحفظ؟</b> على جهازك أنت داخل مساحة تخزين المتصفح — لا نحتفظ بها في أي خدمة خارجية، ولا نجمع كلمات مرور إطلاقًا.</li>'+
-    '<li><b>إرسال التسجيل:</b> عند إنشاء حسابك تُفتح رسالة من تطبيق بريدك أنت موجّهة إلى بريد مالك المنصة لتصل بياناتك إليه — وأنت من يضغط «إرسال»، فلا تخرج أي بيانات دون علمك.</li>'+
+    '<li><b>إرسال التسجيل:</b> عند إنشاء حسابك تُرسل بيانات التسجيل عبر خدمة إرسال البريد إلى بريد مالك المنصة. لا تُرسل البيانات إلا بعد ضغطك على زر «متابعة» وإكمال التسجيل.</li>'+
     '<li><b>بيانات التقدم:</b> الدروس والاختبارات والمحفوظات تُحفظ على جهازك وتظهر لك أنت فقط.</li></ul>'+
     '<p><b>حقوقك:</b> عدّل بياناتك أو احذف حسابك وبياناته من جهازك في أي وقت من صفحة ملفك.</p>');
   }else if(which==='terms'){
@@ -2979,12 +2979,20 @@ function x18Resend(){
 
 /* ---- 19.3 الإبلاغ الصامت ---- */
 function sendMsg(){
-  var e=gid('msg-mail'),t=gid('msg-type'),b=gid('msg-body');
+  var e=gid('msg-mail'),t=gid('msg-type'),b=gid('msg-body'),btn=gid('sendMsg');
   var em=((e&&e.value)||'').trim(),ty=(t&&t.value)||'رسالة',bd=((b&&b.value)||'').trim();
-  if(!em||em.indexOf('@')<1){toast('✍️ اكتب بريدك الإلكتروني أولًا','error');return}
-  if(bd.length<5){toast('✍️ اكتب رسالتك أولًا','error');return}
-  var body=bd+'\n\n— نوع الرسالة: '+ty+'\n— من: '+em+'\n— أُرسلت من منصة X الإصدار '+APP_META.ver;
-  x19Send('[منصة X] '+ty,body,em);
+  var emailOK=/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(em);
+  if(!emailOK){toast('✍️ أدخل بريدًا إلكترونيًا صحيحًا حتى يستطيع مالك المنصة الرد عليك','error');if(e)e.focus();return}
+  if(bd.length<10){toast('✍️ اكتب رسالة واضحة لا تقل عن 10 أحرف','error');if(b)b.focus();return}
+  if(btn&&btn.disabled)return;
+  var old=btn?btn.textContent:'';
+  if(btn){btn.disabled=true;btn.textContent='⏳ جارٍ إرسال الرسالة…';btn.setAttribute('aria-busy','true')}
+  var body=bd+'\n\n— نوع الرسالة: '+ty+'\n— بريد المرسل للرد: '+em+'\n— أُرسلت من منصة X الإصدار '+APP_META.ver;
+  x19Send('[منصة X] '+ty,body,em,function(success,queued){
+    if(btn){btn.disabled=false;btn.textContent=old||'✉️ إرسال الرسالة';btn.removeAttribute('aria-busy')}
+    if(success){if(b)b.value='';}
+    else if(queued){toast('لم يصل تأكيد الإرسال بعد؛ احتفظ بالصفحة مفتوحة حتى تتوفر الشبكة لإعادة المحاولة.','error')}
+  });
 }
 
 /* ---- 19.4 بلا شريط علوي: التنقل من التبويبات السفلية فقط ---- */
@@ -3074,53 +3082,72 @@ function x20OutSave(q){try{localStorage.setItem(X20OUT,JSON.stringify(q.slice(0,
 function x20OutPush(p){try{p._q=(new Date()).toISOString().slice(0,16);var q=x20OutRead();q.push(p);x20OutSave(q)}catch(e){}}
 function x20OutShift(){try{var q=x20OutRead();q.shift();x20OutSave(q)}catch(e){}}
 function x20OutCount(){try{return x20OutRead().length}catch(e){return 0}}
-function x20SendForm(p,ok,fail){
-  /* الطلب الأساسي: XMLHttpRequest + FormData — «طلب بسيط» لا يستدعي فحص CORS
-     المسبق الذي كانت بعض المتصفحات ترفضه فيظهر خطأ «غير متصل» زائفًا */
-  var fin=false;var done=function(g){if(fin)return;fin=true;try{(g?ok:fail)()}catch(e){}};
+function x20ResponseSucceeded(status,raw){
+  if(status<200||status>=300)return false;
   try{
-    var fd=new FormData();
-    for(var k in p){if(p.hasOwnProperty(k))fd.append(k,p[k])}
-    var x=new XMLHttpRequest();
-    x.open('POST','https://formsubmit.co/ajax/'+XOWNER_MAIL,true);
-    x.timeout=12000;
-    x.onreadystatechange=function(){if(x.readyState===4){done(x.status>=200&&x.status<300)}};
-    x.onerror=function(){done(false)};
-    x.ontimeout=function(){done(false)};
-    x.send(fd);
+    var j=(typeof raw==='string')?JSON.parse(raw):raw;
+    return !!(j&&(j.success===true||j.success==='true'));
+  }catch(e){return false}
+}
+function x20SendForm(p,ok,fail){
+  /* FormSubmit AJAX: JSON request + explicit success confirmation. */
+  var finished=false;
+  function done(success){
+    if(finished)return;
+    finished=true;
+    try{(success?ok:fail)()}catch(e){}
+  }
+  try{
+    fetch('https://formsubmit.co/ajax/'+encodeURIComponent(XOWNER_MAIL),{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify(p)
+    }).then(function(r){
+      return r.text().then(function(t){
+        done(x20ResponseSucceeded(r.status,t));
+      });
+    }).catch(function(){done(false)});
   }catch(e){done(false)}
 }
 function x20SendFetch(p,ok,fail){
-  /* المحاولة الثانية: fetch + FormData بلا ترويسات مخصصة (لا فحص مسبق أيضًا) */
-  try{
-    var fd=new FormData();
-    for(var k in p){if(p.hasOwnProperty(k))fd.append(k,p[k])}
-    fetch('https://formsubmit.co/ajax/'+XOWNER_MAIL,{method:'POST',body:fd})
-    .then(function(r){if(r&&r.ok){ok()}else{fail()}})
-    .catch(function(){fail()});
-  }catch(e){try{fail()}catch(e2){}}
+  /* Kept as a compatibility alias; do not send a second copy after an uncertain response. */
+  x20SendForm(p,ok,fail);
 }
-function x19Send(subject,body,from){
+function x19Send(subject,body,from,onResult){
   var p={_subject:subject,_template:'box',message:body,name:(from?'مستخدم':'زائر')+' منصة X'};
-  if(from)p.email=from;
-  if(!x20Online()){x20OutPush(p);toast('📴 لا اتصال الآن — سيصل إشعار المالك تلقائيًا عند عودة الإنترنت');return}
-  x20SendForm(p,function(){toast('✅ تم الإرسال مباشرة إلى بريد المنصة','success')},function(){
-    x20SendFetch(p,function(){toast('✅ تم الإرسال مباشرة إلى بريد المنصة','success')},function(){
-      x20OutPush(p);
-      toast('⏳ خدمة الإرسال متأخرة — سنعيد الإرسال تلقائيًا، لا تحتاج أي خطوة');
-    });
+  if(from){p.email=from;p._replyto=from;}
+  var finish=function(success,queued){
+    if(typeof onResult==='function'){try{onResult(success,queued)}catch(e){}}
+  };
+  if(!x20Online()){
+    x20OutPush(p);
+    toast('📴 لا يوجد اتصال. حُفظت الرسالة مؤقتًا وستُعاد المحاولة عند عودة الإنترنت.');
+    finish(false,true);
+    return;
+  }
+  x20SendForm(p,function(){
+    toast('✅ أكدت خدمة البريد استلام الرسالة إلى بريد المنصة','success');
+    finish(true,false);
+  },function(){
+    x20OutPush(p);
+    toast('⚠️ لم يصل تأكيد من خدمة البريد. حُفظت الرسالة لإعادة المحاولة عند عودة الاتصال.','error');
+    finish(false,true);
   });
 }
 function x20Flush(quiet){
   try{
     if(!x20Online()||!x20OutCount())return;
     var p=x20OutRead()[0];
-    x20SendForm(p,function(){x20OutShift();toast('✅ وصل إشعارك المؤجل إلى بريد المنصة','success');x20Flush(quiet)},function(){
-      x20SendFetch(p,function(){x20OutShift();x20Flush(quiet)},function(){if(!quiet)toast('⏳ سنعيد محاولة إرسال الإشعار المؤجل تلقائيًا لاحقًا')});
+    x20SendForm(p,function(){
+      x20OutShift();
+      if(!quiet)toast('✅ تم تأكيد إرسال الرسالة المؤجلة إلى بريد المنصة','success');
+      x20Flush(quiet);
+    },function(){
+      if(!quiet)toast('⏳ تعذّر تأكيد الرسالة المؤجلة؛ ستبقى محفوظة للمحاولة لاحقًا');
     });
   }catch(e){}
 }
-try{window.addEventListener('online',function(){x20Flush(true)})}catch(e){}
+try{window.addEventListener('online',function(){x20Flush(true)});window.addEventListener('focus',function(){x20Flush(true)});window.addEventListener('load',function(){x20Flush(true)})}catch(e){}
 
 /* ---- 20.3 التسجيل لا يتعطل أبدًا: الحساب يُنشأ محليًا والإشعار يذهب في الخلفية ---- */
 function x18FormNext(){
