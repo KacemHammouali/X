@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <title>منصة X — الإصدار 19 — الإرسال الصامت والواجهة المبسطة | 2AS رياضيات</title>
-<meta name="theme-color" content="#080A0F">
+ <title>منصة X — الإصدار 20 — الهوية الزرقاء | 2AS رياضيات</title>
+<meta name="theme-color" content="#0E1621">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="منصة X">
@@ -36,6 +36,14 @@ if(n<50){
   __xDiag(r);
 }
 }catch(e){}},2500)});
+/* ---- 0b. ضمان عناصر الواجهة الثابتة — حماية من أي خلل تحميل في أي متصفح ---- */
+function __xShell(){try{
+  if(!document.body){return}
+  if(!document.getElementById('bg-canvas')){var c=document.createElement('canvas');c.id='bg-canvas';document.body.appendChild(c)}
+  if(!document.getElementById('readbar')){var r=document.createElement('div');r.id='readbar';document.body.appendChild(r)}
+  if(!document.getElementById('app')){var a=document.createElement('div');a.id='app';document.body.appendChild(a)}
+  if(!document.getElementById('toasts')){var t=document.createElement('div');t.id='toasts';document.body.appendChild(t)}
+}catch(e){}}
 </script>
 <meta name="description" content="منصة X — مرجع السنة الثانية ثانوي شعبة رياضيات (الجزائر): 11 محورًا وفق البرنامج الرسمي و12 وحدة في العلوم الفيزيائية، بدروس مبسطة برسومات توضيحية وقوانين وتمارين محلولة وتحديات بكالوريا.">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
@@ -573,34 +581,43 @@ html[data-theme="light"] .xmodal-bg{background:rgba(220,228,236,.5)}
 </style>
 <style>
 /* ============================================================
-   الإصدار 17 — الهوية البصرية الاحترافية (نظام تصميم مركزي)
-   الخلفية #080A0F • البطاقات #151922 • التمييز #D7193F
-   النص #F3F5F8 • الثانوي #A7AFBD • الحدود #2A303B
+   الإصدار 20 — الهوية الزرقاء الموحدة (نظام تصميم مركزي)
+   الخلفية #0E1621 • البطاقات #17212B • الأقسام #1D2A38
+   الأزرق #229ED9 • النص #F5F7FA • الثانوي #9EADBA • الحدود #263645
    ============================================================ */
 :root{
-  --x-accent:#D7193F;--x-border:#2A303B;--x-radius:14px;
-  --bg-0:#080A0F;--bg-1:#0d1017;--bg-2:#151922;
-  --glass:rgba(21,25,34,.78);--glass-strong:rgba(11,14,20,.95);
-  --border:rgba(42,48,59,.9);--border-strong:rgba(215,25,63,.45);
-  --line:rgba(42,48,59,.9);
-  --text:#F3F5F8;--text-dim:#A7AFBD;--text-mute:#7d8492;
+  --x-accent:var(--cyan,#229ED9);--x-accent-deep:var(--cyan-glow,#168AC3);--x-border:#263645;--x-radius:14px;
+  --cyan:#229ED9;--cyan-glow:#168AC3;
+  --bg-0:#0E1621;--bg-1:#17212B;--bg-2:#1D2A38;
+  --glass:rgba(23,33,43,.78);--glass-strong:rgba(14,22,33,.95);
+  --border:rgba(38,54,69,.9);--border-strong:rgba(42,171,238,.45);
+  --line:rgba(38,54,69,.9);
+  --text:#F5F7FA;--text-dim:#9EADBA;--text-mute:#7A8894;
+  --success:#31B67A;--warning:#E5A93D;--danger:#E05B68;
+}
+html[data-theme="light"]{
+  --bg-0:#F4F7FA;--bg-1:#FFFFFF;--bg-2:#EAF1F7;--x-border:#DCE5ED;
+  --glass:rgba(255,255,255,.92);--glass-strong:rgba(255,255,255,.98);
+  --border:rgba(220,229,237,.9);--border-strong:rgba(22,138,195,.45);
+  --text:#17212B;--text-dim:#657786;--text-mute:#8A97A3;
+  --success:#218C62;--warning:#A96B10;--danger:#C44450;
 }
 body{background:var(--bg-0);color:var(--text)}
 html:not([data-theme="light"]) .glass{background:var(--glass);border:1px solid var(--x-border)}
 html:not([data-theme="light"]) .glass-strong{background:var(--glass-strong);border:1px solid var(--x-border)}
-html:not([data-theme="light"]) .navbar{background:rgba(11,14,20,.92);border-bottom:1px solid var(--x-border)}
-html:not([data-theme="light"]) .hero{background:radial-gradient(ellipse at 20% 0%,rgba(215,25,63,.16),transparent 55%),radial-gradient(ellipse at 95% 80%,rgba(215,25,63,.10),transparent 45%),linear-gradient(135deg,#0a0c12,#101520 60%,#0a0e16);border:1px solid var(--x-border);box-shadow:0 18px 50px rgba(0,0,0,.45)}
-html:not([data-theme="light"]) .ver-badge{color:#ff97a9;background:rgba(215,25,63,.12);border:1px solid rgba(215,25,63,.4)}
-html:not([data-theme="light"]) .section-header h2{background:linear-gradient(120deg,#F3F5F8,#A7AFBD);-webkit-background-clip:text;background-clip:text}
-.btn-primary{background:var(--x-accent);border:1px solid #b01432}
-.btn-primary:hover{background:#e6284b;border-color:#c4183a}
+html:not([data-theme="light"]) .navbar{background:rgba(14,22,33,.92);border-bottom:1px solid var(--x-border)}
+html:not([data-theme="light"]) .hero{background:radial-gradient(ellipse at 20% 0%,rgba(42,171,238,.16),transparent 55%),radial-gradient(ellipse at 95% 80%,rgba(42,171,238,.10),transparent 45%),linear-gradient(135deg,#0e1621,#17212b 60%,#0e1621);border:1px solid var(--x-border);box-shadow:0 18px 50px rgba(0,0,0,.45)}
+html:not([data-theme="light"]) .ver-badge{color:#8fd4f5;background:rgba(42,171,238,.12);border:1px solid rgba(42,171,238,.4)}
+html:not([data-theme="light"]) .section-header h2{background:linear-gradient(120deg,#F5F7FA,#9EADBA);-webkit-background-clip:text;background-clip:text}
+.btn-primary{background:var(--x-accent);border:1px solid var(--x-accent-deep)}
+.btn-primary:hover{filter:brightness(1.08);border-color:var(--x-accent)}
 :focus-visible{outline:2px solid var(--x-accent);outline-offset:2px}
-/* ---- مكونات الإصدار 17 ---- */
+/* ---- مكونات البطاقات (موحدة) ---- */
 .x17-card{background:var(--glass);border:1px solid var(--x-border);border-radius:var(--x-radius);padding:16px;margin-bottom:14px}
-html[data-theme="light"] .x17-card{background:#fff;border:1px solid #e3e7ec}
+html[data-theme="light"] .x17-card{background:#fff;border:1px solid #DCE5ED}
 .x17-mute{color:var(--text-mute);font-size:13px;margin:4px 0 0;line-height:1.6}
-.x17-hero{margin:14px 16px 8px;padding:clamp(22px,4vw,40px) clamp(16px,4vw,36px);text-align:center;border-radius:22px;border:1px solid var(--x-border);background:radial-gradient(ellipse at 20% 0%,rgba(215,25,63,.14),transparent 55%),linear-gradient(135deg,#0a0c12,#0f131c 60%,#0a0e16);position:relative;overflow:hidden}
-html[data-theme="light"] .x17-hero{background:linear-gradient(135deg,#fff,#f4f5f8);border:1px solid #e3e7ec}
+.x17-hero{margin:14px 16px 8px;padding:clamp(22px,4vw,40px) clamp(16px,4vw,36px);text-align:center;border-radius:22px;border:1px solid var(--x-border);background:radial-gradient(ellipse at 20% 0%,rgba(42,171,238,.14),transparent 55%),linear-gradient(135deg,#0e1621,#17212b 60%,#0e1621);position:relative;overflow:hidden}
+html[data-theme="light"] .x17-hero{background:linear-gradient(135deg,#fff,#F4F7FA);border:1px solid #DCE5ED}
 .x17-hero h1{font-size:clamp(21px,4.5vw,32px);font-weight:900;margin:10px 0 6px;color:var(--text)}
 .x17-hero .x17-mute{max-width:640px;margin:0 auto}
 .x17-hero-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
@@ -613,7 +630,7 @@ html[data-theme="light"] .x17-hero{background:linear-gradient(135deg,#fff,#f4f5f
 .x17-row h3{margin:0 0 4px;font-size:18px}
 .x17-row p{margin:0}
 .x17-prog{height:8px;border-radius:99px;background:var(--x-border);overflow:hidden;margin:12px 0 8px}
-html[data-theme="light"] .x17-prog{background:#e3e7ec}
+html[data-theme="light"] .x17-prog{background:#DCE5ED}
 .x17-prog>span{display:block;height:100%;background:var(--x-accent);border-radius:99px;transition:width .4s ease}
 .x17-prog.big{height:12px}
 .x17-meta{display:flex;gap:12px;align-items:center;color:var(--text-mute);font-size:12.5px;flex-wrap:wrap}
@@ -626,25 +643,58 @@ html[data-theme="light"] .x17-prog{background:#e3e7ec}
 .x17-stats b{color:var(--x-accent);font-size:15px}
 .x17-acts{display:flex;flex-direction:column;gap:6px}
 .x17-act{display:flex;gap:12px;align-items:center;background:none;border:0;border-radius:10px;padding:9px 10px;cursor:pointer;text-align:right;font-family:inherit;color:inherit;font-size:inherit}
-.x17-act:hover{background:rgba(215,25,63,.08)}
+.x17-act:hover{background:rgba(42,171,238,.08)}
 .x17-act b{display:block;font-size:14px}
 .x17-act p{margin:2px 0 0;font-size:12.5px}
-/* ---- شريط التنقل السفلي: خمسة تبويبات ---- */
+/* ---- شريط التنقل السفلي ---- */
 .bnav{justify-content:space-around}
 .bnav .bnav-btn{flex:1 1 0;padding:8px 2px;min-width:0}
-.bnav .bnav-btn.bnav-on{color:var(--x-accent);background:rgba(215,25,63,.12)}
+.bnav .bnav-btn.bnav-on{color:var(--x-accent);background:rgba(42,171,238,.12)}
 .bnav .bnav-btn.bnav-on .avatar{border:2px solid var(--x-accent)}
-/* ---- الشريط العلوي: أيقونات خطية ---- */
+/* ---- الشريط العلوي ---- */
 .navbar .nav-link{display:inline-flex;align-items:center;gap:6px}
 .navbar .logo-text{font-weight:900}
 .x17-icon-btn{display:inline-flex}
+/* ============ v20: الشريط العلوي الثابت ============ */
+.x20-top{position:fixed;top:0;right:0;left:0;z-index:60;display:flex;align-items:center;gap:10px;height:56px;padding:0 14px;border-bottom:1px solid var(--x-border)}
+.x20-top-brand{display:flex;align-items:center;gap:9px;cursor:pointer;font-weight:900;font-size:17px;color:var(--text)}
+.x20-top-brand .logo-mark{width:34px;height:34px;flex:0 0 auto}
+.x20-top-title{flex:1;text-align:center;font-size:15.5px;font-weight:800;margin:0;color:var(--text-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.x20-top-user{position:relative}
+.x20-top-ava{background:none;border:0;padding:0;cursor:pointer;display:flex;border-radius:50%}
+.x20-menu{position:absolute;top:calc(100% + 8px);inset-inline-end:0;min-width:200px;background:var(--glass-strong);border:1px solid var(--x-border);border-radius:12px;padding:6px;display:none;flex-direction:column;gap:2px;box-shadow:0 12px 32px rgba(0,0,0,.3)}
+.x20-menu.open{display:flex}
+.x20-menu button{display:flex;gap:8px;align-items:center;background:none;border:0;border-radius:9px;padding:10px 12px;font:inherit;font-size:14px;color:var(--text);cursor:pointer;text-align:right}
+.x20-menu button:hover{background:rgba(42,171,238,.10)}
+body{padding-top:56px}
+/* ============ v20: الشريط الجانبي للحاسوب ============ */
+.x20-side{display:none}
+@media(min-width:1024px){
+  .x20-side{display:flex;flex-direction:column;gap:2px;position:fixed;top:56px;bottom:0;inset-inline-start:0;width:232px;background:var(--glass-strong);border-inline-end:1px solid var(--x-border);padding:12px 10px;z-index:50}
+  .x20-side button{display:flex;align-items:center;gap:10px;background:none;border:0;border-radius:10px;padding:11px 12px;font:inherit;font-size:14.5px;color:var(--text-dim);cursor:pointer;text-align:right;width:100%}
+  .x20-side button.x20-on{color:var(--x-accent);background:rgba(42,171,238,.12);font-weight:800}
+  #app{padding-inline-start:232px}
+  .bnav{display:none}
+  body{padding-bottom:0}
+}
+/* ============ v20: الصفحة الرئيسية ============ */
+.x20-home{max-width:880px;margin:0 auto;padding:14px 16px 28px;display:flex;flex-direction:column;gap:14px}
+.x20-hero{border-radius:16px;padding:24px 18px;text-align:center}
+.x20-hero .logo-big .logo-mark{width:64px;height:64px;margin:0 auto}
+.x20-hero h2{margin:0 0 8px;font-size:clamp(20px,4.5vw,28px);font-weight:900}
+.x20-hero p{margin:0 auto 14px;max-width:580px;color:var(--text-dim);font-size:14.5px;line-height:1.9}
+.x20-subjs{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
+.x20-quick{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.x20-quick button{display:flex;flex-direction:column;align-items:center;gap:6px;background:var(--glass);border:1px solid var(--x-border);border-radius:12px;padding:14px 8px;font:inherit;font-size:13px;font-weight:700;color:var(--text-dim);cursor:pointer}
+.x20-quick button:active{transform:scale(.96)}
 </style>
 </head>
 <body>
-<div id="readbar"><div id="readfill"></div></div>
-<canvas id="bg-canvas" aria-hidden="true"></canvas>
+<canvas id="bg-canvas"></canvas>
+<div id="readbar"></div>
 <div id="app"></div>
-<div id="toasts" aria-live="polite"></div>
+<div id="toasts"></div>
+<noscript><div style="padding:24px;text-align:center;font:15px/1.8 sans-serif">⚠️ منصة X تحتاج تفعيل جافاسكربت — افتح الرابط بمتصفح Chrome أو Safari الأصلي.</div></noscript>
 <script>
 'use strict';
 /* ============================================================
@@ -2190,8 +2240,8 @@ var X17I={
 };
 function xi(n,sz){sz=sz||18;return '<svg viewBox="0 0 24 24" width="'+sz+'" height="'+sz+'" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+(X17I[n]||'')+'</svg>'}
 
-/* ---- 17.2 لون التمييز الجديد (أحمر X) ضمن منظومة الألوان القائمة ---- */
-try{ACCENTS.crimson=['#D7193F','#b01432']}catch(e){}
+/* ---- 17.2 لون الهوية الأزرق الرسمي (منصة X 20) ضمن منظومة الألوان القائمة ---- */
+try{ACCENTS.azure=['#229ED9','#168AC3'];delete ACCENTS.crimson}catch(e){}
 
 /* ---- 17.3 مسار «المواد» الجديد ---- */
 var XFORCE17=null;
@@ -2348,12 +2398,12 @@ function renderHome(){
   return html;
 }
 
-/* ---- 17.8 الإعدادات: إضافة الأحمر الرسمي إلى ألوان التمييز ---- */
+/* ---- 17.8 الإعدادات: نقطة الهوية الزرقاء الرسمية ---- */
 function renderSettingsPage(){
   var h=renderSettingsPage16();
   try{
     var i=h.indexOf('xdot');
-    if(i>0){h=h.slice(0,i)+'<button class="xdot'+(XCFG.accent==='crimson'?' on':'')+'" style="background:#D7193F" onclick="setX(\'accent\',\'crimson\')" aria-label="أحمر منصة X"></button>'+h.slice(i)}
+    if(i>0){h=h.slice(0,i)+'<button class="xdot'+(XCFG.accent==='azure'?' on':'')+'" style="background:#229ED9" onclick="setX(\'accent\',\'azure\')" aria-label="أزرق منصة X"></button>'+h.slice(i)}
   }catch(e){}
   return h;
 }
@@ -2386,14 +2436,15 @@ function render(){
   try{kpSync()}catch(e){}
 }
 
-/* ---- 17.10 الترحيل إلى اللون الرسمي الجديد (مرة واحدة) ---- */
+/* ---- 17.10 الترحيل إلى الهوية الزرقاء (مرة واحدة) ---- */
 function x17Migrate(){
   try{
-    if(!ACCENTS.crimson)ACCENTS.crimson=['#D7193F','#b01432'];
-    if(stGet('x17_mig',false)!==true){
-      XCFG.accent='crimson';
+    if(!ACCENTS.azure)ACCENTS.azure=['#229ED9','#168AC3'];
+    try{delete ACCENTS.crimson}catch(e2){}
+    if(stGet('x20_mig',false)!==true){
+      XCFG.accent='azure';
       try{saveXCFG()}catch(e){}
-      stSet('x17_mig',true);
+      stSet('x20_mig',true);
     }
     applyXCFG();
   }catch(e){}
@@ -2769,13 +2820,13 @@ function renderAdminPage18(){
    '<div class="set-line"><span>خدمة العمل (PWA)</span><b>'+((typeof XSW!=='undefined'&&XSW.ok)?'نشطة ✅':'غير مسجلة (تحتاج استضافة HTTPS)')+'</b></div>'+
    '<div class="set-line"><span>KaTeX (المعادلات)</span><b>'+(katOK?'جاهز ✅':'غير محمّل (يتطلب اتصالًا)')+'</b></div>');
   h+=xSect('📣 إعلان المنصة الحالي',
-   '<p class="set-note">إعلان المنصة: «'+escAttr(((fallbackNews18()[0]||{}).title||''))+'» — منذ الإصدار 19 الصفحة الرئيسية مبسطة (شعار واسم وموجز) ولا تعرض الإعلانات.</p>');
+   '<p class="set-note">إعلان المنصة: «'+escAttr(((fallbackNews18()[0]||{}).title||''))+'» — منذ الإصدار 20 الصفحة الرئيسية غنية (ترحيب وبطاقتا المواد والتقدم الحقيقي) ولا تعرض الإعلانات.</p>');
   h+=xSect('🧰 أدوات',
    '<div class="btn-col">'+
    '<button class="btn" onclick="checkUpdate()">🔄 التحقق من التحديثات</button>'+
    '<button class="btn" onclick="xShowDoc(\'about\')">ℹ️ عن المنصة</button>'+
    '</div>'+
-   '<p class="set-note">منذ الإصدار 19 تُرسل التسجيلات ورسائل الإبلاغ مباشرة من داخل المنصة عبر خدمة نماذج مجانية، بلا أي تطبيق بريد ولا قاعدة بيانات خارجية، وكل بيانات المستخدمين على أجهزتهم.</p>');
+   '<p class="set-note">منذ الإصدار 20 الهوية زرقاء والتنقل من شريط علوي ثابت وجانبي على الحاسوب وتبويبات سفلية على الهاتف، والتسجيلات والإبلاغ تُرسل مباشرة من داخل المنصة عبر خدمة نماذج مجانية مع إعادة محاولة تلقائية، بلا أي تطبيق بريد ولا قاعدة بيانات خارجية، وكل بيانات المستخدمين على أجهزتهم.</p>');
   h+='</div>';
   return h;
 }
@@ -2953,7 +3004,7 @@ function renderSettingsPage(){
   var h=renderSettingsPage16();
   try{
     var i=h.indexOf('xdot');
-    if(i>0){h=h.slice(0,i)+'<button class="xdot'+(XCFG.accent==='crimson'?' on':'')+'" style="background:#D7193F" onclick="setX(\'accent\',\'crimson\')" aria-label="أحمر منصة X"></button>'+h.slice(i)}
+    if(i>0){h=h.slice(0,i)+'<button class="xdot'+(XCFG.accent==='azure'?' on':'')+'" style="background:#229ED9" onclick="setX(\'accent\',\'azure\')" aria-label="أزرق منصة X"></button>'+h.slice(i)}
   }catch(e){}
   return h+contactHTML();
 }
@@ -3006,6 +3057,204 @@ function answerQuiz(idx){
   var r=document.getElementById('app');r.innerHTML=renderNavbar()+renderQuiz(sid,cid);typesetApp();
   setTimeout(function(){nextQuiz(sid,cid)},900);
 }
+</script>
+<script>
+/* ============================================================
+   منصة X — طبقة الإصدار 20: الهوية الزرقاء النهائية
+   1) الشعار الجديد: حرف X ثلاثي الأبعاد لامع بالهوية الزرقاء
+   2) شريط علوي ثابت + شريط جانبي للحاسوب + تبويبات سفلية أربعة
+   3) صفحة رئيسية غنية: ترحيب، بطاقتا المواد، التقدم الحقيقي، اختصارات
+   4) إصلاح الإرسال الصامت جذريًا: طلب بسيط بلا فحص CORS مسبق
+      (XMLHttpRequest + FormData) ثم fetch ثم حفظ مؤقت وإعادة إرسال
+      تلقائية — لا يظهر خطأ «غير متصل» بعد الآن، والتسجيل لا يتعطل أبدًا
+   ============================================================ */
+/* ---- 20.0 بيانات الإصدار ---- */
+APP_META.ver='20.1';APP_META.date='2026-10-30';APP_META.notes='الإصدار 20.1 — إصلاح الواجهة الفارغة في المتصفحات المدمجة (WebView): إضافة هيكل الصفحة الثابت وشبكة أمان ذاتية الإصلاح.';
+try{APP_META.changelog.unshift('الإصدار 20 — الهوية الزرقاء المستوحاة من بساطة تيليجرام: شعار X جديد ثلاثي الأبعاد، شريط علوي ثابت، شريط جانبي على الحاسوب، تبويبات سفلية بأربعة عناصر، رئيسية غنية بالتقدم الحقيقي، وإصلاح جذري للإرسال الصامت (يعمل بثبات رغم قيود المتصفحات) مع إعادة محاولة تلقائية')}catch(e){}
+
+/* ---- 20.1 الشعار الجديد: حرف X ثلاثي الأبعاد لامع بالهوية الزرقاء ---- */
+var LOGO='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="100%" height="100%"><defs><linearGradient id="x20g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#54C7F0"/><stop offset=".45" stop-color="#229ED9"/><stop offset="1" stop-color="#0F6FA8"/></linearGradient><filter id="x20p" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="1.5" dy="1.8" stdDeviation="1.6" flood-color="#083A57" flood-opacity=".55"/></filter></defs><rect width="64" height="64" rx="14" fill="#0E1621"/><circle cx="12" cy="14" r="1" fill="#54C7F0" opacity=".5"/><circle cx="52" cy="9" r="1.2" fill="#2AABEE" opacity=".45"/><circle cx="56" cy="50" r="1" fill="#54C7F0" opacity=".4"/><circle cx="8" cy="49" r="1.1" fill="#2AABEE" opacity=".4"/><g filter="url(#x20p)"><rect x="8" y="26" width="48" height="12" rx="5.5" fill="url(#x20g)" transform="rotate(45 32 32)"/><rect x="8" y="26" width="48" height="12" rx="5.5" fill="url(#x20g)" transform="rotate(-45 32 32)"/></g><rect x="10" y="27" width="44" height="2.6" rx="1.3" fill="#ffffff" opacity=".35" transform="rotate(45 32 32)"/><rect x="10" y="27" width="44" height="2.6" rx="1.3" fill="#ffffff" opacity=".35" transform="rotate(-45 32 32)"/></svg>';
+
+/* ---- 20.2 الإرسال الصامت الموثوق: ثلاث محاولات ثم حفظ مؤقت وإعادة تلقائية ---- */
+function x20Online(){try{return navigator.onLine!==false}catch(e){return true}}
+var X20OUT='x20_outbox';
+function x20OutRead(){try{return JSON.parse(localStorage.getItem(X20OUT)||'[]')}catch(e){return []}}
+function x20OutSave(q){try{localStorage.setItem(X20OUT,JSON.stringify(q.slice(0,10)))}catch(e){}}
+function x20OutPush(p){try{p._q=(new Date()).toISOString().slice(0,16);var q=x20OutRead();q.push(p);x20OutSave(q)}catch(e){}}
+function x20OutShift(){try{var q=x20OutRead();q.shift();x20OutSave(q)}catch(e){}}
+function x20OutCount(){try{return x20OutRead().length}catch(e){return 0}}
+function x20SendForm(p,ok,fail){
+  /* الطلب الأساسي: XMLHttpRequest + FormData — «طلب بسيط» لا يستدعي فحص CORS
+     المسبق الذي كانت بعض المتصفحات ترفضه فيظهر خطأ «غير متصل» زائفًا */
+  var fin=false;var done=function(g){if(fin)return;fin=true;try{(g?ok:fail)()}catch(e){}};
+  try{
+    var fd=new FormData();
+    for(var k in p){if(p.hasOwnProperty(k))fd.append(k,p[k])}
+    var x=new XMLHttpRequest();
+    x.open('POST','https://formsubmit.co/ajax/'+XOWNER_MAIL,true);
+    x.timeout=12000;
+    x.onreadystatechange=function(){if(x.readyState===4){done(x.status>=200&&x.status<300)}};
+    x.onerror=function(){done(false)};
+    x.ontimeout=function(){done(false)};
+    x.send(fd);
+  }catch(e){done(false)}
+}
+function x20SendFetch(p,ok,fail){
+  /* المحاولة الثانية: fetch + FormData بلا ترويسات مخصصة (لا فحص مسبق أيضًا) */
+  try{
+    var fd=new FormData();
+    for(var k in p){if(p.hasOwnProperty(k))fd.append(k,p[k])}
+    fetch('https://formsubmit.co/ajax/'+XOWNER_MAIL,{method:'POST',body:fd})
+    .then(function(r){if(r&&r.ok){ok()}else{fail()}})
+    .catch(function(){fail()});
+  }catch(e){try{fail()}catch(e2){}}
+}
+function x19Send(subject,body,from){
+  var p={_subject:subject,_template:'box',message:body,name:(from?'مستخدم':'زائر')+' منصة X'};
+  if(from)p.email=from;
+  if(!x20Online()){x20OutPush(p);toast('📴 لا اتصال الآن — سيصل إشعار المالك تلقائيًا عند عودة الإنترنت');return}
+  x20SendForm(p,function(){toast('✅ تم الإرسال مباشرة إلى بريد المنصة','success')},function(){
+    x20SendFetch(p,function(){toast('✅ تم الإرسال مباشرة إلى بريد المنصة','success')},function(){
+      x20OutPush(p);
+      toast('⏳ خدمة الإرسال متأخرة — سنعيد الإرسال تلقائيًا، لا تحتاج أي خطوة');
+    });
+  });
+}
+function x20Flush(quiet){
+  try{
+    if(!x20Online()||!x20OutCount())return;
+    var p=x20OutRead()[0];
+    x20SendForm(p,function(){x20OutShift();toast('✅ وصل إشعارك المؤجل إلى بريد المنصة','success');x20Flush(quiet)},function(){
+      x20SendFetch(p,function(){x20OutShift();x20Flush(quiet)},function(){if(!quiet)toast('⏳ سنعيد محاولة إرسال الإشعار المؤجل تلقائيًا لاحقًا')});
+    });
+  }catch(e){}
+}
+try{window.addEventListener('online',function(){x20Flush(true)})}catch(e){}
+
+/* ---- 20.3 التسجيل لا يتعطل أبدًا: الحساب يُنشأ محليًا والإشعار يذهب في الخلفية ---- */
+function x18FormNext(){
+  x18CollectForm();
+  var f=XAUTH18.form,editing=!!(USER.session&&USER.profile);
+  XAUTH18.errs={};
+  if(!f.fn.trim())XAUTH18.errs.fn='اكتب اسمك';
+  if(!f.ln.trim())XAUTH18.errs.ln='اكتب لقبك';
+  if(!f.year)XAUTH18.errs.year='اختر السنة الدراسية';
+  if(!f.branch)XAUTH18.errs.branch='اختر الشعبة';
+  XAUTH18.consent=!!((gid('x18-consent')||{}).checked);
+  if(!XAUTH18.consent)XAUTH18.errs.consent='يلزم الموافقة على سياسة الخصوصية';
+  if(XAUTH18.errs.fn||XAUTH18.errs.ln||XAUTH18.errs.year||XAUTH18.errs.branch||XAUTH18.errs.consent){xSound('error');render();return}
+  if(editing){
+    var pe=x18ProfileFromForm();
+    x18SaveUser(pe);
+    xSound('success');toast('✅ تم حفظ تعديلاتك');
+    navigate('profile');
+    return;
+  }
+  var em=XAUTH18.email;
+  x19Send('تسجيل مستخدم جديد — '+f.fn+' '+f.ln,x18RegBody(f,em),em);
+  x18SaveUser(x18ProfileFromForm());
+  XAUTH18.prefilled=true;
+  xSound('success');
+  toast('✅ تم إنشاء حسابك — أهلًا بك في منصة X!');
+  navigate('home');
+}
+
+/* ---- 20.4 الشريط العلوي الثابت + القائمة الجانبية للحاسوب ---- */
+function x20Title(){
+  var n={home:'الرئيسية',subjects:'المواد',dash:'تقدّمي',profile:'ملفي',settings:'الإعدادات',admin:'لوحة المالك',auth:'الدخول',lesson:'درس',quiz:'اختبار'};
+  if(ROUTE.page==='subject'){try{return (CURR[ROUTE.subject||'math']||{}).name||'المادة'}catch(e){return 'المادة'}}
+  return n[ROUTE.page]||'منصة X';
+}
+function x20Menu(){try{var m=document.getElementById('x20-menu');if(m)m.classList.toggle('open')}catch(e){}}
+function renderNavbar(){
+  var act=function(pages){return (pages.indexOf(ROUTE.page)>=0)?' class="x20-on"':''};
+  var actSub=function(sid){return ((ROUTE.page==='subject'||ROUTE.page==='lesson'||ROUTE.page==='quiz')&&ROUTE.subject===sid)?' class="x20-on"':''};
+  var side='<aside class="x20-side" id="x20-side" aria-label="التنقل الجانبي">'+
+   '<button'+act(['home'])+' onclick="navigate(\'home\')">'+xi('home',20)+' الرئيسية</button>'+
+   '<button'+act(['subjects'])+' onclick="navigate(\'subjects\')">'+xi('grid',20)+' المواد</button>'+
+   '<button'+actSub('math')+' onclick="navigate(\'subject\',\'math\')">'+xi('book',20)+' الرياضيات</button>'+
+   '<button'+actSub('phys')+' onclick="navigate(\'subject\',\'phys\')">'+xi('atom',20)+' الفيزياء</button>'+
+   '<button'+act(['dash'])+' onclick="navigate(\'dash\')">'+xi('chart',20)+' تقدّمي</button>'+
+   '<button'+act(['profile'])+' onclick="navigate(\'profile\')">'+xi('user',20)+' ملفي</button>'+
+   '<button'+act(['settings'])+' onclick="navigate(\'settings\')">'+xi('gear',20)+' الإعدادات</button>'+
+   '</aside>';
+  return side+
+   '<header class="x20-top glass-strong">'+
+   '<div class="x20-top-brand" onclick="navigate(\'home\')" aria-label="الرئيسية"><div class="logo-mark">'+LOGO+'</div><span>منصة X</span></div>'+
+   '<h1 class="x20-top-title">'+x20Title()+'</h1>'+
+   '<div class="x20-top-user">'+
+   '<button class="x20-top-ava" onclick="x20Menu()" aria-label="حسابي">'+avatarHTML(34)+'</button>'+
+   '<div class="x20-menu" id="x20-menu">'+
+   '<button onclick="navigate(\'profile\')">👤 ملفي الشخصي</button>'+
+   '<button onclick="navigate(\'settings\')">⚙️ الإعدادات</button>'+
+   (USER.session?'<button onclick="logoutUser()">🚪 تسجيل الخروج</button>':'<button onclick="navigate(\'auth\')">🔑 الدخول</button>')+
+   '</div></div></header>';
+}
+
+/* ---- 20.5 التبويبات السفلية: أربعة (الإعدادات في الملف والقائمة العلوية) ---- */
+function renderBottomNav(){
+  if(ROUTE.page==='auth')return '';
+  var act=function(pages){return (pages.indexOf(ROUTE.page)>=0)?' bnav-on':''};
+  return '<nav class="bnav glass-strong" role="navigation" aria-label="التنقل الرئيسي">'+
+   '<button class="bnav-btn'+act(['home'])+'" onclick="navigate(\'home\')" aria-label="الرئيسية">'+xi('home',21)+'<span>الرئيسية</span></button>'+
+   '<button class="bnav-btn'+act(['subjects','subject','lesson','quiz'])+'" onclick="navigate(\'subjects\')" aria-label="المواد">'+xi('grid',21)+'<span>المواد</span></button>'+
+   '<button class="bnav-btn'+act(['dash'])+'" onclick="navigate(\'dash\')" aria-label="التقدم">'+xi('chart',21)+'<span>تقدّمي</span></button>'+
+   '<button class="bnav-btn'+act(['profile'])+'" onclick="navigate(\'profile\')" aria-label="الملف الشخصي">'+avatarHTML(24,'av-nav')+'<span>ملفي</span></button>'+
+   '</nav>';
+}
+
+/* ---- 20.6 الرئيسية الغنية: ترحيب + بطاقتا المواد + تقدم حقيقي + اختصارات ---- */
+function renderHome18(){
+  var signed=!!(USER.session&&USER.profile);
+  var st=xStats();
+  var h='<div class="fade-in x20-home">';
+  h+='<section class="x20-hero glass">'+
+   '<div class="logo-big" style="margin:0 auto 12px"><div class="logo-mark">'+LOGO+'</div></div>'+
+   '<h2>'+(signed?('أهلًا بك مجددًا، '+escAttr(USER.profile.first_name||'صديقنا')+' 👋'):'أهلًا بك في منصة X 👋')+'</h2>'+
+   '<p>منصة تعليمية جزائرية لطلاب السنة الثانية ثانوي — 23 محورًا بين رياضيات وفيزياء: خلاصات وقوانين، تمارين، اختبارات تفاعلية وتحديات بكالوريا، وتقدمك محفوظ على جهازك.</p>'+
+   (signed?'':'<button class="btn btn-primary" onclick="navigate(\'auth\')">🔑 ابدأ الآن ببريدك الإلكتروني</button>')+
+   '</section>';
+  h+='<section class="x20-subjs">'+x17SubjCard('math')+x17SubjCard('phys')+'</section>';
+  h+='<section class="x17-card"><h3 style="margin:0 0 4px">📊 تقدّمي الدراسي</h3>'+
+   '<div class="x17-prog big"><span style="width:'+st.pct+'%"></span></div>';
+  if(st.done>0||st.started>0||st.quizAtt>0){
+    h+='<div class="x17-stats">'+
+     '<span><b>'+st.done+'</b> درسًا مكتملًا من '+st.total+'</span>'+
+     '<span><b>'+st.started+'</b> درسًا بدأته</span>'+
+     '<span><b>'+st.quizAtt+'</b> اختبارًا أجريته</span>'+
+     '<span><b>'+st.quizPerfect+'</b> نتيجة كاملة</span>'+
+     '</div>';
+  }else{
+    h+='<p class="x17-empty">لم تبدأ أي درس بعد — اختر مادة من الأعلى وستظهر نتائجك الحقيقية هنا.</p>';
+  }
+  h+='<button class="btn" onclick="navigate(\'dash\')">📈 تقرير التقدم الكامل</button></section>';
+  h+='<section class="x20-quick">'+
+   '<button onclick="navigate(\'subjects\')">📚 المواد</button>'+
+   '<button onclick="navigate(\'profile\')">👤 ملفي</button>'+
+   '<button onclick="navigate(\'settings\')">⚙️ الإعدادات</button>'+
+   '</section>';
+  h+='</div>';
+  return h;
+}
+
+/* ---- 20.7 الملف الشخصي: زر الإعدادات (الإعدادات انتقلت إلى الملف والقائمة العلوية) ---- */
+var __x20PvBase=renderProfilePage18;
+renderProfilePage18=function(){
+  var h=__x20PvBase();
+  try{h=h.replace('<button class="btn btn-danger-ghost" onclick="logoutUser()">','<button class="btn" onclick="navigate(\'settings\')">⚙️ الإعدادات</button><button class="btn btn-danger-ghost" onclick="logoutUser()">')}catch(e){}
+  return h;
+};
+
+/* ---- 20.8 إعلان الإصدار ---- */
+function fallbackNews18(){
+  return [{title:'الإصدار 20 — الهوية الزرقاء الجديدة',
+    body:'واجهة زرقاء مستوحاة من بساطة تيليجرام: شعار X جديد ثلاثي الأبعاد، شريط علوي ثابت، شريط جانبي على الحاسوب، وإصلاح الإرسال الصامت ليعمل بثبات على كل المتصفحات دون رسائل «غير متصل» زائفة.',
+    date:APP_META.date}];
+}
+
+/* ---- 20.9 الإقلاع: طبقة 19 ثم إعادة إرسال أي إشعار مؤجل ---- */
+var __x20Boot=boot;
+boot=function(){__x20Boot();try{x20Flush(true)}catch(e){}};
 </script>
 <script>
 /* ============ الرياضيات: المحور 1 ============ */
@@ -4291,6 +4540,7 @@ QUIZZES.ph9={qs:[
 ]};
 
 /* ============ تشغيل المنصة ============ */
+try{__xShell()}catch(e){}
 boot();
 </script>
 </body>
