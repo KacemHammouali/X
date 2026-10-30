@@ -4,7 +4,7 @@
    عند كل إصدار جديد من المنصة: عدّل قيمة VERSION أدناه فقط،
    فيلاحظ المتصفح التغيير ويعرض زر «تحديث الآن» داخل المنصة تلقائيًا. */
 
-var VERSION = 'x-v19';
+var VERSION = 'x-v21';
 var CACHE = 'x-site-' + VERSION;
 var CORE = ['./', './index.html'];
 
