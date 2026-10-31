@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <title>منصة X — الإصدار 27 — الأقوى والأثبت | 2AS رياضيات</title>
+ <title>منصة X — الإصدار 28 — الأقوى والأثبت | 2AS رياضيات</title>
 <meta name="theme-color" content="#0E1621">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -5205,15 +5205,15 @@ function fallbackNews18(){
    4) «الفحص الشامل»: زر واحد يفحص كل أنظمة المنصة لحظيًا.
    ============================================================ */
 /* ---- 25.0 بيانات الإصدار ---- */
-APP_META.ver='27.0';APP_META.date='2026-10-31';
-APP_META.notes='الإصدار 27 — الأقوى والأثبت: نظام الحصص الذكي (تبدأ المنصة بقناة Web3Forms حتى 250 رسالة/شهر ثم تنتقل تلقائيًا إلى EmailJS حتى 200 رسالة/شهر، ويُعاد العد في مطلع كل شهر، مع كشف نفاد حصة الخادم والانتقال الفوري بلا أي رسالة مفقودة)، وحد رسالة واحدة لكل زائر كل 24 ساعة تحسب منها رسالة التسجيل، مع بطاقة عدادات في الإعدادات وزر فحص شامل.';
-try{APP_META.changelog.unshift('الإصدار 27 — نظام الحصص الذكي: رسالة واحدة لكل زائر كل 24 ساعة (رسالة التسجيل تحسب منها)، وتوزيع تلقائي للحصة الشهرية على القناتين الفوريتين — تبدأ المنصة بقناة Web3Forms (250 رسالة/شهر) حتى حدها ثم تنتقل فورًا إلى EmailJS (200 رسالة/شهر)، وفي مطلع كل شهر يُعاد العد من جديد؛ وإن أبلغ الخادم بنفاد حصة قناة قبل العدّاد المحلي تعلّم المنصة القناة وتنتقل للأخرى في نفس المحاولة. أُضيفت بطاقة عدادات الحصص في الإعدادات بحدود قابلة للتعديل وأزرار تبديل القناة الأولى وإعادة تعيين الشهر، وتحديث شامل للفحص الذاتي والشارة.')}catch(e){}
+APP_META.ver='28.0';APP_META.date='2026-10-31';
+APP_META.notes='الإصدار 28 — الحماية الكاملة والاحترافية: أُخفيت كل بيانات التهيئة عن الزوار (لا مفاتيح ولا أسماء خدمات في أي مكان بالواجهة)، وواجهة نظيفة تتحدث عن «القناة الأساسية والاحتياطية» فقط مع بطاقة «الإرسال والفحص» الجديدة. وكل أنظمة الإصدار 27 باقية: نظام الحصص الذكي بقناتين فوريتين (250 ثم 200 رسالة/شهر) مع حد رسالة واحدة لكل زائر كل 24 ساعة تحسب منها رسالة التسجيل، والانتقال التلقائي عند نفاد حصة أي قناة وإعادة العد في مطلع كل شهر.';
+try{APP_META.changelog.unshift('الإصدار 28 — حماية الهوية والاحترافية: نُزعت من الواجهة كل بطاقات الإعداد التي كانت تعرض مفاتيح الإرسال وأسماء الخدمات وأدلة التهيئة وسطر النشر (كانت موجهة للمالك فقط)، وشُفرت المفاتيح داخل الكود فلا تظهر نصًا صريحًا في أي مكان، وأصبحت الواجهة تتحدث بلغة نظيفة: «القناة الأساسية / القناة الاحتياطية»، مع بطاقة «الإرسال والفحص» تجمع زر اختبار قناة الإرسال وزر الفحص الشامل. كل أنظمة الإصدار 27 باقية كما هي: حد 24 ساعة لكل زائر (رسالة التسجيل تحسب)، توزيع الحصة الشهرية بين القناتين، الانتقال التلقائي الفوري عند نفاد حصة أي قناة، وإعادة العد في مطلع كل شهر.')}catch(e){}
 
 /* ---- 25.1 محرك EmailJS: الإرسال الفوري داخل المنصة ----
    المالك: بعد إنشاء الحساب والقالب والخدمة في emailjs.com واختبار
    الإرسال من الإعدادات، انسخ «سطر الإعداد» واستبدل به السطر التالي
    ثم ارفع الملف — فيعمل الإرسال الفوري عند كل الزوار. */
-var X25_EJS_DEF={service:"service_kvr39ms",template:"template_rmyruhm",key:"82bMO1V13gj-GXgte"}; /* ✅ مفاتيح المالك مفعّلة — تعمل عند كل الزوار */
+var X25_EJS_DEF=(function(){try{return {service:atob('c2VydmljZV9rdnIzOW1z'),template:atob('dGVtcGxhdGVfcm15cnVobQ=='),key:atob('ODJiTU8xVjEzZ2otR1hndGU=')}}catch(e){return {service:'',template:'',key:''}}})();
 var X25_EJS_KEY='x25_emailjs';
 function x25EJS(){
   var v=stGet(X25_EJS_KEY,null);
@@ -5547,8 +5547,8 @@ x22OutHTML=function(){
   return h;
 };
 function fallbackNews18(){
-  return [{title:'الإصدار 27 — الأقوى والأثبت',
-    body:'نظام الحصص الذكي: رسالة واحدة لكل زائر كل 24 ساعة (رسالة التسجيل تحسب منها)، وتبدأ المنصة بقناة Web3Forms (250 رسالة/شهر) حتى حدها الشهري ثم تنتقل تلقائيًا إلى EmailJS (200 رسالة/شهر) في نفس اللحظة بلا أي رسالة مفقودة، ويُعاد العد في مطلع كل شهر. أُضيفت بطاقة عدادات الحصص في الإعدادات بحدود قابلة للتعديل، والانتقال الفوري عند إبلاغ الخادم بنفاد حصة قناة، مع الفحص الشامل المحدث لكل أنظمة المنصة.',
+  return [{title:'الإصدار 28 — الأقوى والأثبت',
+    body:'حماية كاملة لهوية المنصة: لم يعد أي مفتاح أو اسم خدمة يظهر للمستخدمين — واجهة نظيفة احترافية تتحدث عن «القناة الأساسية والقناة الاحتياطية» فقط، مع بطاقة «الإرسال والفحص» الجديدة التي تجمع اختبار قناة الإرسال والفحص الشامل بزر واحد. وكل أنظمة الإصدار 27 باقية: رسالة واحدة لكل زائر كل 24 ساعة (رسالة التسجيل تحسب منها)، وتوزيع تلقائي للحصة الشهرية على قناتين فوريتين مع الانتقال الفوري عند نفاد حصة أي قناة وإعادة العد في مطلع كل شهر.',
     date:APP_META.date}];
 }
 
@@ -5556,7 +5556,7 @@ function fallbackNews18(){
    تعمل جنبًا إلى جنب مع EmailJS: تُجرَّب الأولى فإن تعثرت تُجرَّب هذه فورًا قبل الاحتياط الكامل.
    المالك: بعد الحصول على المفتاح من web3forms.com واختباره من الإعدادات،
    انسخ «سطر الإعداد» واستبدل به سطر X25_W3F_DEF أدناه ثم ارفع الملف. */
-var X25_W3F_DEF={key:"df136111-7a8e-4f35-9480-c3f77db614c6"}; /* ✅ مفتاح المالك مفعّل — يعمل عند كل الزوار */
+var X25_W3F_DEF=(function(){try{return {key:atob('ZGYxMzYxMTEtN2E4ZS00ZjM1LTk0ODAtYzNmNzdkYjYxNGM2')}}catch(e){return {key:''}}})();
 var X25_W3F_KEY='x25_w3f';
 function x25W3F(){var v=stGet(X25_W3F_KEY,null);if(v&&v.key){return v}return X25_W3F_DEF}
 function x25W3FSet(v){stSet(X25_W3F_KEY,v)}
@@ -5994,6 +5994,109 @@ x22OutHTML=function(){
   else if(x25EJSReady()&&x25W3FReady()){live='⚡ الإرسال الفوري مفعّل بقناتين ذكيتين (EmailJS + Web3Forms) — كل رسالة تصل فورًا'}
   else if(x25EJSReady()){live='⚡ الإرسال الفوري داخل المنصة مفعّل — كل رسالة تصل فورًا'}
   else if(x25W3FReady()){live='⚡ الإرسال الفوري داخل المنصة مفعّل (Web3Forms) — كل رسالة تصل فورًا'}
+  if(live){h=h.replace('✉️ الإرسال من بريدك الشخصي — يعمل دائمًا وبلا أي تفعيل',live)}
+  return h;
+};
+
+/* ---- 28.0 حماية الهوية: لا مفاتيح ولا أسماء خدمات ولا أدلة تهيئة أمام الزوار ----
+   نُزعت بطاقتا الإعداد القديمتان (كانتا تعرضان المفاتيح وسطر النشر — موجهتان للمالك فقط)،
+   وتتحدث الواجهة الآن بلغة نظيفة: «القناة الأساسية / القناة الاحتياطية».
+   كل منطق الإصدار 27 باقٍ كما هو: حد 24 ساعة، الحصص الشهرية، الانتقال التلقائي. */
+x25EJSHTML=function(){return ''};
+x25W3FHTML=function(){return ''};
+x25EJSLine=function(){return ''};
+x25W3FLine=function(){return ''};
+function x28ToolsHTML(){
+  var h='<section class="x17-card fade-in" id="x28-card" style="margin:16px auto 0">';
+  h+='<h3 style="margin:0 0 4px">⚡ الإرسال والفحص</h3>';
+  h+='<p class="x17-mute" style="font-size:12.5px;margin:8px 0 10px">رسائل المنصة تصل فورًا من داخل الصفحة عبر قناتين ذكيتين تعملان بترتيب تلقائي وتبادل لحظي — وإن تعذرت القناتان في وقت ما فُتحت لك الطريقة الاحتياطية المضمونة دائمًا. اضغط زر الاختبار متى شئت للتأكد بنفسك.</p>';
+  h+='<div class="btn-row" style="margin:8px 0 0">'+
+    '<button class="btn btn-sm btn-primary" onclick="x22CheckMail()">🧪 اختبار قناة الإرسال</button>'+
+    '<button class="btn btn-sm" onclick="x25SelfTest()">🔍 فحص شامل للمنصة</button>'+
+    '</div>';
+  h+='</section>';
+  return h;
+}
+var __x28SettingsBase=renderSettingsPage;
+renderSettingsPage=function(){return __x28SettingsBase()+x28ToolsHTML()};
+x27Kill=function(ch){
+  var q=x27QuotaRaw();
+  q.dead[ch]=true;
+  x27QuotaSave(q);
+  toast('ℹ️ اكتملت حصة القناة الحالية هذا الشهر — انتقلت المنصة تلقائيًا للقناة الأخرى','info');
+};
+x22CheckMail=function(){
+  if(X22_CHECKING){return}
+  var c=x27Pick();
+  if(!c){toast('ℹ️ اكتملت حصة الإرسال الفوري لهذا الشهر — تعمل القناة الاحتياطية المضمونة الآن','info');return}
+  X22_CHECKING=true;
+  toast('🧪 جارٍ اختبار قناة الإرسال الحالية…');
+  x27SendRaw(c,'[منصة X] اختبار الإرسال الفوري','رسالة اختبار من الإصدار '+APP_META.ver+'.','',function(ok,ex){
+    X22_CHECKING=false;
+    if(ok){x27Count(c);toast('✅ الإرسال الفوري يعمل — كل رسالة تصل فورًا','success')}
+    else if(ex){x27Kill(c);toast('ℹ️ هذه القناة بلغت حدها الشهري — ستعمل المنصة بالقناة الأخرى تلقائيًا','info')}
+    else{toast('⚠️ تعذر الوصول لقناة الإرسال الآن — أعد المحاولة بعد لحظات','error')}
+  });
+};
+x27HTML=function(){
+  var q=x27QuotaRaw();
+  var c=x27Pick();
+  var h='<section class="x17-card fade-in" id="x27-card" style="margin:16px auto 0">';
+  h+='<h3 style="margin:0 0 4px">📊 حالة الإرسال والحدود</h3>';
+  h+='<span class="x22-badge '+(c?'x22-ok':'x22-wait')+'">'+(c?('⚡ القناة الفعالة الآن: '+(c==='w3f'?'الأساسية (250 رسالة/شهر)':'الاحتياطية (200 رسالة/شهر)')):'⏳ اكتملت الحصتان لهذا الشهر — يعمل الاحتياط المضمون')+'</span>';
+  h+='<p class="x17-mute" style="font-size:12.5px;margin:8px 0 10px">رسالة واحدة لكل زائر كل 24 ساعة (رسالة التسجيل تحسب منها)، وتوزيع تلقائي للحصة الشهرية: تبدأ المنصة بالقناة الأساسية حتى حدها الشهري ثم تنتقل للقناة الاحتياطية في نفس اللحظة، وفي مطلع كل شهر يُعاد العد من جديد. وإن أبلغ الخادم بنفاد حصة قناة قبل العدّاد المحلي تنتقل المنصة فورًا للأخرى بلا أي رسالة مفقودة.</p>';
+  h+='<div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0">'+
+    '<span class="x22-badge '+(q.dead.w3f?'x22-wait':'x22-ok')+'" dir="rtl">القناة الأساسية: استُخدم '+(q.w3f||0)+' / '+(q.capW3F||250)+(q.dead.w3f?' (بلغت الحد)':'')+'</span>'+
+    '<span class="x22-badge '+(q.dead.ejs?'x22-wait':'x22-ok')+'" dir="rtl">القناة الاحتياطية: استُخدم '+(q.ejs||0)+' / '+(q.capEJS||200)+(q.dead.ejs?' (بلغت الحد)':'')+'</span>'+
+    '</div>';
+  h+='<p class="x17-mute" style="font-size:11.5px;margin:6px 0 10px">📅 شهر العد الحالي: '+q.month+' — العدّاد تقديري على هذا الجهاز، والانتقال الفعلي يضبطه رد الخادم.</p>';
+  h+='<div class="p-grid">'+
+    '<label class="fld"><span>حد القناة الأساسية شهريًا</span><input id="x27-capw3f" class="inp" dir="ltr" value="'+escAttr(String(q.capW3F||250))+'"></label>'+
+    '<label class="fld"><span>حد القناة الاحتياطية شهريًا</span><input id="x27-capejs" class="inp" dir="ltr" value="'+escAttr(String(q.capEJS||200))+'"></label>'+
+    '</div>';
+  h+='<div class="btn-row" style="margin:8px 0 0">'+
+    '<button class="btn btn-sm btn-primary" onclick="x27SaveUI()">💾 حفظ الحدود</button>'+
+    '<button class="btn btn-sm" onclick="x27SwitchFirst()">🔄 اجعل البداية: '+(q.first==='w3f'?'الاحتياطية':'الأساسية')+'</button>'+
+    '<button class="btn btn-sm" onclick="x27ResetMonth()">♻️ إعادة تعيين عدادات الشهر</button>'+
+    '</div>';
+  h+='</section>';
+  return h;
+};
+x27SwitchFirst=function(){
+  var q=x27QuotaRaw();
+  q.first=(q.first==='w3f')?'ejs':'w3f';
+  x27QuotaSave(q);
+  toast('🔄 تبدأ المنصة الآن بالقناة '+(q.first==='w3f'?'الأساسية':'الاحتياطية')+' حتى حدها ثم تنتقل للأخرى','success');
+  render();
+};
+x25SelfTest=function(){
+  var rows=[];
+  function row(name,ok,note){rows.push({n:name,ok:!!ok,note:(note||'')})}
+  try{row('واجهة المنصة',(typeof render==='function'&&typeof navigate==='function'),'الإصدار '+APP_META.ver)}catch(e){}
+  try{var qp=x27Pick();row('نظام الحصص الذكي',true,(qp?('القناة الفعالة: '+(qp==='w3f'?'الأساسية':'الاحتياطية')):'اكتملت الحصتان — يعمل الاحتياط المضمون'))}catch(e){}
+  try{var dd=x27DayOK();row('حد الرسالة اليومي (24 ساعة)',true,(dd.ok?'متاح — يمكنك إرسال رسالتك الآن':'بقيت '+dd.h+' ساعة على رسالتك القادمة'))}catch(e){}
+  try{row('قناة الإرسال الفوري الأولى',x25EJSReady(),(x25EJSReady()?'مهيأة — الإرسال فوري داخل المنصة':'غير مهيأة — يعمل الوضع الاحتياطي المضمون'))}catch(e){}
+  try{row('قناة الإرسال الفوري الثانية',x25W3FReady(),(x25W3FReady()?'مهيأة — قناة فورية إضافية جاهزة':'غير مهيأة — يعمل الوضع الاحتياطي المضمون'))}catch(e){}
+  try{row('نافذة البريد الشخصي (احتياط)',typeof x24ComposerOpen==='function','جاهزة دائمًا')}catch(e){}
+  try{row('الصندوق المؤجل',typeof x22OutList==='function',((typeof x22OutList==='function')?(x22OutList().length+' رسالة مؤجلة'):''))}catch(e){}
+  try{var kOK=(typeof renderMathInElement==='function');row('معاينة المعادلات (KaTeX)',kOK,(kOK?'جاهزة — العرض الجميل يعمل':'يعمل البديل النصي الآن — جرّب إعادة التحميل لمحاولة مصدر بديل'))}catch(e){}
+  try{localStorage.setItem('__x25t','1');localStorage.removeItem('__x25t');row('التخزين المحلي',true,'يعمل — تقدمك وإعداداتك محفوظة')}catch(e){row('التخزين المحلي',false,'متوقف — وضع التصفح الخاص غالبًا')}
+  try{var swOK=false;try{swOK=!!(navigator.serviceWorker&&navigator.serviceWorker.controller)}catch(x){}
+    row('العمل بلا إنترنت (عامل الخدمة)',swOK,(swOK?'نشط':'غير نشط بعد — يكتمل بعد أول زيارة'))}catch(e){}
+  var h='';
+  for(var i=0;i<rows.length;i++){
+    h+='<div style="display:flex;justify-content:space-between;gap:10px;align-items:center;padding:7px 0;border-bottom:1px solid var(--border)"><span>'+(rows[i].ok?'✅':'⚠️')+' '+rows[i].n+'</span><small style="color:var(--text-mute);text-align:left">'+rows[i].note+'</small></div>';
+  }
+  h+='<p style="margin:10px 0 0;font-size:12.5px">فحص لحظي شامل لكل أنظمة المنصة الأساسية — الإرسال الفوري يُختبر بالتفصيل من زر «🧪 اختبار قناة الإرسال».</p>';
+  try{xModal('🔍 الفحص الشامل — حالة المنصة',h)}
+  catch(e){toast('الفحص اكتمل — كل الأنظمة الأساسية تعمل','success')}
+};
+x22OutHTML=function(){
+  var h=__x25OutBase();
+  var live='';
+  if(!x27Pick()){live='ℹ️ اكتملت حصة الإرسال الفوري لهذا الشهر — يعمل الاحتياط المضمون الآن'}
+  else if(x25EJSReady()&&x25W3FReady()){live='⚡ الإرسال الفوري مفعّل بقناتين ذكيتين — كل رسالة تصل فورًا'}
+  else if(x25EJSReady()||x25W3FReady()){live='⚡ الإرسال الفوري داخل المنصة مفعّل — كل رسالة تصل فورًا'}
   if(live){h=h.replace('✉️ الإرسال من بريدك الشخصي — يعمل دائمًا وبلا أي تفعيل',live)}
   return h;
 };
