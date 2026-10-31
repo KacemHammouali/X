@@ -1,0 +1,17 @@
+{
+  "name": "منصة X — مرجع السنة الثانية ثانوي شعبة رياضيات",
+  "short_name": "منصة X",
+  "description": "دروس مبسطة برسومات توضيحية وقوانين وتمارين محلولة وتحديات بكالوريا — 11 محور رياضيات و12 وحدة فيزياء وفق المنهاج الجزائري.",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "./?source=pwa",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0E1621",
+  "theme_color": "#0E1621",
+  "icons": [
+    { "src": "./icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "./icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "maskable" }
+  ]
+}
