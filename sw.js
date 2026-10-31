@@ -1,18 +1,24 @@
-/* sw.js — عامل الخدمة لمنصة X التعليمية (الإصدار 30) */
+/* sw.js — عامل الخدمة لمنصة X التعليمية (الإصدار 31) */
    مهمته: عمل الموقع بلا إنترنت بعد أول زيارة + التحديث الفوري عند إصدار جديد.
-   الرفع للنشر: جذر الموقع مع index.html و versions.json و manifest.json و icon.svg (كل الملفات تُرفع معًا إلى GitHub Pages).
+   الرفع للنشر: جذر الموقع مع index.html و versions.json و manifest.json (كل الملفات تُرفع معًا إلى GitHub Pages).
    عند كل إصدار جديد من المنصة: عدّل قيمة VERSION أدناه فقط،
-   فيلاحظ المتصفح التغيير ويعرض زر «تحديث الآن» داخل المنصة تلقائيًا. */
+   فيلاحظ المتصفح التغيير ويعرض زر «تحديث الآن» داخل المنصة تلقائيًا.
+   الجديد في الإصدار 31: التخزين صار متسامحًا — أي ملف ناقص (مثل logo.jpg
+   قبل رفعها) لم يعد يُعطّل التثبيت كاملًا كما كان في addAll القديمة. */
 
-var VERSION = 'x-v30';
+var VERSION = 'x-v31.1';
 var CACHE = 'x-site-' + VERSION;
 var CORE = ['./', './index.html', './manifest.json', './icon.svg', './logo.jpg'];
 
-/* التثبيت: نخزّن الصفحة الأساسية ثم نفعّل العامل الجديد فورًا */
+/* التثبيت: نخزّن كل ملف على حدة، وغياب أي ملف لا يوقف بقية التخزين */
 self.addEventListener('install', function (e) {
   e.waitUntil(
     caches.open(CACHE).then(function (c) {
-      return c.addAll(CORE);
+      return Promise.all(CORE.map(function (u) {
+        return c.add(u).catch(function () {
+          /* ملف ناقص مؤقتًا: نكمل بلا تعطيل */
+        });
+      }));
     }).then(function () {
       return self.skipWaiting();
     })
