@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>منصة X التعليمية — الإصدار 33.1 | المتوسط والثانوي</title>
+<title>منصة X التعليمية — الإصدار 35 | المتوسط والثانوي</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" type="image/jpeg" href="logo.jpg">
 <link rel="apple-touch-icon" href="logo.jpg">
@@ -2504,7 +2504,7 @@ function x18ProfileFromForm(){
     created_at:((USER.profile&&USER.profile.created_at)||new Date().toISOString())};
 }
 function x18SaveUser(profile){
-  var em=XAUTH18.email||(profile&&profile.email)||((USER.session&&USER.session.user&&USER.session.user.email)||'');
+  var em=XAUTH18.email||(profile&&profile.email)||((USER.session&&USER.session.user&&USER.session.user.email||'');
   stSet('x18_user',{email:em,profile:profile});
   USER.session={user:{email:em}};
   USER.profile=profile;
@@ -2519,7 +2519,7 @@ function x18Restore(){
 }
 function x18Prefill(){
   var p=USER.profile||{};
-  XAUTH18.email=(USER.session&&USER.session.user&&USER.session.user.email)||'';
+  XAUTH18.email=(USER.session&&USER.session.user&&USER.session.user.email||'';
   XAUTH18.step=2;XAUTH18.errs={};XAUTH18.consent=true;
   XAUTH18.form={fn:p.first_name||'',ln:p.last_name||'',by:((p.birth_year||'')+''),
     year:p.study_year||'',branch:p.branch||'',gender:p.gender||'',wilaya:p.wilaya||'',phone:p.phone||''};
@@ -2643,7 +2643,7 @@ function logoutUser(){
   navigate('auth');
 }
 function xChangeEmail(){
-  var cur=(USER.session&&USER.session.user&&USER.session.user.email)||'';
+  var cur=(USER.session&&USER.session.user&&USER.session.user.email||'';
   var ne=window.prompt('بريدك الحالي: '+cur+'\nاكتب بريدك الجديد:',cur);
   if(ne===null)return;
   ne=(''+ne).trim();
@@ -2776,7 +2776,7 @@ function renderProfilePage18(){
   h+='<div class="pv-head glass-strong">'+
    avatarHTML(84,'av-pv')+
    '<div class="pv-id"><h2>'+escAttr((p.first_name||'')+' '+(p.last_name||''))+'</h2>'+
-   '<p dir="ltr">'+escAttr((USER.session.user&&USER.session.user.email)||'')+'</p>'+
+   '<p dir="ltr">'+escAttr((USER.session.user&&USER.session.user.email||'')+'</p>'+
    '<p>'+escAttr(p.study_year||'')+(p.branch?' — شعبة '+escAttr(p.branch):'')+'</p>'+
    (p.wilaya?'<p>📍 '+escAttr(p.wilaya)+'</p>':'')+
    (p.created_at?'<p class="pv-date">📅 عضو منذ '+escAttr((p.created_at||'').slice(0,10))+'</p>':'')+'</div>'+
@@ -5628,7 +5628,7 @@ x19Send=function(subject,body,from,onResult){
 x25SendItem=function(m,ok,fail){
   var subject=(m&&m._subject)||'رسالة من منصة X';
   var body=(m&&m.message||'')+((m&&m.email)?('\n— من: '+m.email):'')+'\n— أُرسلت من منصة X الإصدار '+APP_META.ver;
-  var from=(m&&m.email)||'';
+  var from=(m&&m.email||'';
   if(x25EJSReady()){
     x25EJSSend(subject,body,from,ok,function(){
       if(x25W3FReady()){x25W3FSend(subject,body,from,ok,fail)}else{fail(false)}
@@ -5889,7 +5889,7 @@ x19Send=function(subject,body,from,onResult){
 x25SendItem=function(m,ok,fail){
   var subject=(m&&m._subject)||'رسالة من منصة X';
   var body=(m&&m.message||'')+((m&&m.email)?('\n— من: '+m.email):'')+'\n— أُرسلت من منصة X الإصدار '+APP_META.ver;
-  var from=(m&&m.email)||'';
+  var from=(m&&m.email||'';
   var c1=x27Pick(),c2=(c1==='w3f')?'ejs':'w3f';
   if(c1){
     x27SendRaw(c1,subject,body,from,function(good,ex){
@@ -7392,6 +7392,7 @@ function renderX30Lib(){
       else{okT=(f.type===mode&&(!term||!f.term||(''+f.term)===(''+term)))}
       if(okC&&okY&&okS&&okB&&okT){rows.push(f)}
     }
+    try{rows.sort(function(a,b){var ta=(a&&a.term)?(parseInt(a.term,10)||0):0,tb=(b&&b.term)?(parseInt(b.term,10)||0):0;if(ta!==tb){return ta-tb}return (''+((a&&a.name)||'')).localeCompare(''+((b&&b.name)||''))})}catch(e35s){}
     if(!rows.length){
       box.innerHTML='<p class="x17-empty">'+(bName?('لا توجد ملفات في مكتبة هذه الشعبة بعد — يضيفها المالك قريبًا.'):'لا توجد ملفات في هذا القسم بعد — تُضاف تدريجيًا.')+'</p>';
       return;
@@ -7546,7 +7547,7 @@ x18SaveUser=function(profile){
 function x33OwnerFix(){
   try{
     if(USER.session&&USER.profile&&USER.profile.role!=='admin'){
-      var em=(''+(USER.profile.email||((USER.session.user||{}).email)||'')).toLowerCase();
+      var em=(''+(USER.profile.email||((USER.session.user||{}).email||'')).toLowerCase();
       if(em&&em===(''+XOWNER_MAIL).toLowerCase()){USER.profile.role='admin';x18SaveUser(USER.profile)}
     }
   }catch(e){}
@@ -7562,6 +7563,503 @@ renderAdminPage18=function(){
   return __x33AdminGate();
 };
 try{x33OwnerFix()}catch(e){}
+</script>
+<style>
+/* ============ الطبقة 34 — الإصدار 34: الاستقرار النهائي ============ */
+/* 34.أ قتل التوهج أعلى الشاشة نهائيًا — المصدر الحقيقي للخط أعلى اليسار كان توهجًا ثابتًا في خلفية الصفحة (يظهر في كل الصفحات والتبويبات) */
+body::before{background:
+  radial-gradient(ellipse at 62% 84%,rgba(140,170,215,.10),transparent 43%),
+  radial-gradient(ellipse at 25% 70%,rgba(130,158,188,.14),transparent 47%),
+  linear-gradient(145deg,#0e1621 0%,#080b20 34%,#0c0c29 68%,#0e1621 100%)}
+html[data-theme="light"] body::before{background:
+  radial-gradient(ellipse at 62% 84%,rgba(51,144,236,.04),transparent 43%),
+  linear-gradient(145deg,#f7f9fb 0%,#eff2f6 40%,#e9edf2 70%,#f5f7fa 100%)}
+#bg-canvas{opacity:.10}
+html[data-theme="light"] #bg-canvas{opacity:.05}
+html{background:#0e1621}
+html[data-theme="light"]{background:#f7f9fb}
+/* 34.ب التبويب النشط في الشريط السفلي: رقاقة زجاجية أنيقة بلا شعاع */
+.bnav-btn{border:1px solid transparent}
+.bnav-btn.bnav-on{color:var(--cyan);background:rgba(106,179,243,.13);border:1px solid rgba(140,200,240,.30);border-radius:14px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:inset 0 1px 0 rgba(255,255,255,.10),0 3px 14px rgba(0,0,0,.20)}
+html[data-theme="light"] .bnav-btn.bnav-on{background:rgba(51,144,236,.10);border-color:rgba(51,144,236,.28);color:#155a94;box-shadow:inset 0 1px 0 rgba(255,255,255,.65),0 3px 12px rgba(25,35,50,.08)}
+/* 34.ج وضوح كل النصوص الباهتة — في الوضعين الرأسي والأفقي */
+.set-note{font-size:13.5px;line-height:1.95;color:#b9c6d6}
+.x30-meta{font-size:13.5px;color:#b4c2d0}
+.x17-empty{font-size:14.5px;color:#dce5f2}
+.x30-err{font-size:14.5px;line-height:2.1;color:#e2e9f2}
+html[data-theme="light"] .set-note{color:#57616c}
+html[data-theme="light"] .x30-meta{color:#5a6470}
+html[data-theme="light"] .x17-empty{color:#3c4650}
+@media (orientation:landscape) and (max-height:520px){
+  .set-note{font-size:14px;color:#c9d5e3}
+  .x30-meta{font-size:13.5px;color:#c2cfdd}
+  .x17-empty{font-size:15px;color:#e2e9f2}
+  .x30-err{font-size:15.5px;color:#e2e9f2;line-height:2.1}
+  .x30-crumb button{font-size:13.5px}
+  .x30-tab{font-size:13.5px;color:#c2cfdd}
+  .bnav-btn{font-size:12px}
+  .toast{font-size:14.5px}
+}
+/* 34.د الإشعارات: قابلة للمس والسحب كإشعارات الهاتف */
+.toast{touch-action:pan-y;cursor:pointer;user-select:none;-webkit-user-select:none}
+</style>
+<script>
+'use strict';
+/* ============ الطبقة 34 — الإصدار 34: الاستقرار النهائي ============ */
+/* 34.هـ إشعارات هاتفية: تبقى 6 ثوانٍ + سحب يمينًا أو يسارًا أو نقرة لإزالتها */
+var X34_TOAST_MS=6000;
+function x34Toast(msg,cls){
+  var box=document.getElementById('toasts');
+  if(!box){return}
+  /* سقف 3 إشعارات معًا حفاظًا على السرعة والثبات */
+  try{while(box.children&&box.children.length>2){box.removeChild(box.children[0])}}catch(e){}
+  var t=document.createElement('div');
+  t.className='toast '+(cls||'');
+  t.textContent=msg;
+  box.appendChild(t);
+  var gone=false;
+  function kill(dir){
+    if(gone){return}
+    gone=true;
+    var x=((dir>=0)?1:-1)*380;
+    try{
+      t.style.transition='transform .28s ease,opacity .28s ease';
+      t.style.transform='translateX('+x+'px)';
+      t.style.opacity='0';
+    }catch(e){}
+    setTimeout(function(){try{t.remove()}catch(e2){}},320);
+  }
+  var timer=setTimeout(function(){kill(1)},X34_TOAST_MS);
+  try{
+    var sx=0,sy=0,dx=0,drag=false;
+    t.addEventListener('touchstart',function(e){
+      var p=(e.touches&&e.touches[0])||{};
+      sx=(p.clientX||0);sy=(p.clientY||0);dx=0;drag=true;
+      try{t.style.transition='none'}catch(e2){}
+    },{passive:true});
+    t.addEventListener('touchmove',function(e){
+      if(!drag){return}
+      var p=(e.touches&&e.touches[0])||{};
+      dx=(p.clientX||0)-sx;
+      if(Math.abs(dx)>6){try{t.style.transform='translateX('+dx+'px)'}catch(e2){}}
+    },{passive:true});
+    t.addEventListener('touchend',function(){
+      if(!drag){return}
+      drag=false;
+      if(Math.abs(dx)>70){clearTimeout(timer);kill(dx)}
+      else{try{t.style.transition='transform .22s ease';t.style.transform='translateX(0)'}catch(e2){}}
+      dx=0;
+    },{passive:true});
+    t.addEventListener('click',function(){clearTimeout(timer);kill(1)});
+  }catch(e){}
+}
+toast=x34Toast;
+/* 34.و المالك: التعرف على المالك ببريده مباشرة — يعمل فورًا مهما كان الدور المحفوظ على الجهاز */
+var X34_OWNER=(''+XOWNER_MAIL).toLowerCase();
+function x34IsOwner(em){
+  try{return !!em&&((''+em).toLowerCase())===X34_OWNER}catch(e){return false}
+}
+var __x34IsAdmin=isAdmin;
+isAdmin=function(){
+  if(__x34IsAdmin()){return true}
+  try{
+    var em=(USER.profile&&USER.profile.email)||((USER.session&&USER.session.user)||{}).email||'';
+    return x34IsOwner(em);
+  }catch(e){return false}
+};
+function x34OwnerSync(){
+  try{
+    if(USER.session&&USER.profile&&USER.profile.role!=='admin'){
+      var em=(USER.profile&&USER.profile.email)||((USER.session&&USER.session.user)||{}).email||'';
+      if(x34IsOwner(em)){USER.profile.role='admin';try{x18SaveUser(USER.profile)}catch(e2){}}
+    }
+  }catch(e){}
+}
+var __x34Restore=x18Restore;
+x18Restore=function(){__x34Restore();try{x34OwnerSync()}catch(e){}};
+var __x34Render=render;
+render=function(){try{x34OwnerSync()}catch(e){}__x34Render()};
+try{x34OwnerSync()}catch(e){}
+/* 34.ز مكتبة PDF: عند الفراغ يظهر للمالك زر مباشر للوحة المالك — ولكل مستخدم رسالة صادقة واضحة */
+function renderX30Lib(){
+  var r=ROUTE;
+  var cycle=r.cycle||'sec',year=r.year||'s2',subject=r.subject||'';
+  var branch=(r.branch||'')+'';
+  var tab=r.tab||'sum',mode=r.mode||'hw',term=r.term||0;
+  var yName=x30YearOf(year);
+  var bObj=x32Branch(year,branch);
+  var bName=(branch&&bObj)?bObj.name:'';
+  var h='<div class="fade-in x30-home"><section class="x17-card">'+
+   '<div class="x30-crumb"><button onclick="navigate(\'home\')">الرئيسية</button><span>←</span>'+
+   '<button onclick="x30Go({page:\'year\',cycle:\''+cycle+'\',year:\''+year+'\'})">'+escAttr(yName)+'</button>'+
+   (bName?('<span>←</span><button onclick="x30Go({page:\'branch\',cycle:\''+cycle+'\',year:\''+year+'\',branch:\''+branch+'\'})">'+escAttr(bName)+'</button>'):'')+
+   '</div>'+
+   '<h2>📄 مكتبة ملفات PDF'+(bName?(' — '+escAttr(bName)):'')+(subject?(' — '+escAttr(subject)):'')+'</h2><div>';
+  for(var t=0;t<X30_TYTAB.length;t++){
+    var tt=X30_TYTAB[t];
+    h+='<button class="x30-tab'+((tt.id===tab)?' on':'')+'" onclick="x30Go({page:\'pdflib\',cycle:\''+cycle+'\',year:\''+year+'\',branch:\''+branch+'\',subject:\''+escAttr(subject)+'\',tab:\''+tt.id+'\',mode:\'\',term:0})">'+tt.name+'</button>';
+  }
+  h+='</div>';
+  if(tab==='hwex'){
+    h+='<div>'+
+     '<button class="x30-tab'+((mode==='hw')?' on':'')+'" onclick="x30Go({page:\'pdflib\',cycle:\''+cycle+'\',year:\''+year+'\',branch:\''+branch+'\',subject:\''+escAttr(subject)+'\',tab:\'hwex\',mode:\'hw\',term:0})">📝 الفروض</button>'+
+     '<button class="x30-tab'+((mode==='test')?' on':'')+'" onclick="x30Go({page:\'pdflib\',cycle:\''+cycle+'\',year:\''+year+'\',branch:\''+branch+'\',subject:\''+escAttr(subject)+'\',tab:\'hwex\',mode:\'test\',term:0})">🧪 الاختبارات</button>'+
+     '</div><div>';
+    for(var tm=1;tm<=3;tm++){
+      h+='<button class="x30-tab'+((term===tm)?' on':'')+'" onclick="x30Go({page:\'pdflib\',cycle:\''+cycle+'\',year:\''+year+'\',branch:\''+branch+'\',subject:\''+escAttr(subject)+'\',tab:\'hwex\',mode:\''+mode+'\',term:'+tm+'})">'+X30_TERMS[tm]+'</button>';
+    }
+    h+='</div>';
+  }
+  h+='<div class="x30-row" style="margin-top:8px"><button class="btn btn-sm" onclick="x33LibReload()">🔄 تحديث المكتبة</button></div>';
+  h+='</section><section class="x17-card" id="x30-list"><p class="x17-empty">⏳ جارٍ تحميل المكتبة…</p></section></div>';
+  x30Files(false,function(files,why){
+    var box=gid('x30-list');
+    if(!box){return}
+    if(!files){
+      if(why==='nojson'){
+        if(isAdmin()){
+          box.innerHTML='<div class="x30-err">📄 المكتبة فارغة بعد — أنت المالك.<br>أضف أول ملف: ارفع ملف الـ PDF إلى المستودع، ثم ولّد سطرك في لوحة المالك والصقه في pdfs.json — ويظهر هنا فورًا.</div>'+
+           '<div class="x30-row" style="margin-top:10px"><button class="btn btn-primary" onclick="navigate(\'admin\')">🛡️ فتح لوحة المالك الآن</button></div>';
+        }else{
+          box.innerHTML='<div class="x30-err">📄 لم تُضف ملفات PDF بعد لهذا القسم.<br>يضيفها المالك قريبًا — وستظهر هنا تلقائيًا بعد إضافتها دون تحديث التطبيق.</div>';
+        }
+      }else{
+        box.innerHTML='<div class="x30-err">⚠️ تعذر جلب الملفات الآن — تحقق من اتصالك واضغط «🔄 تحديث المكتبة».</div>';
+      }
+      return;
+    }
+    var rows=[];
+    for(var i=0;i<files.length;i++){
+      var f=files[i];
+      var okC=(!cycle||f.cycle===cycle),okY=(!year||f.year===year),okS=(!subject||f.subject===subject);
+      /* خصوصية الشعب: ملف الشعبة يظهر لطلاب شعبته فقط، والملف العام يظهر للجميع */
+      var okB=(!f.branch)||(branch&&f.branch===branch);
+      var okT=true;
+      if(tab==='sum'){okT=(f.type==='sum')}
+      else if(tab==='ex'){okT=(f.type==='ex')}
+      else{okT=(f.type===mode&&(!term||!f.term||(''+f.term)===(''+term)))}
+      if(okC&&okY&&okS&&okB&&okT){rows.push(f)}
+    }
+    try{rows.sort(function(a,b){var ta=(a&&a.term)?(parseInt(a.term,10)||0):0,tb=(b&&b.term)?(parseInt(b.term,10)||0):0;if(ta!==tb){return ta-tb}return (''+((a&&a.name)||'')).localeCompare(''+((b&&b.name)||''))})}catch(e35s){}
+    if(!rows.length){
+      var msg=(bName?('لا توجد ملفات في مكتبة هذه الشعبة بعد — يضيفها المالك قريبًا.'):'لا توجد ملفات في هذا القسم بعد — تُضاف تدريجيًا.');
+      if(isAdmin()){
+        box.innerHTML='<p class="x17-empty">'+msg+'</p>'+
+         '<div class="x30-row" style="margin-top:10px"><button class="btn btn-primary" onclick="navigate(\'admin\')">🛡️ أنت المالك — أضف ملفات من لوحة المالك</button></div>';
+      }else{
+        box.innerHTML='<p class="x17-empty">'+msg+'</p>';
+      }
+      return;
+    }
+    var b='';
+    for(var k=0;k<rows.length;k++){
+      var ff=rows[k];
+      var metaParts=[X30_TYPE[ff.type]||'',x30YearOf(ff.year)||''];
+      if(bName){metaParts.push(bName)}
+      if(ff.subject){metaParts.push(ff.subject)}
+      if(ff.term&&(X30_TERMS[ff.term]||'')){metaParts.push(X30_TERMS[ff.term])}
+      var meta='';
+      for(var m=0;m<metaParts.length;m++){if(metaParts[m]){meta+=((m>0&&meta)?' · ':'')+escAttr(metaParts[m])}}
+      b+='<div class="x30-file"><b>'+escAttr(ff.name||'ملف')+'</b>'+
+       ((ff.descr)?('<div class="x30-meta">'+escAttr(ff.descr)+'</div>'):'')+
+       ((meta)?('<div class="x30-meta">'+meta+'</div>'):'')+
+       '<button class="btn btn-sm" onclick="x30Preview('+ff.id+')">👁 معاينة قبل التنزيل</button> '+
+       '<button class="btn btn-sm btn-primary" onclick="x30Dl('+ff.id+')">⬇️ تنزيل</button></div>';
+    }
+    box.innerHTML=b;
+  });
+  return h;
+}
+/* 34.ح بيانات الإصدار 34 */
+APP_META.ver='34.0';APP_META.date='2026-10-31';
+APP_META.notes='الإصدار 34 — الاستقرار النهائي: قُتل التوهج/الخط أعلى الشاشة نهائيًا في كل الصفحات (كان توهجًا في خلفية الصفحة وظهر إصلاحه الحقيقي هنا)، وصار التعرف على حساب المالك ببريده مباشرة يعمل فورًا دون أي إعداد، والتبويب النشط في الشريط السفلي رقاقة زجاجية أنيقة بدل الشعاع، وكل النصوص الباهتة صارت واضحة في الوضعين الرأسي والأفقي، والإشعارات تبقى 6 ثوانٍ وتُزاح بالسحب يمينًا أو يسارًا أو بالنقرة مثل إشعارات الهاتف، وعند فراغ مكتبة PDF يظهر للمالك زر مباشر للوحة المالك، مع كل مزايا الإصدارات السابقة: مكتبة PDF خاصة بكل شعبة عبر pdfs.json بلا أي خدمة خارجية.';
+try{APP_META.changelog.unshift('الإصدار 34 — الاستقرار النهائي: لا خط ولا توهج أعلى الشاشة في أي صفحة بعد اليوم (عُثر على المصدر الحقيقي وأُزيل)، وحساب المالك يُعرف ببريده تلقائيًا فتفتح له لوحة المالك فورًا، والتبويب النشط رقاقة زجاجية بلا شعاع، والنصوص الباهتة واضحة تمامًا في الوضعين الرأسي والأفقي، والإشعارات تبقى 6 ثوانٍ وتُسحب للإزالة كإشعارات الهاتف، وزر مباشر للمالك عند فراغ المكتبة.')}catch(e){}
+function fallbackNews18(){
+  return [{title:'الإصدار 34 — الاستقرار النهائي',
+    body:'لا خط ولا توهج أعلى الشاشة في أي صفحة بعد اليوم، ولوحة المالك تفتح لحساب المالك فورًا ببريده، والتبويب النشط رقاقة زجاجية أنيقة، وكل النصوص واضحة في الوضعين الرأسي والأفقي، والإشعارات تبقى 6 ثوانٍ وتُزاح بالسحب مثل الهاتف.',
+    date:APP_META.date}];
+}
+</script>
+<style>
+/* ============ الطبقة 35 — الإصدار 35: مكتبة الفيديو + ترتيب الفصول ============ */
+.x35-term{margin:16px 0 2px;font-size:15px;font-weight:700;color:var(--x-text,#e8eef7)}
+html[data-theme="light"] .x35-term{color:#1e2a3a}
+.x35-ratio{position:relative;width:100%;padding-top:56.25%;background:#000;border-radius:12px;overflow:hidden}
+.x35-ratio iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0}
+</style>
+<script>
+'use strict';
+/* ============ الطبقة 35 — الإصدار 35: مكتبة الفيديو + ترتيب الفصول ============ */
+/* 35.أ مكتبة الفيديو: ملف videos.json في المستودع هو كل شيء — مثل pdfs.json تمامًا */
+var X35_VIDS=null;
+function x35Files(force,cb){
+  if(X35_VIDS&&!force){cb(X35_VIDS);return}
+  try{
+    fetch('./videos.json?nc='+Date.now()).then(function(r){
+      if(!r.ok){throw new Error('nojson')}
+      return r.json();
+    }).then(function(list){
+      if(!list||typeof list.length!=='number'){throw new Error('bad')}
+      X35_VIDS=list;
+      try{localStorage.setItem('x35_vids_cache',JSON.stringify(list))}catch(e2){}
+      cb(list);
+    }).catch(function(){
+      var cached=null;
+      try{cached=JSON.parse(localStorage.getItem('x35_vids_cache')||'null')}catch(e3){cached=null}
+      if(cached&&typeof cached.length==='number'){X35_VIDS=cached;cb(cached);return}
+      cb(null,'nojson');
+    });
+  }catch(e){cb(null,'nojson')}
+}
+function x35VidReload(){
+  X35_VIDS=null;
+  toast('🔄 نحدّث مكتبة الفيديو…','info');
+  x35Files(true,function(){try{render()}catch(e){}});
+}
+/* 35.ب المشغل: يوتيوب داخل المنصة + احتياط يفتح الرابط في المتصفح */
+function x35YTId(u){
+  try{
+    u=(''+u).trim();
+    var m=u.match(/(?:youtube\.com\/(?:watch\?[^#]*v=|embed\/|shorts\/|live\/)|youtu\.be\/)([A-Za-z0-9_-]{6,})/);
+    if(m&&m[1]){return m[1]}
+  }catch(e){}
+  return null;
+}
+function x35Play(id){
+  var fs=X35_VIDS||[];
+  var f=null;
+  for(var i=0;i<fs.length;i++){if((''+fs[i].id)===(''+id)){f=fs[i];break}}
+  if(!f){toast('⚠️ لم يُعثر على الفيديو — اضغط «تحديث المكتبة» ثم أعد المحاولة','error');return}
+  var u=(''+(f.url||'')).trim();
+  if(!u){toast('⚠️ رابط هذا الفيديو غير موجود','error');return}
+  var inner='';
+  var yt=x35YTId(u);
+  if(yt){
+    inner='<div class="x35-ratio"><iframe src="https://www.youtube.com/embed/'+yt+'?rel=0" allow="accelerometer;autoplay;encrypted-media;picture-in-picture" allowfullscreen></iframe></div>'+
+     '<div class="x30-row" style="margin-top:10px"><a class="btn btn-sm" href="'+escAttr(u)+'" target="_blank" rel="noopener">↗ فتح في يوتيوب</a></div>';
+  }else if(/\.(mp4|webm|ogg)(\?|#|$)/i.test(u)){
+    inner='<div class="x35-ratio"><video controls playsinline style="position:absolute;top:0;left:0;width:100%;height:100%;background:#000;border:0" src="'+escAttr(u)+'"></video></div>';
+  }else{
+    inner='<div class="x30-err">⚠️ هذا الرابط لا يُشغَّل داخل المنصة مباشرة — افتحه في المتصفح:</div>'+
+     '<div class="x30-row" style="margin-top:10px"><a class="btn btn-primary" href="'+escAttr(u)+'" target="_blank" rel="noopener">↗ فتح الفيديو في المتصفح</a></div>';
+  }
+  try{
+    var old=gid('x35p');
+    if(old){old.remove()}
+    var d=document.createElement('div');
+    d.id='x35p';
+    d.className='xmodal';
+    d.innerHTML='<div class="xmodal-bg" onclick="x35ClosePlay()"></div><div class="xmodal-card glass-strong" style="max-width:640px"><h3>🎬 '+escAttr(f.title||'فيديو')+'</h3><div class="xmodal-body">'+inner+'</div><button class="btn btn-primary btn-block" onclick="x35ClosePlay()">إغلاق</button></div>';
+    document.body.appendChild(d);
+  }catch(e){try{window.open(u,'_blank')}catch(e2){}}
+}
+function x35ClosePlay(){
+  var d=gid('x35p');
+  if(d){d.remove()}
+}
+/* 35.ج صفحة مكتبة الفيديو: الفصول بالترتيب دائمًا — الأول ثم الثاني ثم الثالث */
+function renderX35Vid(){
+  var r=ROUTE;
+  var cycle=r.cycle||'sec',year=r.year||'s2',subject=r.subject||'';
+  var branch=(r.branch||'')+'';
+  var term=r.term||0;
+  var yName=x30YearOf(year);
+  var bObj=x32Branch(year,branch);
+  var bName=(branch&&bObj)?bObj.name:'';
+  var h='<div class="fade-in x30-home"><section class="x17-card">'+
+   '<div class="x30-crumb"><button onclick="navigate(\'home\')">الرئيسية</button><span>←</span>'+
+   '<button onclick="x30Go({page:\'year\',cycle:\''+cycle+'\',year:\''+year+'\'})">'+escAttr(yName)+'</button>'+
+   (bName?('<span>←</span><button onclick="x30Go({page:\'branch\',cycle:\''+cycle+'\',year:\''+year+'\',branch:\''+branch+'\'})">'+escAttr(bName)+'</button>'):'')+
+   '</div>'+
+   '<h2>🎬 مكتبة الفيديو'+(bName?(' — '+escAttr(bName)):'')+(subject?(' — '+escAttr(subject)):'')+'</h2><div>';
+  h+='<button class="x30-tab'+((!term)?' on':'')+'" onclick="x30Go({page:\'vidlib\',cycle:\''+cycle+'\',year:\''+year+'\',branch:\''+branch+'\',subject:\''+escAttr(subject)+'\',term:0})">📚 الكل</button>';
+  for(var tm=1;tm<=3;tm++){
+    h+='<button class="x30-tab'+((term===tm)?' on':'')+'" onclick="x30Go({page:\'vidlib\',cycle:\''+cycle+'\',year:\''+year+'\',branch:\''+branch+'\',subject:\''+escAttr(subject)+'\',term:'+tm+'})">'+X30_TERMS[tm]+'</button>';
+  }
+  h+='</div><div class="x30-row" style="margin-top:8px"><button class="btn btn-sm" onclick="x35VidReload()">🔄 تحديث المكتبة</button></div></section>'+
+   '<section class="x17-card" id="x35-list"><p class="x17-empty">⏳ جارٍ تحميل مكتبة الفيديو…</p></section></div>';
+  x35Files(false,function(list,why){
+    var box=gid('x35-list');
+    if(!box){return}
+    if(!list){
+      if(why==='nojson'){
+        if(isAdmin()){
+          box.innerHTML='<div class="x30-err">🎬 مكتبة الفيديو فارغة بعد — أنت المالك.<br>أضف أول فيديو: انسخ رابطه من يوتيوب، ثم ولّد سطرك في «لوحة المالك» والصقه في ملف videos.json — ويظهر هنا فورًا.</div>'+
+           '<div class="x30-row" style="margin-top:10px"><button class="btn btn-primary" onclick="navigate(\'admin\')">🛡️ فتح لوحة المالك الآن</button></div>';
+        }else{
+          box.innerHTML='<div class="x30-err">🎬 لم تُضف فيديوهات بعد لهذا القسم.<br>يضيفها المالك قريبًا — وستظهر هنا تلقائيًا دون تحديث التطبيق.</div>';
+        }
+      }else{
+        box.innerHTML='<div class="x30-err">⚠️ تعذر جلب الفيديوهات الآن — تحقق من اتصالك واضغط «🔄 تحديث المكتبة».</div>';
+      }
+      return;
+    }
+    var rows=[];
+    for(var i=0;i<list.length;i++){
+      var f=list[i];
+      var okC=(!cycle||f.cycle===cycle),okY=(!year||f.year===year),okS=(!subject||f.subject===subject);
+      var okB=(!f.branch)||(branch&&f.branch===branch);
+      var okT=(!term||!f.term||(''+f.term)===(''+term));
+      if(okC&&okY&&okS&&okB&&okT){rows.push(f)}
+    }
+    try{rows.sort(function(a,b){var ta=(a&&a.term)?(parseInt(a.term,10)||0):0,tb=(b&&b.term)?(parseInt(b.term,10)||0):0;if(ta!==tb){return ta-tb}return (''+((a&&a.title)||'')).localeCompare(''+((b&&b.title)||''))})}catch(e35s){}
+    if(!rows.length){
+      var msg='لا توجد فيديوهات في هذا القسم بعد — يضيفها المالك قريبًا.';
+      if(isAdmin()){
+        box.innerHTML='<p class="x17-empty">'+msg+'</p>'+
+         '<div class="x30-row" style="margin-top:10px"><button class="btn btn-primary" onclick="navigate(\'admin\')">🛡️ أنت المالك — أضف فيديوهات من لوحة المالك</button></div>';
+      }else{
+        box.innerHTML='<p class="x17-empty">'+msg+'</p>';
+      }
+      return;
+    }
+    var b='',lastTerm=-1;
+    for(var k=0;k<rows.length;k++){
+      var ff=rows[k];
+      var tt=(ff.term)?(parseInt(ff.term,10)||0):0;
+      if(tt!==lastTerm){
+        lastTerm=tt;
+        b+='<h3 class="x35-term">📅 '+((tt&&X30_TERMS[tt])?X30_TERMS[tt]:'فيديوهات عامة')+'</h3>';
+      }
+      b+='<div class="x30-file"><b>🎬 '+escAttr(ff.title||'فيديو')+'</b>'+
+       ((ff.descr)?('<div class="x30-meta">'+escAttr(ff.descr)+'</div>'):'')+
+       ((ff.subject)?('<div class="x30-meta">'+escAttr(ff.subject)+'</div>'):'')+
+       '<button class="btn btn-sm btn-primary" onclick="x35Play('+ff.id+')">▶️ مشاهدة الآن</button></div>';
+    }
+    box.innerHTML=b;
+  });
+  return h;
+}
+/* 35.د بطاقة «مكتبة الفيديو» في صفحة كل مادة */
+var __x35Hub=renderX30Hub;
+renderX30Hub=function(cycle,year,subject){
+  var h=__x35Hub(cycle,year,subject);
+  try{
+    var br='';
+    try{br=(ROUTE.branch||'')+''}catch(e3){br=''}
+    var subs=X30_SUBJECTS[year]||[];
+    var nm='';
+    for(var i=0;i<subs.length;i++){if(subs[i].id===subject){nm=subs[i].name}}
+    var card='<div class="x30-hubcard" onclick="x30Go({page:\'vidlib\',cycle:\''+cycle+'\',year:\''+year+'\',branch:\''+br+'\',subject:\''+(nm?escAttr(nm):'')+'\',term:0})"><span style="font-size:26px;line-height:1.1">🎬</span><h3>🎬 مكتبة الفيديو</h3><p class="set-note">شروحات مرئية مرتبة بالفصول</p></div>';
+    var k=h.lastIndexOf('</section></div>');
+    if(k>0){h=h.slice(0,k)+card+h.slice(k)}
+  }catch(e){}
+  return h;
+};
+/* 35.هـ زر «مكتبة الفيديو الخاصة بالشعبة» في صفحة الشعبة */
+var __x35Branch=renderX32Branch;
+renderX32Branch=function(cycle,year,branch){
+  var h=__x35Branch(cycle,year,branch);
+  try{
+    var btn='<section class="x17-card" style="margin-top:12px"><button class="btn btn-primary" style="width:100%" onclick="x30Go({page:\'vidlib\',cycle:\''+cycle+'\',year:\''+year+'\',branch:\''+branch+'\',subject:\'\',term:0})">🎬 مكتبة الفيديو الخاصة بالشعبة</button></section>';
+    var k=h.lastIndexOf('</div>');
+    if(k>0){h=h.slice(0,k)+btn+h.slice(k)}
+  }catch(e){}
+  return h;
+};
+/* 35.و محرك العرض: صفحة vidlib */
+var __x35Render=render;
+render=function(){
+  var vid=null;
+  try{
+    if(X30_HASH&&(''+X30_HASH.page)==='vidlib'){vid=X30_HASH;X30_HASH=null}
+    else if(!X30_HASH&&ROUTE&&(''+ROUTE.page)==='vidlib'){vid=ROUTE}
+  }catch(e){}
+  if(vid){
+    var need=false;
+    try{need=authScreenNeeded()}catch(e2){need=false}
+    if(!need){
+      try{x34OwnerSync()}catch(e3){}
+      try{
+        ROUTE=vid;
+        var app=document.getElementById('app');
+        app.innerHTML=renderX35Vid()+updBanner()+renderBottomNav();
+        try{typesetApp()}catch(e4){}
+        try{kpSync()}catch(e5){}
+        return;
+      }catch(e6){}
+    }
+  }
+  __x35Render();
+};
+/* 35.ز لوحة المالك: قسم مكتبة الفيديو ومولد سطرها */
+function x35BranchSync(){
+  try{
+    var yr=(gid('x35g-year')||{}).value||'m1';
+    var bs=gid('x35g-branch');
+    if(bs){bs.innerHTML=x33BranchOpts(yr)}
+  }catch(e){}
+}
+function x35JEsc(s){return (''+s).replace(/\\/g,'\\\\').replace(/"/g,'\\"')}
+function x35AdminSect(){
+  var yOpts='',firstY='';
+  for(var k in X30_YEARS){if(!firstY){firstY=k}yOpts+='<option value="'+k+'">'+X30_YEARS[k]+'</option>'}
+  var h='<section class="x17-card x33-admin" id="x35-admin"><h3>🎬 مكتبة الفيديو — الطريقة السهلة (videos.json)</h3>'+
+   '<p class="x33-step"><b>الخطوة 1:</b> انسخ رابط الفيديو من يوتيوب (زر «مشاركة» ← «نسخ الرابط»).</p>'+
+   '<p class="x33-step"><b>الخطوة 2:</b> افتح ملف <b>videos.json</b> في المستودع واضغط قلم التعديل ✏️.</p>'+
+   '<p class="x33-step"><b>الخطوة 3:</b> عبّئ الخانات بالأسفل — واختر <b>الشعبة</b> والفصل — ثم اضغط «📋 توليد سطر الفيديو» وانسخ السطر والصقه داخل <b>[ ]</b> مع فاصلة بين كل سطرين.</p>'+
+   '<p class="x33-step"><b>الخطوة 4 (الحذف):</b> امسح سطر الفيديو من videos.json واضغط Commit — يختفي من المنصة فورًا.</p>'+
+   '<div class="x33-gen">'+
+   '<input class="x30-inp" id="x35g-title" placeholder="عنوان الفيديو الظاهر للطلاب (مثل: شرح الدوال خطوة بخطوة)">'+
+   '<input class="x30-inp" id="x35g-url" placeholder="رابط الفيديو من يوتيوب (مثل: https://youtu.be/XXXXXXXXXXX)">'+
+   '<div class="x30-row"><select class="x30-inp" id="x35g-year" style="width:auto" onchange="x35BranchSync()">'+yOpts+'</select>'+
+   '<select class="x30-inp" id="x35g-branch" style="width:auto">'+x33BranchOpts(firstY)+'</select>'+
+   '<select class="x30-inp" id="x35g-term" style="width:auto">'+
+   '<option value="0">عام — كل الفصول</option><option value="1">الفصل الأول</option><option value="2">الفصل الثاني</option><option value="3">الفصل الثالث</option></select></div>'+
+   '<input class="x30-inp" id="x35g-subject" placeholder="المادة (مثل: الرياضيات) — اتركها فارغة لفيديو عام">'+
+   '<input class="x30-inp" id="x35g-descr" placeholder="وصف مختصر (اختياري)">'+
+   '<button class="btn btn-primary" onclick="x35GenLine()">📋 توليد سطر الفيديو</button>'+
+   '<textarea class="x33-out" id="x35g-out" placeholder="سيظهر السطر الجاهز هنا بعد الضغط على «توليد سطر الفيديو»"></textarea>'+
+   '</div></section>';
+  return h;
+}
+function x35GenLine(){
+  var ti=((gid('x35g-title')||{}).value||'').trim();
+  var ur=((gid('x35g-url')||{}).value||'').trim();
+  var yr=(gid('x35g-year')||{}).value||'s2';
+  var cy=(yr.charAt(0)==='m')?'mid':'sec';
+  var br=((gid('x35g-branch')||{}).value||'');
+  var tm=parseInt((gid('x35g-term')||{}).value||'0',10)||0;
+  var sb=((gid('x35g-subject')||{}).value||'').trim();
+  var ds=((gid('x35g-descr')||{}).value||'').trim();
+  if(!ti){toast('✍️ اكتب عنوان الفيديو أولًا (مثل: شرح الدوال)','error');return}
+  if(!ur){toast('✍️ الصق رابط الفيديو أولًا','error');return}
+  if(!x35YTId(ur)&&!/^https?:\/\//i.test(ur)){toast('⚠️ هذا لا يبدو رابطًا — انسخ الرابط كاملًا من يوتيوب','error');return}
+  var id=Date.now();
+  var line='{"id":'+id+',"cycle":"'+cy+'","year":"'+yr+'","branch":"'+x35JEsc(br)+'","subject":"'+x35JEsc(sb)+'","term":'+tm+',"title":"'+x35JEsc(ti)+'","descr":"'+x35JEsc(ds)+'","url":"'+x35JEsc(ur)+'"}';
+  var out=gid('x35g-out');
+  if(out){out.value=line}
+  x35GenModal(line,ti);
+}
+function x35GenModal(line,ti){
+  xModal('📋 سطر videos.json جاهز — انسخه والصقه',
+   '<p class="x33-step"><b>1.</b> انسخ السطر التالي.</p>'+
+   '<textarea class="x33-out" id="x35g-copy">'+escAttr(line)+'</textarea>'+
+   '<p class="x33-step"><b>2.</b> افتح ملف <b>videos.json</b> في المستودع.</p>'+
+   '<p class="x33-step"><b>3.</b> الصق السطر داخل القوس المربع <b>[ ]</b> — وإذا وُجدت أسطر أخرى ضع فاصلة <b>,</b> بين كل سطرين.</p>'+
+   '<p class="x33-step"><b>4.</b> اضغط Commit changes — سيظهر الفيديو «'+escAttr(ti)+'» في مكتبة الفيديو فورًا.</p>'+
+   '<div class="x30-row"><button class="btn btn-primary" onclick="x33CopyTxt(document.getElementById(\'x35g-copy\').value)">📋 نسخ السطر</button></div>');
+}
+var __x35Admin=renderAdminPage18;
+renderAdminPage18=function(){
+  var h=__x35Admin();
+  try{
+    if(isAdmin()){
+      var i=h.indexOf('<section class="x17-card x33-admin"');
+      if(i>0){h=h.slice(0,i)+x35AdminSect()+h.slice(i)}
+    }
+  }catch(e){}
+  return h;
+};
+/* 35.ح بيانات الإصدار 35 */
+APP_META.ver='35.0';APP_META.date='2026-10-31';
+APP_META.notes='الإصدار 35 — مكتبة الفيديو والترتيب: صفحة فيديوهات لكل مادة وشعبة بملف videos.json السهل مثل pdfs.json تمامًا والمشغل يفتح داخل المنصة، والفصول مرتبة دائمًا الأول ثم الثاني ثم الثالث في الفروض والاختبارات ومكتبة الفيديو، مع إصلاح خطأ برمجي كان يعطّل تحسينات الإصدار 34 (لوحة المالك والإشعارات والمكتبة).';
+try{APP_META.changelog.unshift('الإصدار 35 — مكتبة فيديو كاملة (videos.json + مولد السطر في لوحة المالك + مشغل يوتيوب داخل المنصة)، وترتيب الفصول إجباريًا الأول ثم الثاني ثم الثالث، وإصلاح الخطأ البرمجي الذي عطّل لوحة المالك في الإصدار 34.')}catch(e){}
+function fallbackNews18(){
+  return [{title:'الإصدار 35 — مكتبة الفيديو',
+    body:'صفحة فيديوهات لكل مادة وشعبة بملف videos.json السهل، والمشغل يفتح داخل المنصة، والفصول مرتبة دائمًا الأول ثم الثاني ثم الثالث.',
+    date:APP_META.date}];
+}
 </script>
 
 <script>
