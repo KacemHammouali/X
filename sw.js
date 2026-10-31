@@ -1,12 +1,12 @@
-/* sw.js — عامل الخدمة لمنصة X (الإصدار 29 — النسخة العالمية)
+/* sw.js — عامل الخدمة لمنصة X التعليمية (الإصدار 30) */
    مهمته: عمل الموقع بلا إنترنت بعد أول زيارة + التحديث الفوري عند إصدار جديد.
    الرفع للنشر: جذر الموقع مع index.html و versions.json و manifest.json و icon.svg (كل الملفات تُرفع معًا إلى GitHub Pages).
    عند كل إصدار جديد من المنصة: عدّل قيمة VERSION أدناه فقط،
    فيلاحظ المتصفح التغيير ويعرض زر «تحديث الآن» داخل المنصة تلقائيًا. */
 
-var VERSION = 'x-v29';
+var VERSION = 'x-v30';
 var CACHE = 'x-site-' + VERSION;
-var CORE = ['./', './index.html', './manifest.json', './icon.svg'];
+var CORE = ['./', './index.html', './manifest.json', './icon.svg', './logo.jpg'];
 
 /* التثبيت: نخزّن الصفحة الأساسية ثم نفعّل العامل الجديد فورًا */
 self.addEventListener('install', function (e) {
