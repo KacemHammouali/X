@@ -1,4 +1,4 @@
-/* sw.js — عامل الخدمة لمنصة X التعليمية (الإصدار 39) */
+/* sw.js — عامل الخدمة لمنصة X التعليمية (الإصدار 41) */
    مهمته: عمل الموقع بلا إنترنت بعد أول زيارة + التحديث الفوري عند إصدار جديد.
    الرفع للنشر: جذر الموقع مع index.html و versions.json و manifest.json (كل الملفات تُرفع معًا إلى GitHub Pages).
    عند كل إصدار جديد من المنصة: عدّل قيمة VERSION أدناه فقط،
@@ -6,7 +6,7 @@
    الجديد في الإصدار 31: التخزين صار متسامحًا — أي ملف ناقص (مثل logo.jpg
    قبل رفعها) لم يعد يُعطّل التثبيت كاملًا كما كان في addAll القديمة. */
 
-var VERSION = 'x-v39';
+var VERSION = 'x-v41';
 var CACHE = 'x-site-' + VERSION;
 var CORE = ['./', './index.html', './manifest.json', './icon.svg', './logo.jpg'];
 
@@ -73,6 +73,26 @@ self.addEventListener('fetch', function (e) {
         return caches.match('./index.html').then(function (r) {
           if (r) { return r; }
           return caches.match('./');
+        });
+      })
+    );
+    return;
+  }
+
+  /* versions.json: الشبكة أولًا دائمًا — حتى لا يُعلن إصدار قديم من الذاكرة
+     (الخارج من الشبكة يُخزن احتياطًا لعمل الفحص بلا إنترنت) */
+  if (req.url.indexOf('versions.json') >= 0) {
+    e.respondWith(
+      fetch(req).then(function (res) {
+        if (res && res.ok) {
+          var copy = res.clone();
+          caches.open(CACHE).then(function (c) { c.put(req, copy); });
+        }
+        return res;
+      }).catch(function () {
+        return caches.match(req).then(function (r) {
+          if (r) { return r; }
+          return new Response('{"ver":"0"}', { headers: { 'Content-Type': 'application/json' } });
         });
       })
     );
