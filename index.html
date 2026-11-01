@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>منصة X التعليمية — الإصدار 38 | المتوسط والثانوي</title>
+<title>منصة X التعليمية — الإصدار 39 | المتوسط والثانوي</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" type="image/jpeg" href="logo.jpg">
 <link rel="apple-touch-icon" href="logo.jpg">
@@ -46,6 +46,7 @@ if(n<50){
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ar_DZ">
 <meta name="robots" content="index, follow">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"منصة X التعليمية","alternateName":"Manasa X","inLanguage":"ar","description":"منصة تعليمية جزائرية مجانية للطورين المتوسط والثانوي: دروس وقوانين وملخصات وتمارين وفروض واختبارات وتحديات بكالوريا وملفات PDF وشروحات فيديو"}</script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
@@ -1831,7 +1832,7 @@ function renderSettingsPage(){
   }
   h+=xSect('👤 الحساب',acc);
   h+=xSect('ℹ️ عن المنصة',
-   '<div class="about-x"><div class="logo-mark">'+LOGO+'</div><div><b>منصة X</b> — الإصدار '+APP_META.ver+'<br>آخر تحديث: '+APP_META.lastUpdate+'</div></div>'+
+   '<div class="about-x"><div class="logo-mark x39-about-logo">'+X30_LOGO+'</div><div><b>منصة X</b> — الإصدار '+APP_META.ver+'<br>آخر تحديث: '+APP_META.lastUpdate+'</div></div>'+
    '<div class="btn-row"><button class="btn" onclick="xShowDoc(\'about\')">📄 معلومات التطبيق</button>'+
    '<button class="btn" onclick="checkUpdate()">🔄 التحقق من التحديثات</button></div>'+
    '<div class="btn-row"><button class="btn btn-ghost" onclick="xShowDoc(\'privacy\')">سياسة الخصوصية</button>'+
@@ -6555,8 +6556,22 @@ function x30Preview(id){
 function x30Dl(id){
   var f=x30Find(id);
   if(!f){toast('⚠️ لم يُعثر على الملف','error');return}
+  toast('⏳ جارٍ تنزيل: '+(f.name||'الملف')+'…','info');
+  var done=false;
+  var fallback=function(){
+    if(done){return}
+    done=true;
+    try{
+      window.open(f.url,'_blank');
+      toast('ℹ️ فتحنا الملف في نافذة جديدة — نزّله من هناك','info');
+    }catch(e){toast('⚠️ تعذر التنزيل — تحقق من وجود الملف في المستودع','error')}
+  };
+  var timer=setTimeout(fallback,25000);
   try{
     fetch(f.url).then(function(r){if(!r.ok)throw new Error('dl');return r.blob()}).then(function(b){
+      if(done){return}
+      done=true;
+      clearTimeout(timer);
       var u=URL.createObjectURL(b);
       var a=document.createElement('a');
       a.href=u;
@@ -6564,13 +6579,10 @@ function x30Dl(id){
       document.body.appendChild(a);
       a.click();
       setTimeout(function(){try{URL.revokeObjectURL(u);a.remove()}catch(e){}},4000);
-      toast('⬇️ بدأ تنزيل: '+(f.name||'الملف'),'success');
-    }).catch(function(){
-      try{window.open(f.url,'_blank');toast('ℹ️ فتحنا الملف في نافذة جديدة','info')}catch(e){toast('⚠️ تعذر التنزيل','error')}
-    });
-  }catch(e){toast('⚠️ تعذر التنزيل','error')}
-}
-/* 30.13 إعدادات المالك (تُحفظ محليًا في متصفح المدير فقط — لا مفاتيح في الكود المنشور) */
+      toast('✅ اكتمل تنزيل: '+(f.name||'الملف'),'success');
+    }).catch(function(){clearTimeout(timer);fallback()});
+  }catch(e){clearTimeout(timer);fallback()}
+}/* 30.13 إعدادات المالك (تُحفظ محليًا في متصفح المدير فقط — لا مفاتيح في الكود المنشور) */
 function x30AGet(){try{return JSON.parse(localStorage.getItem('x30_admin_cfg')||'null')}catch(e){return null}}
 function x30ASet(cfg){try{localStorage.setItem('x30_admin_cfg',JSON.stringify(cfg))}catch(e){}}
 function x30AShowCfg(){
@@ -7385,8 +7397,7 @@ function renderX30Lib(){
       var f=files[i];
       var okC=(!cycle||f.cycle===cycle),okY=(!year||f.year===year),okS=(!subject||f.subject===subject);
       /* خصوصية الشعب: ملف الشعبة يظهر لطلاب شعبته فقط، والملف العام يظهر للجميع */
-      var okB=(!f.branch)||(branch&&f.branch===branch);
-      var okT=true;
+      var fbr=(''+(f.branch||'')).split(',');var okB=(!f.branch)||(branch&&(fbr.indexOf(branch)>=0));      var okT=true;
       if(tab==='sum'){okT=(f.type==='sum')}
       else if(tab==='ex'){okT=(f.type==='ex')}
       else{okT=(f.type===mode&&(!term||!f.term||(''+f.term)===(''+term)))}
@@ -7733,8 +7744,7 @@ function renderX30Lib(){
       var f=files[i];
       var okC=(!cycle||f.cycle===cycle),okY=(!year||f.year===year),okS=(!subject||f.subject===subject);
       /* خصوصية الشعب: ملف الشعبة يظهر لطلاب شعبته فقط، والملف العام يظهر للجميع */
-      var okB=(!f.branch)||(branch&&f.branch===branch);
-      var okT=true;
+      var fbr=(''+(f.branch||'')).split(',');var okB=(!f.branch)||(branch&&(fbr.indexOf(branch)>=0));      var okT=true;
       if(tab==='sum'){okT=(f.type==='sum')}
       else if(tab==='ex'){okT=(f.type==='ex')}
       else{okT=(f.type===mode&&(!term||!f.term||(''+f.term)===(''+term)))}
@@ -7849,8 +7859,7 @@ function x35Play(id){
     var d=document.createElement('div');
     d.id='x35p';
     d.className='xmodal';
-    d.innerHTML='<div class="xmodal-bg" onclick="x35ClosePlay()"></div><div class="xmodal-card glass-strong" style="max-width:640px"><h3>🎬 '+escAttr(f.title||'فيديو')+'</h3><div class="xmodal-body">'+inner+'</div><button class="btn btn-primary btn-block" onclick="x35ClosePlay()">إغلاق</button></div>';
-    document.body.appendChild(d);
+    d.innerHTML='<div class="xmodal-bg" onclick="x35ClosePlay()"></div><div class="xmodal-card glass-strong" id="x35p-card" style="max-width:640px"><h3>🎬 '+escAttr(f.title||'فيديو')+'</h3><div class="xmodal-body">'+inner+'</div><div class="x30-row" style="margin-top:10px"><button class="btn btn-sm" onclick="x35FS()">⛶ شاشة كاملة</button></div><button class="btn btn-primary btn-block" onclick="x35ClosePlay()">إغلاق</button></div>';    document.body.appendChild(d);
   }catch(e){try{window.open(u,'_blank')}catch(e2){}}
 }
 function x35ClosePlay(){
@@ -7898,8 +7907,7 @@ function renderX35Vid(){
     for(var i=0;i<list.length;i++){
       var f=list[i];
       var okC=(!cycle||f.cycle===cycle),okY=(!year||f.year===year),okS=(!subject||f.subject===subject);
-      var okB=(!f.branch)||(branch&&f.branch===branch);
-      var okT=(!term||!f.term||(''+f.term)===(''+term));
+      var fbr=(''+(f.branch||'')).split(',');var okB=(!f.branch)||(branch&&(fbr.indexOf(branch)>=0));      var okT=(!term||!f.term||(''+f.term)===(''+term));
       if(okC&&okY&&okS&&okB&&okT){rows.push(f)}
     }
     try{rows.sort(function(a,b){var ta=(a&&a.term)?(parseInt(a.term,10)||0):0,tb=(b&&b.term)?(parseInt(b.term,10)||0):0;if(ta!==tb){return ta-tb}return (''+((a&&a.title)||'')).localeCompare(''+((b&&b.title)||''))})}catch(e35s){}
@@ -8504,7 +8512,215 @@ function fallbackNews18(){
     date:APP_META.date}];
 }
 </script>
+<style>
+/* ============ الطبقة 39 — تنسيقات: شبكة الألوان + اختيار عدة شعب + الشاشة الكاملة ============ */
+.x39-colors{display:flex;flex-wrap:wrap;gap:10px;margin-top:2px}
+.x39-cdot{width:40px;height:40px;border-radius:13px;border:2px solid rgba(255,255,255,.16);background:var(--c);cursor:pointer;position:relative;padding:0;transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}
+.x39-cdot.on{border-color:#fff;box-shadow:0 0 0 3px rgba(255,255,255,.18);transform:scale(1.1)}
+.x39-cdot span{position:absolute;top:0;left:0;right:0;bottom:0;border-radius:11px}
+.x39-cdot.on span:after{content:'✓';position:absolute;top:50%;left:50%;width:20px;height:20px;margin:-10px 0 0 -10px;line-height:20px;text-align:center;color:#fff;font-weight:900;font-size:14px;text-shadow:0 1px 3px rgba(0,0,0,.55)}
+html[data-theme="light"] .x39-cdot{border-color:rgba(10,30,60,.18)}
+html[data-theme="light"] .x39-cdot.on{border-color:#0d5c94;box-shadow:0 0 0 3px rgba(34,158,217,.22)}
+.x39-checks{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 2px}
+.x39-chk{display:flex;align-items:center;gap:6px;border:1px solid rgba(140,200,240,.22);background:rgba(22,34,52,.7);color:#cfe0ef;border-radius:10px;padding:7px 10px;font-size:12.5px;cursor:pointer;user-select:none}
+.x39-chk input{accent-color:#229ED9;width:15px;height:15px;cursor:pointer}
+html[data-theme="light"] .x39-chk{background:rgba(255,255,255,.92);color:#41566c;border-color:rgba(30,60,100,.16)}
+.about-x .x30-logo{width:58px;height:58px;border-radius:14px;object-fit:cover}
+.xmodal-card:fullscreen{max-width:100% !important;width:100%;height:100%;border-radius:0;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:10px}
+.xmodal-card:fullscreen .xmodal-body{width:100%;max-width:920px}
+.xmodal-card:fullscreen h3{max-width:920px;width:100%}
+</style>
 <script>
+'use strict';
+/* ============ الطبقة 39 — الإصدار 39: الإصلاحات الجذرية والاحترافية ============ */
+/* 39.أ زر «لوحة المالك» في صفحة ملفي — لم يكن للمالك أي مدخل مرئي إلى لوحته */
+var __x39Profile=renderProfilePage18;
+renderProfilePage18=function(){
+  var h=__x39Profile();
+  try{
+    var own=false;
+    try{own=isAdmin()}catch(e0){own=false}
+    if(!own&&USER.session){
+      var em=(''+(((USER.session.user||{}).email)||((USER.profile||{}).email)||'')).toLowerCase();
+      own=(em===(''+XOWNER_MAIL).toLowerCase());
+      if(own){try{x33OwnerFix()}catch(e1){}}
+    }
+    if(own&&h.indexOf('لوحة المالك')<0){
+      var i=h.indexOf('pv-actions');
+      if(i>0){var j=h.indexOf('>',i);if(j>0){h=h.slice(0,j+1)+'<button class="btn btn-primary" onclick="navigate(\'admin\')">🛡️ لوحة المالك</button>'+h.slice(j+1)}}
+    }
+  }catch(e){}
+  return h;
+};
+/* 39.ب لون التمييز: شبكة ألوان أنيقة نظيفة بلا أي كتابات تحتها */
+var __x39Settings=renderSettingsPage;
+renderSettingsPage=function(){
+  var h=__x39Settings();
+  try{
+    var colors=[['azure','#229ED9','أزرق'],['royal','#2f7ae5','أزرق ملكي'],['blue','#6ab3f3','سماوي'],['teal','#5ec8b8','تركوازي'],['violet','#a08ee0','بنفسجي'],['rose','#e07f9a','وردي'],['amber','#e0b96a','ذهبي']];
+    var grid='<div class="x39-colors">';
+    for(var i=0;i<colors.length;i++){
+      grid+='<button type="button" class="x39-cdot'+((XCFG.accent===colors[i][0])?' on':'')+'" style="--c:'+colors[i][1]+'" onclick="setX(\'accent\',\''+colors[i][0]+'\')" aria-label="'+colors[i][2]+'"><span></span></button>';
+    }
+    grid+='</div>';
+    var a=h.indexOf('لون التمييز');
+    if(a>0){
+      var st=h.lastIndexOf('<div class="set-line">',a);
+      var en=h.indexOf('</div></div>',a);
+      if(st>=0&&en>st){h=h.slice(0,st)+'<div class="set-line"><span>لون التمييز</span>'+grid+'</div>'+h.slice(en+12)}
+    }
+  }catch(e){}
+  return h;
+};
+/* 39.ج الشاشة الكاملة وقلب الشاشة للفيديو */
+function x35FS(){
+  try{
+    var card=document.getElementById('x35p');
+    if(!card){return}
+    var tgt=card.querySelector('.xmodal-card')||card;
+    var fn=tgt.requestFullscreen||tgt.webkitRequestFullscreen||tgt.msRequestFullscreen||tgt.mozRequestFullScreen;
+    if(fn){try{fn.call(tgt)}catch(e1){}}
+    try{
+      if(window.screen&&screen.orientation&&screen.orientation.lock){
+        var pl=screen.orientation.lock('landscape');
+        if(pl&&pl.catch){pl.catch(function(){})}
+      }
+    }catch(e2){}
+  }catch(e){}
+}
+/* 39.د اختيار عدة شعب (2 أو 3 أو 4) في مولدي PDF والفيديو */
+function x39BranchChecks(yr){
+  var bs=X32_BRANCHES[yr]||[];
+  var out='';
+  if(!bs.length){return '<p class="set-note" style="margin:6px 0">هذه السنة بلا شعب — الملف/الفيديو يراه الجميع.</p>'}
+  out='<div class="x39-checks">';
+  for(var i=0;i<bs.length;i++){
+    out+='<label class="x39-chk"><input type="checkbox" value="'+bs[i].id+'">'+bs[i].name+'</label>';
+  }
+  out+='</div>';
+  return out;
+}
+function x33BranchSync(){
+  try{
+    var yr=(gid('x33g-year')||{}).value||'m1';
+    var bs=gid('x33g-branches');
+    if(bs){bs.innerHTML=x39BranchChecks(yr)}
+  }catch(e){}
+}
+function x35BranchSync(){
+  try{
+    var yr=(gid('x35g-year')||{}).value||'m1';
+    var bs=gid('x35g-branches');
+    if(bs){bs.innerHTML=x39BranchChecks(yr)}
+  }catch(e){}
+}
+function x33AdminSect(){
+  var yOpts='',firstY='';
+  for(var k in X30_YEARS){if(!firstY){firstY=k}yOpts+='<option value="'+k+'">'+X30_YEARS[k]+'</option>'}
+  var h='<section class="x17-card x33-admin" id="x33-admin"><h3>📚 مكتبة PDF — الطريقة السهلة (pdfs.json)</h3>'+
+   '<p class="x33-step"><b>الخطوة 1:</b> ارفع ملف الـ PDF نفسه إلى المستودع (Add file ← Upload files) بنفس طريقة رفع الصور — باسم بسيط بلا مسافات مثل <b>s2-math-1.pdf</b>.</p>'+
+   '<p class="x33-step"><b>الخطوة 2:</b> افتح ملف <b>pdfs.json</b> واضغط قلم التعديل ✏️.</p>'+
+   '<p class="x33-step"><b>الخطوة 3:</b> عبّئ الخانات بالأسفل — واختر <b>شعبة أو أكثر</b> (شعبتين أو ثلاثة أو أكثر) أو اتركها كلها فارغة لملف يراه الجميع — ثم اضغط «📋 توليد السطر» وانسخ السطر والصقه داخل <b>[ ]</b>: سطر واحد بلا فاصلة، وعدة أسطر ضع فاصلة <b>,</b> بين كل سطرين.</p>'+
+   '<p class="x33-step"><b>الخطوة 4 (الحذف):</b> لحذف ملف من المكتبة: امسح سطره من pdfs.json واضغط Commit — ولحذفه نهائيًا احذف ملف الـ PDF نفسه من المستودع أيضًا.</p>'+
+   '<div class="x33-gen">'+
+   '<input class="x30-inp" id="x33g-name" placeholder="الاسم الظاهر للطلاب (مثل: ملخص الدوال)">'+
+   '<input class="x30-inp" id="x33g-file" placeholder="اسم ملف الـ PDF كما رفعته (مثل: s2-math-1.pdf)">'+
+   '<div class="x30-row"><select class="x30-inp" id="x33g-year" style="width:auto" onchange="x33TermSync();x33BranchSync()">'+yOpts+'</select>'+
+   '<select class="x30-inp" id="x33g-type" style="width:auto" onchange="x33TermSync()">'+
+   '<option value="sum">ملخص</option><option value="ex">تمارين</option><option value="hw">فرض</option><option value="test">اختبار</option></select>'+
+   '<select class="x30-inp" id="x33g-term" style="width:auto;display:none">'+
+   '<option value="1">الفصل الأول</option><option value="2">الفصل الثاني</option><option value="3">الفصل الثالث</option></select></div>'+
+   '<div id="x33g-branches">'+x39BranchChecks(firstY)+'</div>'+
+   '<input class="x30-inp" id="x33g-subject" placeholder="المادة (مثل: الرياضيات) — اتركها فارغة لملف عام">'+
+   '<input class="x30-inp" id="x33g-descr" placeholder="وصف مختصر (اختياري)">'+
+   '<button class="btn btn-primary" onclick="x33GenLine()">📋 توليد السطر</button>'+
+   '<textarea class="x33-out" id="x33g-out" placeholder="سيظهر السطر الجاهز هنا بعد الضغط على «توليد السطر»"></textarea>'+
+   '</div></section>';
+  return h;
+}
+function x33GenLine(){
+  var nm=((gid('x33g-name')||{}).value||'').trim();
+  var yr=(gid('x33g-year')||{}).value||'s2';
+  var cy=(yr.charAt(0)==='m')?'mid':'sec';
+  var brs=[],boxes=document.querySelectorAll('#x33g-branches input[type="checkbox"]');
+  for(var q=0;q<boxes.length;q++){if(boxes[q].checked){brs.push(boxes[q].value)}}
+  var br=brs.join(',');
+  var sb=((gid('x33g-subject')||{}).value||'').trim();
+  var tp=(gid('x33g-type')||{}).value||'sum';
+  var tm=(tp==='hw'||tp==='test')?(parseInt((gid('x33g-term')||{}).value||'1',10)||1):0;
+  var fn=((gid('x33g-file')||{}).value||'').trim();
+  var ds=((gid('x33g-descr')||{}).value||'').trim();
+  if(!nm){toast('✍️ اكتب اسم الملف أولًا (مثل: ملخص الدوال)','error');return}
+  if(!fn){toast('✍️ اكتب اسم ملف الـ PDF كما رفعته (مثل: s2-math-1.pdf)','error');return}
+  fn=fn.replace(/^\.?\//,'');
+  var id=Date.now();
+  var line='{"id":'+id+',"cycle":"'+cy+'","year":"'+yr+'","branch":"'+br+'","subject":"'+sb+'","type":"'+tp+'","term":'+tm+',"name":"'+nm+'","descr":"'+ds+'","url":"./'+fn+'"}';
+  var out=gid('x33g-out');
+  if(out){out.value=line}
+  x33GenModal(line,nm,fn);
+}
+function x35AdminSect(){
+  var yOpts='',firstY='';
+  for(var k in X30_YEARS){if(!firstY){firstY=k}yOpts+='<option value="'+k+'">'+X30_YEARS[k]+'</option>'}
+  var h='<section class="x17-card x33-admin" id="x35-admin"><h3>🎬 مكتبة الفيديو — الطريقة السهلة (videos.json)</h3>'+
+   '<p class="x33-step"><b>الخطوة 1:</b> انسخ رابط الفيديو من يوتيوب (زر «مشاركة» ← «نسخ الرابط»).</p>'+
+   '<p class="x33-step"><b>الخطوة 2:</b> افتح ملف <b>videos.json</b> في المستودع واضغط قلم التعديل ✏️.</p>'+
+   '<p class="x33-step"><b>الخطوة 3:</b> عبّئ الخانات بالأسفل — واختر <b>شعبة أو أكثر</b> (شعبتين أو ثلاثة أو أكثر) أو اتركها كلها فارغة لفيديو يراه الجميع — ثم اضغط «📋 توليد سطر الفيديو» وانسخ السطر والصقه داخل <b>[ ]</b>: سطر واحد بلا فاصلة، وعدة أسطر ضع فاصلة <b>,</b> بين كل سطرين.</p>'+
+   '<p class="x33-step"><b>الخطوة 4 (الحذف):</b> امسح سطر الفيديو من videos.json واضغط Commit — يختفي من المنصة فورًا.</p>'+
+   '<div class="x33-gen">'+
+   '<input class="x30-inp" id="x35g-title" placeholder="عنوان الفيديو الظاهر للطلاب (مثل: شرح الدوال خطوة بخطوة)">'+
+   '<input class="x30-inp" id="x35g-url" placeholder="رابط الفيديو من يوتيوب (مثل: https://youtu.be/XXXXXXXXXXX)">'+
+   '<div class="x30-row"><select class="x30-inp" id="x35g-year" style="width:auto" onchange="x35BranchSync()">'+yOpts+'</select>'+
+   '<select class="x30-inp" id="x35g-term" style="width:auto">'+
+   '<option value="0">عام — كل الفصول</option><option value="1">الفصل الأول</option><option value="2">الفصل الثاني</option><option value="3">الفصل الثالث</option></select></div>'+
+   '<div id="x35g-branches">'+x39BranchChecks(firstY)+'</div>'+
+   '<input class="x30-inp" id="x35g-subject" placeholder="المادة (مثل: الرياضيات) — اتركها فارغة لفيديو عام">'+
+   '<input class="x30-inp" id="x35g-descr" placeholder="وصف مختصر (اختياري)">'+
+   '<button class="btn btn-primary" onclick="x35GenLine()">📋 توليد سطر الفيديو</button>'+
+   '<textarea class="x33-out" id="x35g-out" placeholder="سيظهر السطر الجاهز هنا بعد الضغط على «توليد سطر الفيديو»"></textarea>'+
+   '</div></section>';
+  return h;
+}
+function x35GenLine(){
+  var ti=((gid('x35g-title')||{}).value||'').trim();
+  var ur=((gid('x35g-url')||{}).value||'').trim();
+  var yr=(gid('x35g-year')||{}).value||'s2';
+  var cy=(yr.charAt(0)==='m')?'mid':'sec';
+  var brs=[],boxes=document.querySelectorAll('#x35g-branches input[type="checkbox"]');
+  for(var q=0;q<boxes.length;q++){if(boxes[q].checked){brs.push(boxes[q].value)}}
+  var br=brs.join(',');
+  var tm=parseInt((gid('x35g-term')||{}).value||'0',10)||0;
+  var sb=((gid('x35g-subject')||{}).value||'').trim();
+  var ds=((gid('x35g-descr')||{}).value||'').trim();
+  if(!ti){toast('✍️ اكتب عنوان الفيديو أولًا (مثل: شرح الدوال)','error');return}
+  if(!ur){toast('✍️ الصق رابط الفيديو أولًا','error');return}
+  if(!x35YTId(ur)&&!/^https?:\/\//i.test(ur)){toast('⚠️ هذا لا يبدو رابطًا — انسخ الرابط كاملًا من يوتيوب','error');return}
+  var id=Date.now();
+  var line='{"id":'+id+',"cycle":"'+cy+'","year":"'+yr+'","branch":"'+x35JEsc(br)+'","subject":"'+x35JEsc(sb)+'","term":'+tm+',"title":"'+x35JEsc(ti)+'","descr":"'+x35JEsc(ds)+'","url":"'+x35JEsc(ur)+'"}';
+  var out=gid('x35g-out');
+  if(out){out.value=line}
+  x35GenModal(line,ti);
+}
+/* 39.هـ حماية العرض: لا عودة مفاجئة للرئيسية ولا شاشة معطلة أبدًا */
+var __x39Render=render;
+render=function(){
+  try{__x39Render()}catch(e){
+    try{
+      var app=document.getElementById('app');
+      if(app){app.innerHTML='<div class="fade-in x17-card" style="max-width:480px;margin:24px auto"><h3>⚠️ حدث خطأ غير متوقع</h3><p class="x17-empty">لا شيء ضاع — كل بياناتك محفوظة على جهازك. اضغط الزر للمتابعة.</p><button class="btn btn-primary" onclick="navigate(\'home\')">العودة للرئيسية</button></div>'}
+    }catch(e2){}
+  }
+};
+/* 39.و بيانات الإصدار 39 */
+APP_META.ver='39.0';APP_META.date='2026-11-01';APP_META.lastUpdate='2026-11-01';
+APP_META.notes='الإصدار 39 — الإصلاحات الجذرية: زر «لوحة المالك» ظاهر الآن في صفحة ملفي (لم يكن له أي مدخل مرئي)، والشعار الجديد logo.jpg يظهر في «عن المنصة» بدل الشعار القديم، وألوان التمييز شبكة أنيقة نظيفة بلا أي كتابات (بها الأزرق الرسمي وأزرق ملكي)، ومولدا PDF والفيديو يقبلان اختيار عدة شعب (شعبتين أو ثلاثة أو أكثر)، وفيديو المشاهدة صار بزر «شاشة كاملة» يقلب الشاشة عرضيًا، وتنزيل PDF أمينة: شريط انتظار واضح ثم رسالة اكتمال أو فتح تلقائي في نافذة جديدة عند أي تعطل، وحماية العرض من أي خطأ مفاجئ، وتحسين الظهور في محركات البحث (بيانات منظمة جديدة).';
+try{APP_META.changelog.unshift('الإصدار 39 — إصلاحات جذرية: زر لوحة المالك في صفحة ملفي، الشعار الجديد في «عن المنصة»، شبكة ألوان نظيفة، اختيار عدة شعب في المولدين، شاشة كاملة للفيديو، تنزيل PDF بديل تلقائي عند التعطل، حماية العرض، وبيانات منظمة لمحركات البحث.')}catch(e){}
+function fallbackNews18(){
+  return [{title:'الإصدار 39 — إصلاحات جذرية',
+    body:'زر لوحة المالك ظاهر في ملفي، الشعار الجديد في عن المنصة، شبكة ألوان نظيفة، اختيار عدة شعب، شاشة كاملة للفيديو، وتنزيل PDF أذكى.',
+    date:APP_META.date}];
+}
+</script><script>
 /* ============ بنك الاختبارات التفاعلية ============ */
 /* QUIZZES معرّف مسبقًا في المحرك — لا نعيد تهيئته حتى لا تُمحى البنوك الأخرى */
 
