@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>منصة X التعليمية — الإصدار 44 | المتوسط والثانوي</title>
+<title>منصة X التعليمية — الإصدار 45 | المتوسط والثانوي</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" type="image/jpeg" href="logo.jpg">
 <link rel="apple-touch-icon" href="logo.jpg">
@@ -940,7 +940,7 @@ function renderHome(){
   var pd=CH_PHYS.filter(function(c){return STATE.done[c.id]}).length;
   var html='<div class="hero fade-in">'+
    '<span class="ver-badge">الإصدار 17 — الهوية البصرية الاحترافية</span>'+
-   '<h1>منصة X للسنة الثانية ثانوي<br>شعبة رياضيات — المنهاج الجزائري</h1>'+
+   '<h1>منصة X التعليمية<br>الطوران المتوسط والثانوي — المنهاج الجزائري</h1>'+
    '<p>شرح مفصّل محورًا بمحور: تعاريف دقيقة، قوانين مشروحة تفسيرًا واضحًا، مبرهنات، أمثلة محلولة خطوة بخطوة، تمارين مصحّحة، أخطاء شائعة، واختبارات تفاعلية.</p>'+
    '<div class="hero-cta"><button class="btn btn-primary" onclick="navigate(\'subject\',\'math\')">📐 ابدأ بالرياضيات</button>'+
    '<button class="btn" onclick="navigate(\'subject\',\'phys\')">⚛️ وحدات الفيزياء والكيمياء</button>'+
@@ -1322,7 +1322,7 @@ function authWrap(inner,step,total){
   return '<div class="auth-wrap fade-in">'+
    '<div class="logo-big"><div class="logo-mark">'+LOGO+'</div><span class="logo-text">X</span></div>'+
    '<h2 class="auth-title">منصة X</h2>'+
-   '<p class="auth-sub">مرجع السنة الثانية ثانوي — شعبة رياضيات</p>'+bar+
+   '<p class="auth-sub">منصة X التعليمية — الطوران المتوسط والثانوي</p>'+bar+
    '<div class="auth-card glass-strong">'+inner+'</div>'+
    '<p class="auth-links"><a onclick="xShowDoc(\'privacy\')">سياسة الخصوصية</a> · <a onclick="xShowDoc(\'terms\')">شروط الاستخدام</a></p>'+
    '</div>';
@@ -1872,7 +1872,7 @@ var ADM={q:'',users:null,loaded:false,err:''};
 function isAdmin(){return USER.session&&USER.profile&&USER.profile.role==='admin'}
 function renderAdminPage(){
   if(!USER.session){return '<div class="auth-wrap fade-in"><div class="auth-card glass-strong"><h3>🛡️ لوحة الإدارة</h3><p class="auth-note">سجّل دخولك بحساب المالك للوصول.</p><button class="btn btn-primary btn-block" onclick="navigate(\'auth\')">تسجيل الدخول</button></div></div>'}
-  if(!isAdmin()){return '<div class="auth-wrap fade-in"><div class="auth-card glass-strong"><h3>🛡️ لوحة الإدارة</h3><p class="auth-note">هذه الصفحة مخصصة لمالك المنصة فقط. الدخول محكوم بدور المدير في الخادم (role=admin) وسياسات RLS — ورفض الوصول هنا لا يعتمد على إخفاء الرابط.</p><button class="btn btn-block" onclick="navigate(\'home\')">العودة للرئيسية</button></div></div>'}
+  if(!isAdmin()){return '<div class="auth-wrap fade-in"><div class="auth-card glass-strong"><h3>🛡️ لوحة الإدارة</h3><p class="auth-note">هذه الصفحة مخصصة لإدارة مؤسسة X.HAK فقط. الدخول محكوم بدور المدير في الخادم (role=admin) وسياسات RLS — ورفض الوصول هنا لا يعتمد على إخفاء الرابط.</p><button class="btn btn-block" onclick="navigate(\'home\')">العودة للرئيسية</button></div></div>'}
   if(!SB.ready){return '<div class="auth-wrap fade-in"><div class="auth-card glass-strong"><h3>🛡️ لوحة الإدارة</h3><p class="auth-note">لوحة الإدارة تعمل بعد إعداد خدمة Supabase (المستخدمون والإعلانات والتقدم تُقرأ من قاعدة البيانات). راجع دليل الإعداد.</p></div></div>'}
   var h='<div class="fade-in set-wrap"><h2 class="sec15">🛡️ لوحة الإدارة</h2>';
   h+='<div id="adm-stats" class="h15-cards">'+((ADM.loaded&&ADM.users)?('<div class="h15-card glass-strong"><span class="h15-k">👥 الحسابات المسجلة</span><b class="adm-big">'+ADM.users.length+'</b></div><div class="h15-card glass-strong"><span class="h15-k">📅 آخر تسجيل</span><b class="adm-t">'+escAttr(((ADM.users[ADM.users.length-1]||{}).created_at||'').slice(0,10))+'</b></div>'):'<p class="set-note">⏳ جارٍ تحميل بيانات المستخدمين…</p>')+'</div>';
@@ -1943,11 +1943,11 @@ function xShowDoc(which){
     '<ul><li><b>بيانات الحساب:</b> البريد الإلكتروني (مع تحقق منه)، الاسم واللقب، السنة الدراسية والشعبة، وسنة الميلاد والصورة الشخصية إن أدخلتها طوعًا.</li>'+
     '<li><b>بيانات التقدم:</b> الدروس التي بدأتها وأكملتها، نتائج الاختبارات، العناصر المحفوظة للمراجعة، وإعداداتك.</li></ul>'+
     '<p><b>لماذا؟</b> لربط تقدمك بحسابك حتى تجده من أي جهاز، ولعرض إحصاءاتك لك أنت فقط.</p>'+
-    '<p><b>إشعار المالك:</b> عند إكمال تسجيل جديد تصل للمالك رسالة تعريفية تتضمن تاريخ التسجيل ومعرّف الحساب والاسم والمعلومات الدراسية — <u>ولا تشمل أبدًا كلمات المرور أو رموز التحقق</u>.</p>'+
+    '<p><b>إشعار المؤسسة:</b> عند إكمال تسجيل جديد تصل إلى مؤسسة X.HAK رسالة تعريفية تتضمن تاريخ التسجيل والاسم والمعلومات الدراسية — <u>ولا تشمل أبدًا كلمات المرور أو رموز التحقق</u>.</p>'+
     '<p><b>حقوقك:</b> يمكنك تعديل بياناتك وتغيير بريدك وطلب حذف حسابك وبياناتك من صفحة ملفك، وننفذ الحذف وفق هذه السياسة. لا نشارك بياناتك مع أي طرف ثالث.</p>');
   }else if(which==='terms'){
     xModal('📜 شروط الاستخدام',
-    '<ul><li>المنصة مخصصة للدعم الدراسي لتلاميذ السنة الثانية ثانوي (الجزائر)، والمحتوى يقدم كما هو لخدمة التلميذ.</li>'+
+    '<ul><li>المنصة مخصصة للدعم الدراسي لتلاميذ الطورين المتوسط والثانوي (الجزائر)، والمحتوى يقدم كما هو لخدمة التلميذ.</li>'+
     '<li>الحساب شخصي — لا تشارك كلمة مرورك مع أحد، وأنت مسؤول عن نشاط حسابك.</li>'+
     '<li>يُمنع إساءة الاستخدام: محاولات الاختراق، أو إغراق الخدمة برسائل آلية.</li>'+
     '<li>قد تُحدَّث المنصة وتُضاف ميزات، وستظهر لك إعلانات التحديث داخلها.</li>'+
@@ -1955,8 +1955,8 @@ function xShowDoc(which){
   }else{
     xModal('ℹ️ عن منصة X',
     '<p><b>منصة X</b> — الإصدار '+APP_META.ver+' · آخر تحديث '+APP_META.lastUpdate+'</p>'+
-    '<p>منصة تعليمية جزائرية للسنة الثانية ثانوي شعبة رياضيات: 11 محور رياضيات و12 وحدة فيزياء وفق البرنامج الرسمي، مع خلاصات وقوانين ورسومات وتمارين واختبارات تفاعلية.</p>'+
-    '<p>الإصدار 15 أضاف: الحسابات الشخصية، التقدم المتزامن، الملف الشخصي، الإعدادات الموسعة، لوحة الإدارة، ونظام التحديثات.</p>'+
+    '<p>منصة تعليمية جزائرية مجانية للطورين المتوسط والثانوي بكل المواد والشعب: دروس وملخصات وقوانين وتمارين وفروض واختبارات تفاعلية، مع مكتبة ملفات PDF ومكتبة فيديو ومتابعة التقدم خطوة بخطوة.</p>'+
+    '<p>تدير المنصة مؤسسة X.HAK — والدخول الأول بالرمز السري من البريد مع خيار «متابعة عبر جوجل».</p>'+
     '<p class="set-note">حالة الخدمات: المصادقة — '+sbStatus()+'.</p>');
   }
 }
@@ -2092,9 +2092,9 @@ function xBuildManifest(){
     var base=(location.href||'').split('#')[0].split('?')[0];
     if(base.indexOf('file:')===0)return false;
     var m={
-      name:'منصة X — مرجع السنة الثانية ثانوي شعبة رياضيات',
+      name:'منصة X التعليمية — المتوسط والثانوي',
       short_name:'منصة X',
-      description:'دروس مبسطة برسومات توضيحية وقوانين وتمارين محلولة وتحديات بكالوريا — 11 محور رياضيات و12 وحدة فيزياء وفق المنهاج الجزائري.',
+      description:'منصة تعليمية جزائرية للطورين المتوسط والثانوي: دروس وملخصات وتمارين واختبارات ومكتبات PDF وفيديو.',
       lang:'ar',dir:'rtl',
       start_url:base+'?source=pwa',
       scope:base.slice(0,base.lastIndexOf('/')+1),
@@ -2331,7 +2331,7 @@ function renderHome(){
    '<button class="btn btn-sm btn-ghost" onclick="navigate(\'profile\')" aria-label="الملف الشخصي">'+avatarHTML(26)+'</button>'+
    '</div></div>'+
    '<h1>'+(nm?'أهلًا بك يا '+escAttr(nm):'أهلًا بك في منصة X')+'</h1>'+
-   '<p class="x17-mute">السنة الثانية ثانوي — شعبة رياضيات — المنهاج الجزائري: شرح مفصّل، قوانين مشروحة، أمثلة محلولة خطوة بخطوة، تمارين مصحّحة، واختبارات تفاعلية.</p>'+
+   '<p class="x17-mute">منصة X التعليمية — الطوران المتوسط والثانوي — دروس وملخصات وتمارين واختبارات تفاعلية لكل المواد والشعب.</p>'+
    '<div style="margin:10px 0 0"><span class="ver-badge">الإصدار 17 — الهوية البصرية الاحترافية</span></div>'+
    '</header>';
   /* بطاقة الحساب أو الزائر */
@@ -2743,20 +2743,20 @@ function xShowDoc(which){
     '<p>نحفظ الحد الأدنى اللازم لتشغيل حسابك:</p>'+
     '<ul><li><b>بياناتك:</b> البريد الإلكتروني، الاسم واللقب، السنة الدراسية والشعبة، وما تدخله طوعًا (سنة الميلاد، الجنس، الولاية، الهاتف، الصورة الشخصية).</li>'+
     '<li><b>أين تُحفظ؟</b> على جهازك أنت داخل مساحة تخزين المتصفح — لا نحتفظ بها في أي خدمة خارجية، ولا نجمع كلمات مرور إطلاقًا.</li>'+
-    '<li><b>إرسال التسجيل:</b> عند إنشاء حسابك تُرسل بيانات التسجيل عبر خدمة إرسال البريد إلى بريد مالك المنصة. لا تُرسل البيانات إلا بعد ضغطك على زر «متابعة» وإكمال التسجيل.</li>'+
+    '<li><b>إرسال التسجيل:</b> عند إنشاء حسابك تُرسل بيانات التسجيل الدراسية إلى بريد مؤسسة X.HAK المشغّلة للمنصة. لا تُرسل البيانات إلا بعد موافقتك على السياسة وإكمال التسجيل — <u>ولا تشمل أبدًا كلمات المرور أو رموز التحقق</u>.</li>'+
     '<li><b>بيانات التقدم:</b> الدروس والاختبارات والمحفوظات تُحفظ على جهازك وتظهر لك أنت فقط.</li></ul>'+
     '<p><b>حقوقك:</b> عدّل بياناتك أو احذف حسابك وبياناته من جهازك في أي وقت من صفحة ملفك.</p>');
   }else if(which==='terms'){
     xModal('📜 شروط الاستخدام',
-    '<ul><li>المنصة مخصصة للدعم الدراسي لتلاميذ السنة الثانية ثانوي (الجزائر)، والمحتوى يقدم كما هو لخدمة التلميذ.</li>'+
+    '<ul><li>المنصة مخصصة للدعم الدراسي لتلاميذ الطورين المتوسط والثانوي (الجزائر)، والمحتوى يقدم كما هو لخدمة التلميذ.</li>'+
     '<li>بياناتك الشخصية على جهازك أمانتك — لا تترك جهازك مفتوحًا على حسابك في يد أحد.</li>'+
     '<li>يُمنع إساءة الاستخدام: محاولات الاختراق أو إغراق بريد المالك برسائل آلية.</li>'+
     '<li>قد تُحدَّث المنصة وتُضاف ميزات، وستظهر لك إعلانات التحديث داخلها.</li></ul>');
   }else{
     xModal('ℹ️ عن منصة X',
     '<p><b>منصة X</b> — الإصدار '+APP_META.ver+' · آخر تحديث '+APP_META.lastUpdate+'</p>'+
-    '<p>منصة تعليمية جزائرية للسنة الثانية ثانوي شعبة رياضيات: 11 محور رياضيات و12 وحدة فيزياء وفق البرنامج الرسمي، مع خلاصات وقوانين ورسومات وتمارين واختبارات تفاعلية.</p>'+
-    '<p>الإصدار 18 أضاف: الدخول بالبريد دون خدمة مصادقة خارجية، حفظًا محليًا كاملًا للبيانات، إصلاح قسم الرسائل والإبلاغ، وإصلاحات شاملة في الإعدادات.</p>'+
+    '<p>منصة تعليمية جزائرية مجانية للطورين المتوسط والثانوي بكل المواد والشعب: دروس وملخصات وقوانين وتمارين وفروض واختبارات تفاعلية، مع مكتبة ملفات PDF ومكتبة فيديو ومتابعة التقدم خطوة بخطوة.</p>'+
+    '<p>تديرها مؤسسة X.HAK، وتعمل كتطبيق (PWA) يثبّت على هاتفك ويعمل بلا إنترنت، مع إشعارات تصل حتى والتطبيق مغلق.</p>'+
     '<p class="set-note">حالة الخدمات: التخزين المحلي '+(x18StorageOK()?'جاهز ✅':'غير متاح ⚠️')+' — البيانات محفوظة على جهازك.</p>');
   }
 }
@@ -2851,7 +2851,7 @@ function renderHome18(){
    '<button class="btn btn-sm btn-ghost" onclick="navigate(\'profile\')" aria-label="الملف الشخصي">'+avatarHTML(26)+'</button>'+
    '</div></div>'+
    '<h1>'+(nm?'أهلًا بك يا '+escAttr(nm):'أهلًا بك في منصة X')+'</h1>'+
-   '<p class="x17-mute">السنة الثانية ثانوي — شعبة رياضيات — المنهاج الجزائري: شرح مفصّل، قوانين مشروحة، أمثلة محلولة خطوة بخطوة، تمارين مصحّحة، واختبارات تفاعلية.</p>'+
+   '<p class="x17-mute">منصة X التعليمية — الطوران المتوسط والثانوي — دروس وملخصات وتمارين واختبارات تفاعلية لكل المواد والشعب.</p>'+
    '<div style="margin:10px 0 0"><span class="ver-badge">الإصدار 18 — الدخول بالبريد والإصلاحات الشاملة</span></div>'+
    '</header>';
   /* بطاقة الحساب أو الزائر */
@@ -3022,7 +3022,7 @@ function renderHome18(){
   return '<div class="fade-in" style="min-height:56vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:34px 18px 20px">'+
    '<div class="logo-big" style="margin:0 auto 18px"><div class="logo-mark">'+LOGO+'</div></div>'+
    '<h1 style="font-size:32px;margin:0 0 12px;letter-spacing:.5px">منصة X</h1>'+
-   '<p style="max-width:540px;margin:0 auto;opacity:.82;font-size:14.5px;line-height:2">منصة تعليمية جزائرية مجانية لطلاب السنة الثانية ثانوي — شعبة رياضيات: دروس مبسطة بالرسومات، قوانين وخلاصات، تمارين واختبارات تفاعلية، وتحديات بكالوريا — 23 محورًا بين رياضيات وفيزياء وفق المنهاج الرسمي. تعمل حتى دون إنترنت، وتقدمك محفوظ على جهازك.</p>'+
+   '<p style="max-width:540px;margin:0 auto;opacity:.82;font-size:14.5px;line-height:2">منصة تعليمية جزائرية مجانية للطورين المتوسط والثانوي: دروس وملخصات وقوانين، تمارين واختبارات تفاعلية، مكتبات PDF وفيديو، وتقدمك محفوظ على جهازك. تعمل حتى دون إنترنت.</p>'+
   '</div>';
 }
 
@@ -3188,7 +3188,7 @@ function x18FormNext(){
 
 /* ---- 20.4 الشريط العلوي الثابت + القائمة الجانبية للحاسوب ---- */
 function x20Title(){
-  var n={home:'الرئيسية',subjects:'المواد',dash:'تقدّمي',profile:'ملفي',settings:'الإعدادات',admin:'لوحة المالك',auth:'الدخول',lesson:'درس',quiz:'اختبار'};
+  var n={home:'الرئيسية',subjects:'المواد',dash:'تقدّمي',profile:'ملفي',settings:'الإعدادات',admin:'لوحة X.HAK',auth:'الدخول',lesson:'درس',quiz:'اختبار'};
   if(ROUTE.page==='subject'){try{return (CURR[ROUTE.subject||'math']||{}).name||'المادة'}catch(e){return 'المادة'}}
   return n[ROUTE.page]||'منصة X';
 }
@@ -3238,7 +3238,7 @@ function renderHome18(){
   h+='<section class="x20-hero glass">'+
    '<div class="logo-big" style="margin:0 auto 12px"><div class="logo-mark">'+LOGO+'</div></div>'+
    '<h2>'+(signed?('أهلًا بك مجددًا، '+escAttr(USER.profile.first_name||'صديقنا')+' 👋'):'أهلًا بك في منصة X 👋')+'</h2>'+
-   '<p>منصة تعليمية جزائرية لطلاب السنة الثانية ثانوي — 23 محورًا بين رياضيات وفيزياء: خلاصات وقوانين، تمارين، اختبارات تفاعلية وتحديات بكالوريا، وتقدمك محفوظ على جهازك.</p>'+
+   '<p>منصة تعليمية جزائرية للطورين المتوسط والثانوي: خلاصات وقوانين، تمارين، اختبارات تفاعلية، مكتبات PDF وفيديو، وتقدمك محفوظ على جهازك.</p>'+
    (signed?'':'<button class="btn btn-primary" onclick="navigate(\'auth\')">🔑 ابدأ الآن ببريدك الإلكتروني</button>')+
    '</section>';
   h+='<section class="x20-subjs">'+x17SubjCard('math')+x17SubjCard('phys')+'</section>';
@@ -7405,7 +7405,7 @@ function renderX30Lib(){
     }
     try{rows.sort(function(a,b){var ta=(a&&a.term)?(parseInt(a.term,10)||0):0,tb=(b&&b.term)?(parseInt(b.term,10)||0):0;if(ta!==tb){return ta-tb}return (''+((a&&a.name)||'')).localeCompare(''+((b&&b.name)||''))})}catch(e35s){}
     if(!rows.length){
-      box.innerHTML='<p class="x17-empty">'+(bName?('لا توجد ملفات في مكتبة هذه الشعبة بعد — يضيفها المالك قريبًا.'):'لا توجد ملفات في هذا القسم بعد — تُضاف تدريجيًا.')+'</p>';
+      box.innerHTML='<p class="x17-empty">'+(bName?('لا توجد ملفات في مكتبة هذه الشعبة بعد — تضيفها إدارة المنصة قريبًا.'):'لا توجد ملفات في هذا القسم بعد — تُضاف تدريجيًا.')+'</p>';
       return;
     }
     var b='';
@@ -7569,7 +7569,7 @@ var __x33AdminGate=renderAdminPage18;
 renderAdminPage18=function(){
   if(!USER.session){return __x33AdminGate()}
   if(!isAdmin()){
-    return '<div class="auth-wrap fade-in"><div class="auth-card glass-strong"><h3>🛡️ لوحة المالك</h3><p class="auth-note">هذه الصفحة مخصصة لمالك المنصة فقط.</p><button class="btn btn-block" onclick="navigate(\'home\')">العودة للرئيسية</button></div></div>';
+    return '<div class="auth-wrap fade-in"><div class="auth-card glass-strong"><h3>🛡️ لوحة المالك</h3><p class="auth-note">هذه الصفحة مخصصة لإدارة مؤسسة X.HAK فقط.</p><button class="btn btn-block" onclick="navigate(\'home\')">العودة للرئيسية</button></div></div>';
   }
   return __x33AdminGate();
 };
@@ -7729,10 +7729,10 @@ function renderX30Lib(){
     if(!files){
       if(why==='nojson'){
         if(isAdmin()){
-          box.innerHTML='<div class="x30-err">📄 المكتبة فارغة بعد — أنت المالك.<br>أضف أول ملف: ارفع ملف الـ PDF إلى المستودع، ثم ولّد سطرك في لوحة المالك والصقه في pdfs.json — ويظهر هنا فورًا.</div>'+
+          box.innerHTML='<div class="x30-err">📄 المكتبة فارغة بعد — أنت الإدارة.<br>أضف أول ملف: ارفع ملف الـ PDF إلى المستودع، ثم ولّد سطرك في لوحة المالك والصقه في pdfs.json — ويظهر هنا فورًا.</div>'+
            '<div class="x30-row" style="margin-top:10px"><button class="btn btn-primary" onclick="navigate(\'admin\')">🛡️ فتح لوحة المالك الآن</button></div>';
         }else{
-          box.innerHTML='<div class="x30-err">📄 لم تُضف ملفات PDF بعد لهذا القسم.<br>يضيفها المالك قريبًا — وستظهر هنا تلقائيًا بعد إضافتها دون تحديث التطبيق.</div>';
+          box.innerHTML='<div class="x30-err">📄 لم تُضف ملفات PDF بعد لهذا القسم.<br>تضيفها إدارة المنصة قريبًا — وستظهر هنا تلقائيًا بعد إضافتها دون تحديث التطبيق.</div>';
         }
       }else{
         box.innerHTML='<div class="x30-err">⚠️ تعذر جلب الملفات الآن — تحقق من اتصالك واضغط «🔄 تحديث المكتبة».</div>';
@@ -7752,10 +7752,10 @@ function renderX30Lib(){
     }
     try{rows.sort(function(a,b){var ta=(a&&a.term)?(parseInt(a.term,10)||0):0,tb=(b&&b.term)?(parseInt(b.term,10)||0):0;if(ta!==tb){return ta-tb}return (''+((a&&a.name)||'')).localeCompare(''+((b&&b.name)||''))})}catch(e35s){}
     if(!rows.length){
-      var msg=(bName?('لا توجد ملفات في مكتبة هذه الشعبة بعد — يضيفها المالك قريبًا.'):'لا توجد ملفات في هذا القسم بعد — تُضاف تدريجيًا.');
+      var msg=(bName?('لا توجد ملفات في مكتبة هذه الشعبة بعد — تضيفها إدارة المنصة قريبًا.'):'لا توجد ملفات في هذا القسم بعد — تُضاف تدريجيًا.');
       if(isAdmin()){
         box.innerHTML='<p class="x17-empty">'+msg+'</p>'+
-         '<div class="x30-row" style="margin-top:10px"><button class="btn btn-primary" onclick="navigate(\'admin\')">🛡️ أنت المالك — أضف ملفات من لوحة المالك</button></div>';
+         '<div class="x30-row" style="margin-top:10px"><button class="btn btn-primary" onclick="navigate(\'admin\')">🛡️ أنت الإدارة — أضف ملفات من لوحة المالك</button></div>';
       }else{
         box.innerHTML='<p class="x17-empty">'+msg+'</p>';
       }
@@ -7893,10 +7893,10 @@ function renderX35Vid(){
     if(!list){
       if(why==='nojson'){
         if(isAdmin()){
-          box.innerHTML='<div class="x30-err">🎬 مكتبة الفيديو فارغة بعد — أنت المالك.<br>أضف أول فيديو: انسخ رابطه من يوتيوب، ثم ولّد سطرك في «لوحة المالك» والصقه في ملف videos.json — ويظهر هنا فورًا.</div>'+
+          box.innerHTML='<div class="x30-err">🎬 مكتبة الفيديو فارغة بعد — أنت الإدارة.<br>أضف أول فيديو: انسخ رابطه من يوتيوب، ثم ولّد سطرك في «لوحة المالك» والصقه في ملف videos.json — ويظهر هنا فورًا.</div>'+
            '<div class="x30-row" style="margin-top:10px"><button class="btn btn-primary" onclick="navigate(\'admin\')">🛡️ فتح لوحة المالك الآن</button></div>';
         }else{
-          box.innerHTML='<div class="x30-err">🎬 لم تُضف فيديوهات بعد لهذا القسم.<br>يضيفها المالك قريبًا — وستظهر هنا تلقائيًا دون تحديث التطبيق.</div>';
+          box.innerHTML='<div class="x30-err">🎬 لم تُضف فيديوهات بعد لهذا القسم.<br>تضيفها إدارة المنصة قريبًا — وستظهر هنا تلقائيًا دون تحديث التطبيق.</div>';
         }
       }else{
         box.innerHTML='<div class="x30-err">⚠️ تعذر جلب الفيديوهات الآن — تحقق من اتصالك واضغط «🔄 تحديث المكتبة».</div>';
@@ -7912,10 +7912,10 @@ function renderX35Vid(){
     }
     try{rows.sort(function(a,b){var ta=(a&&a.term)?(parseInt(a.term,10)||0):0,tb=(b&&b.term)?(parseInt(b.term,10)||0):0;if(ta!==tb){return ta-tb}return (''+((a&&a.title)||'')).localeCompare(''+((b&&b.title)||''))})}catch(e35s){}
     if(!rows.length){
-      var msg='لا توجد فيديوهات في هذا القسم بعد — يضيفها المالك قريبًا.';
+      var msg='لا توجد فيديوهات في هذا القسم بعد — تضيفها إدارة المنصة قريبًا.';
       if(isAdmin()){
         box.innerHTML='<p class="x17-empty">'+msg+'</p>'+
-         '<div class="x30-row" style="margin-top:10px"><button class="btn btn-primary" onclick="navigate(\'admin\')">🛡️ أنت المالك — أضف فيديوهات من لوحة المالك</button></div>';
+         '<div class="x30-row" style="margin-top:10px"><button class="btn btn-primary" onclick="navigate(\'admin\')">🛡️ أنت الإدارة — أضف فيديوهات من لوحة المالك</button></div>';
       }else{
         box.innerHTML='<p class="x17-empty">'+msg+'</p>';
       }
@@ -9414,6 +9414,228 @@ try{APP_META.changelog.unshift('الإصدار 44.2 — الإشعارات تع�
 function fallbackNews18(){
   return [{title:'الإصدار 44 — الطبقة الاحترافية الكبرى',
     body:'صورتك تملأ الشاشة عند الفتح، المشاركة تفتح قائمة الهاتف مباشرة، الشاشة الكاملة للفيديو تامة بزر ✕، والدخول الأول بالرمز السري مثل التطبيقات العالمية.',
+    date:APP_META.date}];
+}
+/* ============ الطبقة 45 — الإصدار 45: مؤسسة X.HAK + افتتاحية سوداء + خلفية قابلة للتغيير + متابعة عبر جوجل ============ */
+/* 45.أ الهوية: مؤسسة X.HAK هي المشغّل الرسمي — توقيع «من X.HAK» في الافتتاحية مثل «from Meta» في واتساب */
+var X45V_ORG='X.HAK';
+try{
+  var x45vSb=document.createElement('style');
+  x45vSb.textContent=
+   '#x43-boot{background:#000 !important;flex-direction:column !important;justify-content:center}'+
+   '#x43-boot img{width:128px !important;height:128px !important;object-fit:contain !important;object-position:center !important;border-radius:28px !important;box-shadow:0 14px 44px rgba(70,140,230,.4)}'+
+   '#x43-boot .x45v-brand{color:#fff;font-size:20px;font-weight:800;letter-spacing:.4px;margin-top:16px}'+
+   '#x43-boot .x45v-org{color:rgba(255,255,255,.6);font-size:13px;margin-top:3px}';
+  (document.head||document.documentElement).appendChild(x45vSb);
+  var x45vBt=document.getElementById('x43-boot');
+  if(x45vBt){
+    x45vBt.innerHTML='<img src="./icon-512.png" alt="منصة X التعليمية">'+
+     '<div class="x45v-brand">منصة X التعليمية</div>'+
+     '<div class="x45v-org">من '+X45V_ORG+'</div>';
+  }
+}catch(e){}
+/* 45.ب الخلفية القابلة للتغيير: الافتراضية أو أسود نقي أو صورة من معرض هاتفك — تُحفظ على الجهاز */
+var X45V_BGMODE='default',X45V_BGIMG='';
+try{var x45vTm=(''+stGet('x45v_bgmode',false));if(x45vTm==='black'||x45vTm==='img'){X45V_BGMODE=x45vTm}}catch(e0){}
+try{X45V_BGIMG=(''+stGet('x45v_bgimg',false))||''}catch(e1){}
+function x45vBgApply(){
+  try{
+    var el=document.getElementById('x45v-bgstyle');
+    if(!el){el=document.createElement('style');el.id='x45v-bgstyle';(document.head||document.documentElement).appendChild(el)}
+    var css='';
+    if(X45V_BGMODE==='black'){css='body{background:#000 !important}html{background:#000 !important}'}
+    else if(X45V_BGMODE==='img'&&X45V_BGIMG){
+      css='body{background:linear-gradient(rgba(8,14,24,.87),rgba(8,14,24,.92)),url("'+X45V_BGIMG.split('"').join('%22')+'") center/cover fixed no-repeat !important}';
+    }
+    el.textContent=css;
+  }catch(e){}
+}
+function x45vBgSet(mode){
+  X45V_BGMODE=(mode==='black'||mode==='img')?mode:'default';
+  try{stSet('x45v_bgmode',X45V_BGMODE)}catch(e){}
+  x45vBgApply();
+  toast(X45V_BGMODE==='black'?'⬛ خلفية سوداء نقية':(X45V_BGMODE==='img'?'🖼️ خلفيتك الخاصة':'↩️ الخلفية الافتراضية'),'success');
+  try{render()}catch(e1){}
+}
+function x45vBgSaveImg(dataUrl){
+  X45V_BGIMG=''+dataUrl;
+  try{stSet('x45v_bgimg',X45V_BGIMG)}catch(e0){}
+  X45V_BGMODE='img';
+  try{stSet('x45v_bgmode','img')}catch(e1){}
+  x45vBgApply();
+  toast('🖼️ تم تعيين خلفيتك الجديدة','success');
+  try{render()}catch(e2){}
+}
+function x45vBgPick(inp){
+  try{
+    var f=(inp&&inp.files&&inp.files[0])?inp.files[0]:null;
+    if(!f){return}
+    var rd=new FileReader();
+    rd.onload=function(){
+      try{
+        var img=new Image();
+        img.onload=function(){
+          try{
+            var mx=1080,w=img.width,h=img.height,sc=(w>mx)?(mx/w):1;
+            var cv=document.createElement('canvas');
+            cv.width=Math.round(w*sc);cv.height=Math.round(h*sc);
+            cv.getContext('2d').drawImage(img,0,0,cv.width,cv.height);
+            x45vBgSaveImg(cv.toDataURL('image/jpeg',0.82));
+          }catch(e1){x45vBgSaveImg(rd.result)}
+        };
+        img.onerror=function(){x45vBgSaveImg(rd.result)};
+        img.src=''+rd.result;
+      }catch(e0){x45vBgSaveImg(rd.result)}
+    };
+    rd.onerror=function(){toast('❌ تعذر قراءة الصورة','error')};
+    rd.readAsDataURL(f);
+  }catch(e){toast('❌ تعذر اختيار الصورة','error')}
+}
+x45vBgApply();
+/* 45.ج الإعدادات: قسم «الخلفية» في تبويب المظهر */
+var __x45vSettings=renderSettingsPage;
+renderSettingsPage=function(){
+  var h=__x45vSettings();
+  try{
+    var card='<div class="set-card glass-strong"><h3>🖼️ المظهر — الخلفية</h3>'+
+     '<div class="set-line"><span>خلفية التطبيق</span><div class="pills">'+
+     '<button class="xpill'+(X45V_BGMODE==='default'?' on':'')+'" onclick="x45vBgSet(\'default\')">الافتراضية</button>'+
+     '<button class="xpill'+(X45V_BGMODE==='black'?' on':'')+'" onclick="x45vBgSet(\'black\')">⬛ أسود نقي</button>'+
+     '<button class="xpill'+(X45V_BGMODE==='img'?' on':'')+'" onclick="x45vBgSet(\'img\')">🖼️ صورتي</button>'+
+     '</div></div>'+
+     '<div class="set-line"><span>صورة من هاتفك</span> '+
+     '<input type="file" accept="image/*" id="x45v-bgfile" style="display:none" onchange="x45vBgPick(this)">'+
+     '<button class="btn btn-sm btn-primary" onclick="try{document.getElementById(\'x45v-bgfile\').click()}catch(e0){}">📂 اختيار صورة</button>'+
+     ((X45V_BGMODE==='img')?' <button class="btn btn-sm" onclick="x45vBgSet(\'default\')">↩️ إزالة الصورة</button>':'')+
+     '</div>'+
+     '<p class="set-note">اختر «أسود نقي» لمظهر احترافي مثل تيليجرام وواتساب، أو أي صورة من معرض صور هاتفك — تُطبق فورًا وتُحفظ على جهازك، والبطاقات تبقى واضحة فوقها.</p></div>';
+    var i=h.indexOf('id="x38-spane0"');
+    if(i>=0){var j=h.indexOf('>',i);if(j>0){h=h.slice(0,j+1)+card+h.slice(j+1)}}else{h+=card}
+  }catch(e){}
+  return h;
+};
+/* 45.د الدخول الأول: زر «متابعة عبر جوجل» تحت حقل البريد — يعيد جوجل المستخدم لبريده فيدخل كلمة مروره عند جوجل نفسها ثم يعود للمنصة — كلمة المرور لا تمر عبر المنصة إطلاقًا */
+function x45vGoogle(){
+  if(!SB.ready||!SB.client||!SB.client.auth){toast('ℹ️ خدمة الحسابات غير مهيأة حاليًا');return}
+  try{
+    SB.client.auth.signInWithOAuth({provider:'google',options:{redirectTo:(typeof location!=='undefined'&&location&&location.href)?location.href:'https://kacemhammouali.github.io/X/'}}).then(function(r){
+      if(r&&r.error){toast('❌ تعذر الدخول عبر جوجل — حاول مجددًا أو استخدم البريد والرمز','error')}
+    }).catch(function(e){toast('❌ الدخول عبر جوجل غير مفعّل بعد — تفعّله الإدارة من لوحة الخدمة','error')});
+  }catch(e){toast('❌ الدخول عبر جوجل غير مفعّل بعد','error')}
+}
+var __x45vAuthNew=authNew;
+authNew=function(){
+  var h=__x45vAuthNew();
+  try{
+    var gbtn='<div style="margin:12px 0 2px">'+
+     '<button class="btn btn-block" style="background:#fff;color:#1a1a2e;border:1px solid rgba(0,0,0,.14);font-weight:700" onclick="x45vGoogle()">متابعة عبر جوجل</button>'+
+     '</div>'+
+     '<p class="auth-alt" style="text-align:center;margin:2px 0 8px">— أو أدخل بريدك —</p>';
+    var anchor='<p class="auth-alt">لديك حساب؟';
+    var i=h.indexOf(anchor);
+    if(i>=0){h=h.slice(0,i)+gbtn+h.slice(i)}else{h+=gbtn}
+  }catch(e){}
+  return h;
+};
+/* 45.ه إشعار المؤسسة: عند إكمال تسجيل جديد (بالرمز أو عبر جوجل) تصل المعلومات الدراسية إلى مؤسسة X.HAK — دون أي كلمات مرور */
+var __x45vSaveRow=saveProfileRow;
+saveProfileRow=function(){
+  return __x45vSaveRow().then(function(ok){
+    if(ok){
+      try{
+        var f=AUTH.form;
+        var body='تسجيل جديد في منصة X التعليمية:'+'\n'+
+         'الاسم: '+(f.fn||'')+' '+(f.ln||'')+'\n'+
+         'البريد: '+(AUTH.email||'')+'\n'+
+         'المستوى: '+(f.level||'ثانوي')+'\n'+
+         'السنة: '+(f.year||'')+'\n'+
+         'الشعبة: '+(f.branch||'')+'\n'+
+         'التاريخ: '+APP_META.date;
+        x19Send('تسجيل مستخدم جديد — '+(f.fn||'')+' '+(f.ln||''),body,(AUTH.email||''));
+      }catch(e0){}
+    }
+    return ok;
+  });
+};
+/* 45.و لوحة X.HAK: كل زر يعمل مع ردّ واضح دائمًا — تقرير ونسخة احتياطية وتنظيف وفحص تحديث */
+function x45vClose(){try{var o=document.getElementById('x45v-ov');if(o&&o.parentNode){o.parentNode.removeChild(o)}}catch(e){}}
+function x45vPanelOpen(html){
+  try{
+    var o=document.createElement('div');
+    o.id='x45v-ov';
+    o.setAttribute('style','position:fixed;top:0;left:0;right:0;bottom:0;z-index:31000;background:rgba(4,9,16,.78);display:flex;align-items:center;justify-content:center;padding:18px');
+    o.innerHTML='<div dir="rtl" style="background:#111c2e;border:1px solid rgba(140,200,240,.3);border-radius:18px;max-width:430px;width:100%;max-height:84vh;overflow:auto;padding:18px;color:#dbe9f7;font-size:13.5px;line-height:1.95">'+html+'<div style="text-align:center;margin-top:14px"><button class="btn btn-primary" onclick="x45vClose()">إغلاق</button></div></div>';
+    document.body.appendChild(o);
+    return true;
+  }catch(e){return false}
+}
+function x45vReport(){
+  var np=0,nv=0,bytes=0,i,kk;
+  try{np=(X33_PDFS||[]).length}catch(e1){}
+  try{nv=(X35_VIDS||[]).length}catch(e2){}
+  try{for(i=0;i<localStorage.length;i++){kk=localStorage.key(i);bytes+=(''+(localStorage.getItem(kk)||'')).length}}catch(e3){}
+  var sb='غير مهيأة';try{if(SB&&SB.ready){sb='متصل ✓'}}catch(e5){}
+  var push='مفعّلة ✓';try{if(!X44_PUSH_SRC){push='غير مهيأة'}}catch(e6){}
+  var ok=x45vPanelOpen('<h3 style="margin:0 0 12px">📊 تقرير حالة المنصة</h3>'+
+   '<div class="sum-row"><span>الإصدار الحالي</span><b>'+APP_META.ver+'</b></div>'+
+   '<div class="sum-row"><span>ملفات PDF</span><b>'+np+'</b></div>'+
+   '<div class="sum-row"><span>الفيديوهات</span><b>'+nv+'</b></div>'+
+   '<div class="sum-row"><span>حجم البيانات المحلية</span><b>'+Math.round(bytes/1024)+' كيلوبايت</b></div>'+
+   '<div class="sum-row"><span>قاعدة البيانات</span><b>'+sb+'</b></div>'+
+   '<div class="sum-row"><span>خدمة الإشعارات</span><b>'+push+'</b></div>'+
+   '<p class="set-note">المشغّل: مؤسسة '+X45V_ORG+'</p>');
+  if(ok){toast('📊 فُتح تقرير الحالة')}else{toast('❌ تعذر فتح التقرير','error')}
+}
+function x45vBackup(){
+  try{
+    var data={},i2,k2;
+    for(i2=0;i2<localStorage.length;i2++){k2=localStorage.key(i2);data[k2]=localStorage.getItem(k2)}
+    var txt=JSON.stringify({app:'منصة X التعليمية',org:X45V_ORG,ver:APP_META.ver,date:new Date().toISOString(),data:data});
+    var a=document.createElement('a');
+    a.href='data:application/json;charset=utf-8,'+encodeURIComponent(txt);
+    a.download='x-backup-'+APP_META.ver+'.json';
+    document.body.appendChild(a);
+    try{a.click()}catch(e0){}
+    try{document.body.removeChild(a)}catch(e1){}
+    toast('💾 نُزّلت النسخة الاحتياطية — احفظها في مكان آمن','success');
+  }catch(e){toast('❌ تعذر إنشاء النسخة الاحتياطية','error')}
+}
+function x45vClean(){
+  try{XUPD.checked=false;XUPD.newer=null}catch(e){}
+  toast('🧹 نُظّفت الذاكرة المؤقتة — ستُجلب الملفات من جديد عند الطلب','success');
+}
+function x45vUpdate(){
+  toast('🔄 نفحص التحديث الآن…');
+  try{checkUpdate(false)}catch(e){}
+}
+function x45vMsgCenter(){
+  return '<div class="set-card glass-strong"><h3>📩 رسائل التلاميذ</h3>'+
+   '<p class="set-note">كل تسجيل جديد وكل إبلاغ يصل فورًا إلى بريد مؤسسة '+X45V_ORG+' — تُرسَل رسالة التسجيل من بريد التلميذ نفسه أو في الخلفية تلقائيًا، فلا تحتاج أي تهيئة: افتح Gmail وسترى كل التسجيلات.</p></div>'+
+   '<div class="set-card glass-strong"><h3>📣 إشعارات Push</h3>'+
+   '<p class="set-note">إشعارات الدروس تُرسل من لوحة SendPulse: اختر «Send Notifications»، اكتب العنوان والنص، ثم اضغط «Send» — تصل لكل المشتركين باسم «منصة X التعليمية» وأيقونتها حتى والتطبيق مغلق.</p>'+
+   '<div class="btn-row"><a class="btn btn-sm btn-primary" href="https://sendpulse.com" target="_blank" rel="noopener">فتح لوحة SendPulse</a></div></div>';
+}
+var __x45vAdmin=renderAdminPage18;
+renderAdminPage18=function(){
+  var h=__x45vAdmin();
+  try{
+    h=''+h;
+    h=h.split('لوحة المالك').join('لوحة '+X45V_ORG);
+    h=h.split('onclick="x44Report()"').join('onclick="x45vReport()"');
+    h=h.split('onclick="x44Backup()"').join('onclick="x45vBackup()"');
+    h=h.split('onclick="x44Clean()"').join('onclick="x45vClean()"');
+    h=h.split('onclick="checkUpdate(false)"').join('onclick="x45vUpdate()"');
+    h=h.split('<p class="set-note">لا توجد قنوات إرسال مهيأة.</p>').join(x45vMsgCenter());
+  }catch(e){}
+  return h;
+};
+/* 45.ز بيانات الإصدار 45 */
+APP_META.ver='45.0';APP_META.date='2026-11-01';APP_META.lastUpdate='2026-11-01';
+APP_META.notes='الإصدار 45 — «X.HAK»: افتتاحية سوداء أنيقة كتطبيقات العالم بشعار المنصة وتوقيع «من X.HAK»، خلفية قابلة للتغيير من الإعدادات (أسود نقي أو صورة من معرض هاتفك)، زر «متابعة عبر جوجل» في الدخول الأول، تنظيف شامل لكل النصوص القديمة فصار وصف المنصة للطورين المتوسط والثانوي بكل المواد والشعب، لوحة الإدارة باسم مؤسسة X.HAK بأزرار تعمل جميعها ومركز رسائل واضح، وسياسة خصوصية محدثة توضح وصول معلومات التسجيل الدراسية إلى المؤسسة دون أي كلمات مرور، والإشعارات تعمل كما في الإصدار 44.2.';
+try{APP_META.changelog.unshift('الإصدار 45 — «X.HAK»: افتتاحية سوداء بتوقيع المؤسسة، خلفية قابلة للتغيير (أسود نقي أو صورة من الهاتف)، متابعة عبر جوجل، تنظيف شامل للنصوص القديمة، لوحة إدارة X.HAK تعمل جميع أزرارها، ومركز رسائل واضح.')}catch(e){}
+function fallbackNews18(){
+  return [{title:'الإصدار 45 — مؤسسة X.HAK',
+    body:'افتتاحية سوداء أنيقة بتوقيع «من X.HAK»، خلفية قابلة للتغيير من تبويب المظهر في الإعدادات، زر «متابعة عبر جوجل» في الدخول، ونُظّفت كل النصوص القديمة.',
     date:APP_META.date}];
 }
 </script><script>
