@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>منصة X التعليمية — الإصدار 42 | المتوسط والثانوي</title>
+<title>منصة X التعليمية — الإصدار 43 | المتوسط والثانوي</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" type="image/jpeg" href="logo.jpg">
 <link rel="apple-touch-icon" href="logo.jpg">
@@ -9015,6 +9015,97 @@ try{APP_META.changelog.unshift('الإصدار 42 — المستقر: تبديل
 function fallbackNews18(){
   return [{title:'الإصدار 42 — مستقر ونهائي',
     body:'تبديل الفصول في المكتبتين يشتغل فورًا، تنزيل التطبيق APK مباشرة من الإعدادات مع رابط للمشاركة، والمنصة جاهزة للإشعارات الفورية.',
+    date:APP_META.date}];
+}
+/* ============ الطبقة 43 — لمسة عالمية: ذكاء التثبيت + ملف شخصي مرتب + تصميم منعكس ============ */
+/* 43.1 تصميم عالمي: بطاقات أنعم، أزرار بعمق، شريط سفلي بمؤشر مضيء — مثل فيسبوك وواتساب وإنستغرام */
+try{
+  var x43css=document.createElement('style');
+  x43css.textContent=
+   '.x17-card{border-radius:18px;box-shadow:0 10px 30px rgba(0,0,0,.30),0 2px 8px rgba(0,0,0,.22)}'+
+   '.btn{border-radius:12px;transition:transform .16s ease,box-shadow .25s ease,background .25s ease,color .2s ease}'+
+   '.btn:active{transform:scale(.95)}'+
+   '.btn-primary{box-shadow:0 5px 16px rgba(34,158,217,.38)}'+
+   '.btn-primary:active{box-shadow:0 2px 8px rgba(34,158,217,.28)}'+
+   '.inp{border-radius:12px}'+
+   '.bnav-btn{border-radius:14px}'+
+   '.bnav-btn.bnav-on{background:linear-gradient(180deg,rgba(42,171,238,.24),rgba(42,171,238,.08));box-shadow:inset 0 0 0 1px rgba(42,171,238,.4),0 4px 14px rgba(34,158,217,.28)}'+
+   'html[data-theme="light"] .bnav-btn.bnav-on{box-shadow:inset 0 0 0 1px rgba(34,158,217,.35),0 4px 14px rgba(34,158,217,.16)}'+
+   '.pv15 .h15-cards{display:none!important}'+
+   'section.contact{border-radius:18px;margin-top:14px}';
+  (document.head||document.documentElement).appendChild(x43css);
+}catch(e){}
+/* 43.2 ذكاء التثبيت: التطبيق يعرف إن كان مثبتًا — بطاقات التثبيت تظهر في الموقع فقط وتختفي داخل التطبيق */
+function x43Standalone(){
+  try{
+    if(window.matchMedia&&(window.matchMedia('(display-mode: standalone)').matches||window.matchMedia('(display-mode: fullscreen)').matches)){return true}
+    if(window.navigator&&window.navigator.standalone){return true}
+  }catch(e){}
+  return false
+}
+var __x43App=x29AppCard;
+x29AppCard=function(){return ''};
+var __x43Apk=x42ApkCard;
+x42ApkCard=function(){
+  if(x43Standalone()){
+    return '<section class="x17-card fade-in" style="margin:16px auto 0">'+
+     '<h3 style="margin:0 0 4px">📤 شارك التطبيق مع صديق</h3>'+
+     '<p class="x17-mute" style="font-size:12.5px;margin:8px 0 10px">التطبيق مثبّت على هاتفك بالفعل ✓ — انسخ الرابط وأرسله لزميلك: يضغطه فيُنزَّل التطبيق مباشرة على هاتفه بلا متصفح وبلا خطوات.</p>'+
+     '<div class="btn-row" style="margin:8px 0 0"><button class="btn btn-sm" onclick="x42CopyApk()">🔗 نسخ رابط التنزيل</button></div>'+
+     '</section>';
+  }
+  return __x43Apk();
+};
+/* 43.3 الإبلاغ والرسائل تنتقل إلى تبويب «ملفي» فقط — والرئيسية تنظف من التكرار */
+var __x43Contact=contactHTML;
+contactHTML=function(){return ''};
+var __x43ProfileBase=renderProfilePage18;
+renderProfilePage18=function(){
+  return __x43ProfileBase()+__x43Contact();
+};
+/* 43.4 الإشعارات: دعم أكثر من خدمة — ضع الاسم والمعرف عند التسجيل */
+var X43_PUSH={provider:'',id:''};
+function x43InitPush(){
+  if(!X43_PUSH||!X43_PUSH.provider||!X43_PUSH.id){return}
+  try{
+    var hd=document.getElementsByTagName('head')[0]||document.documentElement;
+    if(X43_PUSH.provider==='truepush'){
+      window.tpq=window.tpq||[];
+      window.tpq.push(['init',[X43_PUSH.id],{optOut:false}]);
+      var s=document.createElement('script');s.src='https://cdn.truepush.com/sdk/truepush.min.js';s.async=true;hd.appendChild(s);
+    }else if(X43_PUSH.provider==='onesignal'){
+      window.OneSignalDeferred=window.OneSignalDeferred||[];
+      window.OneSignalDeferred.push(function(OneSignal){OneSignal.init({appId:X43_PUSH.id,notifyButton:{enable:false}})});
+      var s2=document.createElement('script');s2.src='https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js';s2.defer=true;hd.appendChild(s2);
+    }
+  }catch(e){}
+}
+if(X43_PUSH&&X43_PUSH.provider&&X43_PUSH.id){x43InitPush()}
+/* 43.6 شاشة البداية المدمجة: أيقونتك نفسها بلا أي تغيير على خلفية التطبيق نفسها، ثم ذوبان ناعم نحو الرئيسية — مثل التطبيقات العالمية */
+var X43_BOOT=false;
+try{
+  var x43boot=document.createElement('div');
+  x43boot.id='x43-boot';
+  x43boot.innerHTML='<img src="./icon-512.png" alt="منصة X التعليمية">';
+  document.body.appendChild(x43boot);
+  var x43bs=document.createElement('style');
+  x43bs.textContent='#x43-boot{position:fixed;top:0;left:0;right:0;bottom:0;z-index:99999;background:#0e1621;display:flex;align-items:center;justify-content:center;transition:opacity .5s ease}#x43-boot img{width:140px;height:140px;object-fit:contain}#x43-boot.x43-off{opacity:0;pointer-events:none}';
+  (document.head||document.documentElement).appendChild(x43bs);
+  X43_BOOT=true;
+  setTimeout(function(){
+    try{
+      var b=document.getElementById('x43-boot');
+      if(b){b.className='x43-off';setTimeout(function(){try{if(b.parentNode){b.parentNode.removeChild(b)}}catch(e){}},550)}
+    }catch(e){}
+  },650);
+}catch(e){X43_BOOT=false}
+/* 43.5 بيانات الإصدار 43 */
+APP_META.ver='43.0';APP_META.date='2026-11-01';APP_META.lastUpdate='2026-11-01';
+APP_META.notes='الإصدار 43 — لمسة التطبيقات العالمية: التطبيق صار يعرف بنفسه — بطاقة التثبيت و«النقاط الثلاث» تظهر في الموقع فقط وتتحول داخل التطبيق المثبت إلى بطاقة «شارك التطبيق مع صديق»، والإبلاغ عن خطأ انتقل إلى تبويب «ملفي» بدل تكراره في الرئيسية، واختفى قسم التقدم من الملف لأن له تبويبه الخاص، والتصميم انعكس بلمسات عالمية: بطاقات أنعم وأزرار بعمق وشريط سفلي بمؤشر مضيء مثل فيسبوك وواتساب وإنستغرام، والمنصة جاهزة للإشعارات مع دعم عدة خدمات.';
+try{APP_META.changelog.unshift('الإصدار 43 — لمسة عالمية: ذكاء التثبيت (بطاقات التثبيت في الموقع فقط)، الإبلاغ في تبويب ملفي، إخفاء التقدم من الملف، تصميم منعطف بمعايير فيسبوك وواتساب، وجاهزية إشعارات متعددة الخدمات.')}catch(e){}
+function fallbackNews18(){
+  return [{title:'الإصدار 43 — لمسة التطبيقات العالمية',
+    body:'التطبيق يعرف إن كان مثبتًا فتختفي بطاقات التثبيت، والإبلاغ صار في تبويب ملفي، والتصميم بلمسات عالمية أنيقة.',
     date:APP_META.date}];
 }
 </script><script>
