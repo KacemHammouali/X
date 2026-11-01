@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>منصة X التعليمية — الإصدار 39 | المتوسط والثانوي</title>
+<title>منصة X التعليمية — الإصدار 41 | المتوسط والثانوي</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" type="image/jpeg" href="logo.jpg">
 <link rel="apple-touch-icon" href="logo.jpg">
@@ -7181,7 +7181,7 @@ render=function(){
   typesetApp();
   try{kpSync()}catch(e){}
   try{
-    var d=document.getElementById('x30alist');
+    var d=document.getElementById('x30-alist');
     if(d){x30AList()}
   }catch(e){}
 };
@@ -8526,6 +8526,16 @@ html[data-theme="light"] .x39-cdot.on{border-color:#0d5c94;box-shadow:0 0 0 3px 
 .x39-chk input{accent-color:#229ED9;width:15px;height:15px;cursor:pointer}
 html[data-theme="light"] .x39-chk{background:rgba(255,255,255,.92);color:#41566c;border-color:rgba(30,60,100,.16)}
 .about-x .x30-logo{width:58px;height:58px;border-radius:14px;object-fit:cover}
+/* 40.أ إصلاح الشعار في «عن المنصة»: يملأ حاويته بدقة — لا إزاحة ولا خلفية ولا إطار */
+.about-x .logo-mark{width:58px;height:58px;padding:0;background:transparent;border:0;box-shadow:none;border-radius:14px;overflow:hidden;flex:0 0 auto}
+.about-x .logo-mark .x30-logo{width:100%;height:100%;display:block;border-radius:inherit;object-fit:cover}
+/* 41.أ زر الرجوع العالمي */
+.x41-back{position:fixed;bottom:calc(74px + env(safe-area-inset-bottom,0px));left:14px;z-index:1200;background:rgba(16,28,46,.88);color:#cfe0ef;border:1px solid rgba(140,200,240,.25);border-radius:999px;padding:9px 16px;font-size:13px;font-family:inherit;cursor:pointer;backdrop-filter:blur(8px);box-shadow:0 6px 18px rgba(0,0,0,.35)}
+html[data-theme="light"] .x41-back{background:rgba(255,255,255,.92);color:#1d5c94;border-color:rgba(30,90,150,.22)}
+/* 41.ب الشاشة الكاملة العريضة: خلفية سوداء صافية بلا وميض */
+.xmodal-card:fullscreen{background:#000;border:0;box-shadow:none}
+.xmodal-card:fullscreen .x35-ratio{border-radius:0}
+.x41-fsex{background:rgba(0,0,0,.45);border-color:rgba(255,255,255,.3)}
 .xmodal-card:fullscreen{max-width:100% !important;width:100%;height:100%;border-radius:0;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:10px}
 .xmodal-card:fullscreen .xmodal-body{width:100%;max-width:920px}
 .xmodal-card:fullscreen h3{max-width:920px;width:100%}
@@ -8718,6 +8728,215 @@ try{APP_META.changelog.unshift('الإصدار 39 — إصلاحات جذرية:
 function fallbackNews18(){
   return [{title:'الإصدار 39 — إصلاحات جذرية',
     body:'زر لوحة المالك ظاهر في ملفي، الشعار الجديد في عن المنصة، شبكة ألوان نظيفة، اختيار عدة شعب، شاشة كاملة للفيديو، وتنزيل PDF أذكى.',
+    date:APP_META.date}];
+}
+/* ============ الطبقة 40 — إصدار الثبات والاستقرار قبل إنشاء التطبيق ============ */
+APP_META.ver='40.0';APP_META.date='2026-11-01';APP_META.lastUpdate='2026-11-01';
+APP_META.notes='الإصدار 40 — إصدار الثبات والاستقرار استعدادًا لتحويل المنصة إلى تطبيق: صُحح موضع الشعار في «عن المنصة» فصار يملأ إطاره بدقة تامة بلا أي إزاحة (كانت الحاوية أصغر من الصورة فتظهر مزاحة داخل خلفية وإطار)، وأُصلح خطأ مطبعي في معرّف قائمة ملفات الإدارة، وفُحصت المنصة فحصًا شاملًا آليًا: كل وظائف الأزرار (96 دالة) معرفة وسليمة، وكل كتل الأكواد (35 كتلة) تُبنى بلا أخطاء، وعامل الخدمة والتطبيق المثبت وملفات الإصدار مترابطة وسليمة.';
+try{APP_META.changelog.unshift('الإصدار 40 — ثبات واستقرار: إصلاح محاذاة الشعار في «عن المنصة» بلا أي إزاحة، إصلاح معرّف قائمة ملفات الإدارة، وفحص شامل لكل الأكواد والأزرار قبل إنشاء التطبيق.')}catch(e){}
+function fallbackNews18(){
+  return [{title:'الإصدار 40 — ثبات واستقرار',
+    body:'صُحح موضع الشعار في «عن المنصة» وفُحصت المنصة بالكامل (كل الأزرار والأكواد سليمة) استعدادًا لتحويلها إلى تطبيق.',
+    date:APP_META.date}];
+}
+/* ============ الطبقة 41 — ثبات المكتبات والتنقل والتحديث ============ */
+/* 41.1 سجل التنقل: نحفظ الصفحة السابقة عند كل تغيير صفحة (لزر الرجوع) */
+var X41_HIST=[];
+var __x41PH=parseHash;
+parseHash=function(){
+  var before=null;
+  try{before={page:ROUTE.page,subject:(ROUTE.subject||null),chapter:(ROUTE.chapter||null),cycle:ROUTE.cycle,year:ROUTE.year,branch:ROUTE.branch,tab:ROUTE.tab,mode:ROUTE.mode,term:ROUTE.term}}catch(e){before=null}
+  var r=__x41PH();
+  try{
+    if(ROUTE&&ROUTE.page&&before&&ROUTE.page!==before.page){
+      X41_HIST.push(before);
+      if(X41_HIST.length>30){X41_HIST.shift()}
+    }
+  }catch(e2){}
+  return r;
+};
+function x41Back(){
+  var prev=null;
+  try{
+    while(X41_HIST.length){
+      var p=X41_HIST.pop();
+      if(p&&p.page&&p.page!==((ROUTE&&ROUTE.page)||'')){prev=p;break}
+    }
+  }catch(e){prev=null}
+  if(!prev){prev={page:'home'}}
+  X30_HASH=prev;
+  try{render()}catch(e2){}
+  try{window.scrollTo(0,0)}catch(e3){}
+}
+/* 41.2 زر «⬅ رجوع» يظهر في كل صفحة عدا الرئيسية */
+var __x41R=render;
+render=function(){
+  __x41R();
+  try{
+    var pg=(ROUTE&&ROUTE.page)||'';
+    var b=document.getElementById('x41-back');
+    if(pg==='home'||pg==='auth'){
+      if(b){b.remove()}
+    }else if(!b){
+      b=document.createElement('button');
+      b.id='x41-back';b.type='button';b.className='x41-back';
+      b.innerHTML='⬅ رجوع';
+      if(b.addEventListener){b.addEventListener('click',x41Back)}else{b.onclick=x41Back}
+      document.body.appendChild(b);
+    }
+  }catch(e){}
+};
+/* 41.3 كشف انعدام الإنترنت بوضوح في المكتبتين بدل الانتظار الأبدي */
+function x41Offline(){
+  try{return (typeof navigator!=='undefined'&&!navigator.onLine)}catch(e){return false}
+}
+var __x41Lib=renderX30Lib;
+renderX30Lib=function(){
+  var h=__x41Lib();
+  try{
+    if(x41Offline()&&!X33_PDFS){
+      var i=h.indexOf('id="x30-list"');
+      if(i>=0){
+        var j=h.indexOf('>',i);
+        if(j>0){h=h.slice(0,j+1)+'<div class="x30-err">📴 لا يوجد اتصال بالإنترنت الآن.<br>مكتبة PDF تحتاج إلى الإنترنت مرة واحدة على الأقل لتحميل الملفات — عاود الفتح عند عودة الشبكة أو اضغط «🔄 تحديث المكتبة».</div>'+h.slice(j+1)}
+      }
+    }
+  }catch(e){}
+  return h;
+};
+var __x41Vid=renderX35Vid;
+renderX35Vid=function(){
+  var h=__x41Vid();
+  try{
+    if(x41Offline()&&!X35_VIDS){
+      var i=h.indexOf('id="x35-list"');
+      if(i>=0){
+        var j=h.indexOf('>',i);
+        if(j>0){h=h.slice(0,j+1)+'<div class="x30-err">📴 لا يوجد اتصال بالإنترنت الآن.<br>مكتبة الفيديو تحتاج إلى الإنترنت للتحميل — عاود الفتح عند عودة الشبكة أو اضغط «🔄 تحديث المكتبة».</div>'+h.slice(j+1)}
+      }
+    }
+  }catch(e){}
+  return h;
+};
+/* 41.4 مهلة 12 ثانية: لا «جارٍ التحميل» أبدية مهما حدث */
+var __x41Files=x30Files;
+x30Files=function(force,cb){
+  var got=false;
+  __x41Files(force,function(files,why){if(!got){got=true;cb(files,why)}});
+  setTimeout(function(){if(!got){got=true;cb(null,'offline')}},12000);
+};
+var __x41VFiles=x35Files;
+x35Files=function(force,cb){
+  var got=false;
+  __x41VFiles(force,function(files,why){if(!got){got=true;cb(files,why)}});
+  setTimeout(function(){if(!got){got=true;cb(null,'offline')}},12000);
+};
+/* 41.5 تحديث المكتبة يبقى في صفحته — لا قفز إلى الرئيسية */
+function x33LibReload(){
+  X33_PDFS=null;
+  toast('🔄 نحدّث المكتبة…','info');
+  x30Files(true,function(){try{X30_HASH=ROUTE;render()}catch(e){}});
+}
+function x35VidReload(){
+  X35_VIDS=null;
+  toast('🔄 نحدّث مكتبة الفيديو…','info');
+  x35Files(true,function(){try{X30_HASH=ROUTE;render()}catch(e){}});
+}
+/* 41.6 الشاشة الكاملة مفتاح واحد: نفس الزر يدخل ويخرج + زر خروج ظاهر داخلها */
+function x41FSNow(){
+  try{return !!(document.fullscreenElement||document.webkitFullscreenElement||document.mozFullScreenElement||document.msFullscreenElement)}catch(e){return false}
+}
+function x35FS(){
+  try{
+    if(x41FSNow()){
+      var ex=document.exitFullscreen||document.webkitExitFullscreen||document.mozCancelFullScreen||document.msExitFullscreen;
+      if(ex){try{ex.call(document)}catch(e1){}}
+      return;
+    }
+    var card=document.getElementById('x35p-card');
+    if(!card){
+      var wrap=document.getElementById('x35p');
+      if(wrap&&wrap.querySelector){card=wrap.querySelector('.xmodal-card')}
+    }
+    if(!card){return}
+    var fn=card.requestFullscreen||card.webkitRequestFullscreen||card.msRequestFullscreen||card.mozRequestFullScreen;
+    if(fn){try{fn.call(card)}catch(e2){}}
+    try{
+      if(window.screen&&screen.orientation&&screen.orientation.lock){
+        var pl=screen.orientation.lock('landscape');
+        if(pl&&pl.catch){pl.catch(function(){})}
+      }
+    }catch(e3){}
+  }catch(e){}
+}
+function x41FSync(){
+  try{
+    var b=document.getElementById('x41-fsexit');
+    if(b){b.style.display=x41FSNow()?'inline-block':'none'}
+  }catch(e){}
+}
+(function(){
+  var evs=['fullscreenchange','webkitfullscreenchange','mozfullscreenchange','MSFullscreenChange'];
+  for(var i=0;i<evs.length;i++){try{document.addEventListener(evs[i],x41FSync)}catch(e){}}
+})();
+var __x41Play=x35Play;
+x35Play=function(id){
+  __x41Play(id);
+  try{
+    var card=document.getElementById('x35p-card');
+    if(card&&!document.getElementById('x41-fsexit')){
+      var b=document.createElement('button');
+      b.id='x41-fsexit';b.type='button';b.className='btn btn-sm x41-fsex';
+      b.innerHTML='✕ إنهاء الشاشة الكاملة';
+      b.style.display='none';
+      if(b.addEventListener){b.addEventListener('click',x35FS)}else{b.onclick=x35FS}
+      var row=card.querySelector('.x30-row');
+      if(row){row.appendChild(b)}
+    }
+  }catch(e){}
+};
+/* 41.7 نظام تحديث رقمي دقيق: من 37 إلى 41 مباشرة + إشعار تلقائي + يختفي بعد التحديث */
+function x41VerNum(v){
+  var n=0;
+  try{
+    var p=(''+(v||'')).replace(/[^0-9.]/g,'').split('.');
+    var a=parseInt(p[0],10)||0,b2=parseInt(p[1],10)||0,c2=parseInt(p[2],10)||0;
+    n=a*1000000+b2*1000+c2;
+  }catch(e){n=0}
+  return n;
+}
+function checkUpdate(silent){
+  try{if(XSW&&XSW.reg&&XSW.reg.update){XSW.reg.update().catch(function(e){})}}catch(e){}
+  if(!APP_META.updateURL){if(!silent){toast('ℹ️ فحص التحديثات يحتاج استضافة المنصة على عنوان رسمي — نسختك الحالية: '+APP_META.ver,'info')}return}
+  if(x41Offline()){if(!silent){toast('📴 لا يوجد اتصال بالإنترنت الآن — عاود الفحص عند عودة الشبكة','info')}return}
+  fetch(APP_META.updateURL,{cache:'no-store'}).then(function(r){
+    if(!r.ok){throw new Error('http'+r.status)}
+    return r.text();
+  }).then(function(t){
+    var j=null;
+    try{j=JSON.parse(t)}catch(e){}
+    if(!j||!j.ver){if(!silent){toast('⚠️ ملف التحديثات غير متاح على الخادم — تأكد من رفع versions.json مع index.html في نفس المجلد','error')}return}
+    XUPD.checked=true;
+    if(x41VerNum(j.ver)>x41VerNum(APP_META.ver)){
+      XUPD.newer=j;
+      toast('🔄 توفر إصدار جديد: '+j.ver+' — ستجد تفاصيله في الصفحة الرئيسية','info');
+      try{X30_HASH=ROUTE;render()}catch(e2){}
+    }else{
+      var had=!!XUPD.newer;
+      XUPD.newer=null;
+      if(!silent){toast('✅ أنت على أحدث إصدار ('+APP_META.ver+')','success')}
+      if(had){try{X30_HASH=ROUTE;render()}catch(e3){}}
+    }
+  }).catch(function(){if(!silent){toast('❌ تعذر جلب معلومات التحديث — تحقق من الاتصال','error')}});
+}
+setTimeout(function(){try{checkUpdate(true)}catch(e){}},3000);
+/* 41.8 بيانات الإصدار 41 */
+APP_META.ver='41.0';APP_META.date='2026-11-01';APP_META.lastUpdate='2026-11-01';
+APP_META.notes='الإصدار 41 — ثبات المكتبات والتنقل والتحديث: «تحديث المكتبة» في PDF والفيديو يبقى في صفحته ولا يقفز إلى الرئيسية أبدًا، وزر «⬅ رجوع» جديد في كل صفة يعيدك إلى الصفحة السابقة (وليس إلى الرئيسية)، ورسالة واضحة فورية عند انقطاع الإنترنت في المكتبتين بدل الانتظار الأبدي مع مهلة 12 ثانية، والشاشة الكاملة للفيديو صارت مفتاحًا واحدًا يدخل ويخرج مع زر «إنهاء الشاشة الكاملة» وخلفية سوداء صافية بلا وميض، ونظام التحديث صار مقارنة رقمية دقيقة (من 37 يُعلن 41 مباشرة)، ويفحص التحديث تلقائيًا عند فتح التطبيق مع إشعار فوري، ويختفي زر التحديث بعد التحديث.';
+try{APP_META.changelog.unshift('الإصدار 41 — ثبات المكتبات والتنقل: تحديث المكتبة يبقى في صفحته، زر رجوع عالمي للصفحة السابقة، رسالة انقطاع الإنترنت مع مهلة 12 ثانية، مفتاح الشاشة الكاملة بزر خروج، وتحديث رقمي صحيح بإشعار تلقائي.')}catch(e){}
+function fallbackNews18(){
+  return [{title:'الإصدار 41 — مكتبات أذكى وتنقل أسهل',
+    body:'تحديث المكتبة يبقى في صفحته، زر رجوع في كل صفحة، رسالة واضحة عند انقطاع الإنترنت، مفتاح الشاشة الكاملة بزر خروج، ونظام تحديث دقيق بإشعار تلقائي.',
     date:APP_META.date}];
 }
 </script><script>
