@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>منصة X التعليمية — الإصدار 43 | المتوسط والثانوي</title>
+<title>منصة X التعليمية — الإصدار 44 | المتوسط والثانوي</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" type="image/jpeg" href="logo.jpg">
 <link rel="apple-touch-icon" href="logo.jpg">
@@ -9106,6 +9106,314 @@ try{APP_META.changelog.unshift('الإصدار 43 — لمسة عالمية: ذ�
 function fallbackNews18(){
   return [{title:'الإصدار 43 — لمسة التطبيقات العالمية',
     body:'التطبيق يعرف إن كان مثبتًا فتختفي بطاقات التثبيت، والإبلاغ صار في تبويب ملفي، والتصميم بلمسات عالمية أنيقة.',
+    date:APP_META.date}];
+}
+/* ============ الطبقة 44 — الطبقة الاحترافية الكبرى: افتتاح ملء الشاشة + مشاركة أصلية + تبويبات مرتبة + دخول بالرمز ============ */
+/* 44.أ شاشة الافتتاح: صورتك نفسها تتمدد فتملأ شاشة الهاتف كلها ثم تذوب نحو الرئيسية — بلا أي تغيير في الأيقونة */
+try{
+  var x44bcss=document.createElement('style');
+  x44bcss.textContent='#x43-boot img{width:100% !important;height:100% !important;object-fit:cover !important;object-position:center}';
+  (document.head||document.documentElement).appendChild(x44bcss);
+}catch(e){}
+/* 44.ب لمسات تصميم عالمية إضافية: تدرج في الأزرار الرئيسية + توهج حقول الإدخال + تبويبات متوهجة */
+try{
+  var x44css=document.createElement('style');
+  x44css.textContent=
+   '.btn-primary{background:linear-gradient(135deg,#25a8e0,#1b7fb0)}'+
+   'html[data-theme="light"] .btn-primary{background:linear-gradient(135deg,#229ED9,#1e86bd)}'+
+   '.fld input:focus,.fld select:focus,.fld textarea:focus{outline:0;border-color:#229ED9;box-shadow:0 0 0 3px rgba(34,158,217,.20)}'+
+   '.x38-tbtn.on{border-color:rgba(34,158,217,.55);box-shadow:0 4px 12px rgba(34,158,217,.25)}'+
+   '.toast{border-radius:14px}'+
+   '.sum-row{border-radius:10px}';
+  (document.head||document.documentElement).appendChild(x44css);
+}catch(e){}
+/* 44.ج المشاركة الأصلية: زر واحد يفتح قائمة مشاركة الهاتف — واتساب وإنستغرام وتيليجرام — بدل نسخ الرابط */
+function x44Share(){
+  var u=x42ApkUrl();
+  try{
+    if(navigator&&navigator.share){
+      navigator.share({title:'منصة X التعليمية',text:'تطبيق تعليمي رائع للطورين المتوسط والثانوي — دروس وتمارين واختبارات 🎓 نزّله الآن:',url:u}).then(function(){}).catch(function(e){});
+      return;
+    }
+  }catch(e){}
+  x42CopyApk();
+}
+var __x44Apk=x42ApkCard;
+x42ApkCard=function(){
+  if(x43Standalone()){
+    return '<section class="x17-card fade-in" style="margin:16px auto 0">'+
+     '<h3 style="margin:0 0 4px">📤 شارك التطبيق مع صديق</h3>'+
+     '<p class="x17-mute" style="font-size:12.5px;margin:8px 0 10px">التطبيق مثبّت على هاتفك ✓ — اضغط زر المشاركة واختر التطبيق الذي تريد الإرسال عبره: واتساب، إنستغرام، تيليجرام، الرسائل وغيرها.</p>'+
+     '<div class="btn-row" style="margin:8px 0 0"><button class="btn btn-sm btn-primary" onclick="x44Share()">📤 مشاركة التطبيق</button></div>'+
+     '</section>';
+  }
+  var h=__x44Apk();
+  try{h=h.replace('<button class="btn btn-sm" onclick="x42CopyApk()">🔗 نسخ الرابط</button>','<button class="btn btn-sm" onclick="x44Share()">📤 مشاركة</button>')}catch(e){}
+  return h;
+};
+/* 44.د الإعدادات: أربعة تبويبات مرتبة — «التطبيق» يدمج «حول» والمشاركة وتنزيل التطبيق تظهر فيه فقط */
+if(X38_SET_TAB>3||X38_SET_TAB<0){X38_SET_TAB=3}
+function x38SetTab(i){
+  X38_SET_TAB=(i===3||i>3)?3:(i||0);
+  try{
+    var j,b,p;
+    for(j=0;j<4;j++){
+      b=document.getElementById('x38-stab'+j);if(b)b.className='x38-tbtn'+(j===X38_SET_TAB?' on':'');
+      p=document.getElementById('x38-spane'+j);if(p)p.className='x38-pane'+(j===X38_SET_TAB?' on':'');
+    }
+  }catch(e){}
+}
+function x38SettingsTabs(h){
+  var ids=['x22-outbox','x23-tgcard','x25-ejscard','x25-w3fcard','x27-card','x28-card'],n;
+  for(n=0;n<ids.length;n++){h=x38CutSection(h,ids[n])}
+  try{
+    var ci=h.indexOf('<section class="contact');
+    if(ci>0){var wi=h.lastIndexOf('</div>',ci);if(wi>0)h=h.slice(0,wi)+h.slice(wi+6)}
+  }catch(e){}
+  var marks=x38Marks(h),blocks=[],i;
+  for(i=0;i<marks.length;i++){
+    var end=(i+1<marks.length)?marks[i+1]:h.length;
+    blocks.push(h.slice(marks[i],end));
+  }
+  var tabs=[[],[],[],[]];
+  for(i=0;i<blocks.length;i++){
+    var b=blocks[i];
+    if(i===blocks.length-1&&b.length>6&&b.slice(-6)==='</div>'){b=b.slice(0,-6)}
+    if(!b)continue;
+    if(b.indexOf('المظهر')>=0||b.indexOf('المؤثرات')>=0){tabs[0].push(x38StripNotes(b))}
+    else if(b.indexOf('الصوت')>=0||b.indexOf('الإشعارات')>=0){tabs[1].push(x38StripNotes(b))}
+    else if(b.indexOf('الحساب')>=0||b.indexOf('اللغة')>=0){tabs[2].push(x38StripNotes(b))}
+    else{tabs[3].push(b)}
+  }
+  var names=['🎨 المظهر','🔊 الصوت','👤 الحساب','📱 التطبيق وحول'];
+  var out='<div class="fade-in set-wrap" id="x38-setwrap"><h2 class="sec15">⚙️ الإعدادات</h2><div class="x38-tabs">';
+  for(i=0;i<4;i++){out+='<button type="button" id="x38-stab'+i+'" class="x38-tbtn'+(i===X38_SET_TAB?' on':'')+'" onclick="x38SetTab('+i+')">'+names[i]+'</button>'}
+  out+='</div>';
+  for(i=0;i<4;i++){out+='<div id="x38-spane'+i+'" class="x38-pane'+(i===X38_SET_TAB?' on':'')+'">'+tabs[i].join('')+'</div>'}
+  return out+'</div>';
+}
+renderSettingsPage=function(){
+  var h=__x42Settings();
+  try{
+    var card=x42ApkCard();
+    var i=h.indexOf('id="x38-spane3"');
+    if(i>=0){var j=h.indexOf('>',i);if(j>0){h=h.slice(0,j+1)+card+h.slice(j+1)}}else{h+=card}
+  }catch(e){}
+  return h;
+};
+/* 44.ه الشاشة الكاملة للفيديو: ملء تام للشاشة بلا أي إزاحة + زر ✕ دائري في الأعلى للرجوع للوضع الطبيعي */
+try{
+  var x44fcss=document.createElement('style');
+  x44fcss.textContent=
+   '.xmodal-card:fullscreen{padding:0 !important;justify-content:flex-start !important}'+
+   '.xmodal-card:fullscreen .xmodal-body{width:100% !important;max-width:100% !important;margin:0 !important;padding:0 !important}'+
+   '.xmodal-card:fullscreen h3{display:none !important}'+
+   '.xmodal-card:fullscreen .x30-row{display:none !important}'+
+   '.xmodal-card:fullscreen .x35-ratio{width:100% !important;max-width:100% !important;margin:0 !important;padding-top:0 !important;height:100vh !important;border-radius:0 !important}'+
+   '.xmodal-card:fullscreen .x35-ratio iframe,.xmodal-card:fullscreen .x35-ratio video{position:absolute;top:0;left:0;width:100% !important;height:100% !important;border:0}'+
+   '.x41-fsex{position:fixed;top:12px;right:12px;z-index:2147483600;width:48px !important;height:48px !important;min-height:0 !important;padding:0 !important;border-radius:50% !important;font-size:21px !important;font-weight:800;line-height:1;background:rgba(10,18,30,.58) !important;color:#fff !important;border:1px solid rgba(255,255,255,.38) !important;box-shadow:0 4px 14px rgba(0,0,0,.4)}';
+  (document.head||document.documentElement).appendChild(x44fcss);
+}catch(e){}
+var __x44Play=x35Play;
+x35Play=function(id){
+  __x44Play(id);
+  try{
+    var b=gid('x41-fsexit');
+    if(b){
+      b.innerHTML='✕';
+      var card=gid('x35p-card');
+      if(!card&&typeof b.closest==='function'){try{card=b.closest('.xmodal-card')}catch(e0){}}
+      if(card&&b.parentNode&&b.parentNode!==card){try{card.appendChild(b)}catch(e1){}}
+    }
+  }catch(e){}
+};
+/* 44.و لوحة المالك: خدمات احترافية — تقرير حالة المنصة، نسخة احتياطية، تنظيف */
+function x44Close(){try{var o=gid('x44-ov');if(o&&o.parentNode){o.parentNode.removeChild(o)}}catch(e){}}
+function x44Panel(html){
+  var o=document.createElement('div');
+  o.id='x44-ov';
+  o.setAttribute('style','position:fixed;top:0;left:0;right:0;bottom:0;z-index:30000;background:rgba(5,10,18,.74);display:flex;align-items:center;justify-content:center;padding:18px');
+  o.innerHTML='<div dir="rtl" style="background:#152238;border:1px solid rgba(140,200,240,.25);border-radius:18px;max-width:420px;width:100%;max-height:82vh;overflow:auto;padding:18px;color:#dbe9f7;font-size:13.5px;line-height:1.9">'+html+'<div style="text-align:center;margin-top:14px"><button class="btn btn-primary" onclick="x44Close()">إغلاق</button></div></div>';
+  document.body.appendChild(o);
+}
+function x44Report(){
+  var np=0,nv=0,bytes=0,i,kk;
+  try{np=(X33_PDFS||[]).length}catch(e1){}
+  try{nv=(X35_VIDS||[]).length}catch(e2){}
+  try{
+    for(i=0;i<localStorage.length;i++){kk=localStorage.key(i);bytes+=(''+(localStorage.getItem(kk)||'')).length}
+  }catch(e3){}
+  var push='غير مهيأة بعد';
+  try{
+    if(X43_PUSH&&X43_PUSH.provider&&X43_PUSH.id){push=X43_PUSH.provider}
+    if(X44_PUSH_SRC){push='سكربت مخصص'}
+  }catch(e4){}
+  var sb='غير مهيأة';
+  try{if(SB&&SB.ready){sb='متصل ✓'}}catch(e5){}
+  x44Panel('<h3 style="margin:0 0 12px">📊 تقرير حالة المنصة</h3>'+
+   '<div class="sum-row"><span>الإصدار الحالي</span><b>'+APP_META.ver+'</b></div>'+
+   '<div class="sum-row"><span>ملفات PDF في المكتبة</span><b>'+np+'</b></div>'+
+   '<div class="sum-row"><span>الفيديوهات في المكتبة</span><b>'+nv+'</b></div>'+
+   '<div class="sum-row"><span>حجم البيانات المحلية</span><b>'+(Math.round(bytes/1024)+' كيلوبايت')+'</b></div>'+
+   '<div class="sum-row"><span>قاعدة البيانات</span><b>'+sb+'</b></div>'+
+   '<div class="sum-row"><span>خدمة الإشعارات</span><b>'+push+'</b></div>');
+}
+function x44Backup(){
+  try{
+    var data={},i,k;
+    for(i=0;i<localStorage.length;i++){k=localStorage.key(i);data[k]=localStorage.getItem(k)}
+    var txt=JSON.stringify({app:'منصة X التعليمية',ver:APP_META.ver,date:new Date().toISOString(),data:data});
+    var a=document.createElement('a');
+    a.href='data:application/json;charset=utf-8,'+encodeURIComponent(txt);
+    a.download='x-backup-'+APP_META.ver+'.json';
+    document.body.appendChild(a);a.click();
+    try{document.body.removeChild(a)}catch(e1){}
+    toast('💾 نُزّلت النسخة الاحتياطية — احفظها في مكان آمن','success');
+  }catch(e){toast('❌ تعذر إنشاء النسخة الاحتياطية','error')}
+}
+function x44Clean(){
+  try{XUPD.checked=false;XUPD.newer=null;toast('🧹 نُظّفت الذاكرة المؤقتة — ستُجلب الملفات من جديد عند الطلب','success')}catch(e){toast('❌ لا توجد ذاكرة لتنظيفها','error')}
+}
+var __x44Admin=renderAdminPage18;
+renderAdminPage18=function(){
+  var h=__x44Admin();
+  try{
+    if(isAdmin()&&h.indexOf('x44-serv')<0){
+      h+='<section class="x17-card fade-in" id="x44-serv" style="margin:16px auto 0">'+
+       '<h3 style="margin:0 0 10px">🧰 خدمات المالك الاحترافية</h3>'+
+       '<div class="btn-row" style="flex-wrap:wrap">'+
+       '<button class="btn btn-sm" onclick="x44Report()">📊 تقرير الحالة</button>'+
+       '<button class="btn btn-sm" onclick="checkUpdate(false)">🔄 فحص التحديث</button>'+
+       '<button class="btn btn-sm" onclick="x44Backup()">💾 نسخة احتياطية</button>'+
+       '<button class="btn btn-sm" onclick="x44Clean()">🧹 تنظيف مؤقت</button>'+
+       '</div></section>';
+    }
+  }catch(e){}
+  return h;
+};
+/* 44.ح الإشعارات: أي مزوّد جديد يعمل عبر رابط سكربته — SendPulse أو Gravitec أو غيرهما */
+var X44_PUSH_SRC='https://web.webpushs.com/js/push/272eeb2577f3407a2bef12f4ec1c7769_1.js';
+function x44InitCustomPush(){
+  if(!X44_PUSH_SRC){return}
+  try{
+    var s=document.createElement('script');
+    s.src=X44_PUSH_SRC;s.async=true;
+    (document.head||document.documentElement).appendChild(s);
+  }catch(e){}
+}
+if(X44_PUSH_SRC){x44InitCustomPush()}
+/* 44.ي الدخول الأول: البريد ← رمز سري يصلك بالبريد ← معلوماتك ← حسابك — مثل التطبيقات العالمية */
+function x44CodeScreen(){
+  return '<h3>📩 أدخل رمز التحقق</h3>'+
+  '<p class="auth-note">أرسلنا رمزًا سريًا إلى <b dir="ltr">'+escAttr(AUTH.email)+'</b>. افتح بريدك واكتب الرمز هنا.</p>'+
+  '<label class="fld"><span>رمز التحقق</span><input id="a-code" type="text" inputmode="numeric" maxlength="6" dir="ltr" placeholder="••••••" style="text-align:center;font-size:22px;letter-spacing:8px">'+fErr('code')+'</label>'+
+  fErr('top')+
+  '<button class="btn btn-primary btn-block" onclick="x44OtpCheck()">'+(AUTH.busy?'⏳ جارٍ التحقق…':'متابعة →')+'</button>'+
+  '<p class="auth-alt">لم يصلك الرمز؟ <a onclick="x44OtpSend()">إعادة الإرسال</a> · <a onclick="AUTH.tab=\'new\';AUTH.errs={};render()">تغيير البريد</a></p>';
+}
+function x44OtpSend(){
+  AUTH.email=(gid('a-email')||{}).value||AUTH.email;
+  AUTH.errs={};
+  if(!validEmail(AUTH.email)){aErr('email','اكتب بريدًا إلكترونيًا صالحًا');xSound('error');render();return}
+  if(!SB.ready){aErr('top','خدمة المصادقة غير مهيأة حاليًا — استخدم «متابعة كزائر» إلى أن يُكمل المالك الإعداد');xSound('error');render();return}
+  AUTH.busy=true;render();
+  SB.client.auth.signInWithOtp({email:AUTH.email,createUser:true}).then(function(r){
+    AUTH.busy=false;
+    if(r&&r.error){aErr('top',(r.error.message||'تعذر إرسال الرمز — أعد المحاولة'));xSound('error');render();return}
+    AUTH.tab='x44code';AUTH.sent=true;
+    toast('📩 أُرسل رمز التحقق إلى بريدك');
+    render();
+  }).catch(function(e){AUTH.busy=false;aErr('top','انقطع الاتصال بالخدمة — تحقق من الإنترنت وأعد المحاولة');xSound('error');render()});
+}
+function x44OtpCheck(){
+  var code=(''+((gid('a-code')||{}).value||'')).replace(/\s+/g,'');
+  AUTH.errs={};
+  if(code.length<4){aErr('code','اكتب رمز التحقق كما وصل إلى بريدك');xSound('error');render();return}
+  if(!SB.ready){aErr('top','خدمة المصادقة غير مهيأة');render();return}
+  AUTH.busy=true;render();
+  SB.client.auth.verifyOtp({email:AUTH.email,token:code,type:'email'}).then(function(r){
+    AUTH.busy=false;
+    if(r&&r.error){
+      var msg=(r.error.message==='Invalid one-time password (OTP) or OTP expired')?'الرمز غير صحيح أو انتهت صلاحيته — اطلب رمزًا جديدًا':(r.error.message||'رمز غير صحيح');
+      aErr('top',msg);xSound('error');render();return;
+    }
+    if(r&&r.data&&r.data.session){
+      USER.session=r.data.session;
+      toast('✅ تم التحقق من بريدك');
+      loadUserProfile(true);
+    }else{
+      aErr('top','تعذر إكمال التحقق — أعد المحاولة');render();
+    }
+  }).catch(function(e){AUTH.busy=false;aErr('top','انقطع الاتصال بالخدمة — أعد المحاولة');xSound('error');render()});
+}
+function authNew(){
+  return authTabs()+
+  '<h3>أنشئ حسابك في منصة X</h3>'+
+  '<p class="auth-note">خطوات عالمية بسيطة: اكتب بريدك ← يصلك رمز سري على بريدك ← ثم معلوماتك، ويفتح حسابك الشخصي.</p>'+
+  '<label class="fld"><span>البريد الإلكتروني</span><input id="a-email" type="email" dir="ltr" value="'+escAttr(AUTH.email)+'" placeholder="you@example.com">'+fErr('email')+'</label>'+
+  fErr('top')+
+  '<button class="btn btn-primary btn-block" onclick="x44OtpSend()">'+(AUTH.busy?'⏳ جارٍ الإرسال…':'متابعة →')+'</button>'+
+  '<p class="auth-alt">لديك حساب؟ <a onclick="AUTH.tab=\'exist\';AUTH.errs={};render()">سجّل الدخول</a> · <a onclick="xGoGuest()">متابعة كزائر</a></p>';
+}
+function renderAuth(){
+  var inn='';
+  if(AUTH.tab==='new'){inn=authNew()}else if(AUTH.tab==='exist'){inn=authExist()}else if(AUTH.tab==='profile'){inn=authProfile(false)}else if(AUTH.tab==='summary'){inn=authSummary()}else if(AUTH.tab==='verify'){inn=authVerify()}else if(AUTH.tab==='otp'){inn=authOtp()}else if(AUTH.tab==='x44code'){inn=x44CodeScreen()}
+  var steps={new:1,x44code:2,profile:3,summary:3,verify:2,exist:1,otp:1};
+  return authWrap(sbBanner()+inn,AUTH.tab in steps?steps[AUTH.tab]:0,3);
+}
+/* 44.ل الدخول السريع: بعد الخروج، نفس البريد على نفس الهاتف يدخل مباشرة بلا رمز — مثل واتساب */
+var X45_FLAG='x45_stayflag';
+function x45FlagGet(){try{return stGet(X45_FLAG,false)===true}catch(e0){return false}}
+function x45FlagSet(){try{stSet(X45_FLAG,true)}catch(e1){}}
+function x45FlagClear(){try{stSet(X45_FLAG,false)}catch(e2){}}
+var __x45Restore=restoreSession;
+restoreSession=function(){
+  if(x45FlagGet()){return}
+  __x45Restore();
+};
+function logoutUser(){
+  setGuest(false);
+  x45FlagSet();
+  USER.session=null;USER.profile=null;
+  AUTH.tab='new';AUTH.email='';AUTH.pass='';AUTH.pass2='';AUTH.sent=false;AUTH.busy=false;AUTH.errs={};AUTH.consent=false;
+  toast('👋 سجّلت الخروج — حسابك محفوظ على هذا الجهاز، والدخول القادم ببريدك نفسه بلا رمز');
+  navigate('auth');
+}
+var __x45OtpSend=x44OtpSend;
+x44OtpSend=function(){
+  AUTH.email=(gid('a-email')||{}).value||AUTH.email;
+  AUTH.errs={};
+  if(!validEmail(AUTH.email)){aErr('email','اكتب بريدًا إلكترونيًا صالحًا');xSound('error');render();return}
+  if(!SB.ready){aErr('top','خدمة المصادقة غير مهيأة حاليًا — استخدم «متابعة كزائر» إلى أن يُكمل المالك الإعداد');xSound('error');render();return}
+  try{
+    if(x45FlagGet()){
+      SB.client.auth.getSession().then(function(r){
+        try{
+          if(r&&r.data&&r.data.session){
+            var em=(''+(((r.data.session.user||{}).email)||'')).toLowerCase();
+            if(em===(''+AUTH.email).toLowerCase()){
+              x45FlagClear();
+              USER.session=r.data.session;
+              toast('✅ أهلًا بعودتك — دخلت مباشرة دون رمز');
+              loadUserProfile(true);
+              return;
+            }
+          }
+        }catch(e1){}
+        __x45OtpSend();
+      }).catch(function(e){__x45OtpSend()});
+      return;
+    }
+  }catch(e0){}
+  __x45OtpSend();
+};
+/* 44.ك بيانات الإصدار 44 */
+APP_META.ver='44.2';APP_META.date='2026-11-01';APP_META.lastUpdate='2026-11-01';
+APP_META.notes='الإصدار 44.2 — الإشعارات مفعّلة: يصلك إشعار الدرس الجديد باسم «منصة X التعليمية» وبأيقونتك حتى والتطبيق مغلق تمامًا، مع شاشة الافتتاح التي تملأ الشاشة بصورتك، وزر المشاركة الذي يفتح قائمة مشاركة الهاتف، وإعدادات بأربعة تبويبات مع دمج «حول» في «التطبيق»، وشاشة كاملة تامة للفيديو بزر ✕ دائري، والدخول الأول بالرمز السري من البريد، والدخول السريع: من سجّل الخروج ثم عاد بنفس البريد على نفس الهاتف يدخل مباشرة دون أي رمز، ولوحة المالك بخدمات احترافية.';
+try{APP_META.changelog.unshift('الإصدار 44.2 — الإشعارات تعمل: إشعار الدرس الجديد يصل باسم منصتك وأيقونتك حتى والتطبيق مغلق، مع الدخول السريع بعد الخروج بلا رمز، وكل مزايا 44: افتتاح ملء الشاشة، مشاركة أصلية، تبويبات مرتبة، شاشة كاملة تامة، دخول أول بالرمز، خدمات مالك احترافية.')}catch(e){}
+function fallbackNews18(){
+  return [{title:'الإصدار 44 — الطبقة الاحترافية الكبرى',
+    body:'صورتك تملأ الشاشة عند الفتح، المشاركة تفتح قائمة الهاتف مباشرة، الشاشة الكاملة للفيديو تامة بزر ✕، والدخول الأول بالرمز السري مثل التطبيقات العالمية.',
     date:APP_META.date}];
 }
 </script><script>
