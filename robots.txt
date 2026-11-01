@@ -1,0 +1,3 @@
+# robots.txt لمنصة X التعليمية — ارفعه بجوار index.html
+User-agent: *
+Allow: /
