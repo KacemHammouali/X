@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>منصة X التعليمية — الإصدار 41 | المتوسط والثانوي</title>
+<title>منصة X التعليمية — الإصدار 42 | المتوسط والثانوي</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" type="image/jpeg" href="logo.jpg">
 <link rel="apple-touch-icon" href="logo.jpg">
@@ -8937,6 +8937,84 @@ try{APP_META.changelog.unshift('الإصدار 41 — ثبات المكتبات 
 function fallbackNews18(){
   return [{title:'الإصدار 41 — مكتبات أذكى وتنقل أسهل',
     body:'تحديث المكتبة يبقى في صفحته، زر رجوع في كل صفحة، رسالة واضحة عند انقطاع الإنترنت، مفتاح الشاشة الكاملة بزر خروج، ونظام تحديث دقيق بإشعار تلقائي.',
+    date:APP_META.date}];
+}
+/* ============ الطبقة 42 — الإصدار المستقر: تبديل الفصول يشتغل فورًا + APK مباشر + جاهزية الإشعارات ============ */
+/* 42.1 الإصلاح الجذري: الرد من مكتبتي PDF والفيديو يصبح دائمًا غير متزامن —
+   في السابق عند تبديل الفصل كان الرد يصل قبل رسم الصفحة الجديدة، فتُمحى نتيجته ويبقى «⏳ جارٍ التحميل» للأبد */
+var __x42Files=x30Files;
+x30Files=function(force,cb){
+  __x42Files(force,function(f,w){setTimeout(function(){try{cb(f,w)}catch(e){}},0)});
+};
+var __x42VFiles=x35Files;
+x35Files=function(force,cb){
+  __x42VFiles(force,function(f,w){setTimeout(function(){try{cb(f,w)}catch(e){}},0)});
+};
+/* 42.2 تنزيل التطبيق APK مباشرة من داخل المنصة + رابط قابل للنسخ والمشاركة */
+function x42ApkUrl(){
+  try{
+    var u=(''+location.href).replace(/#.*$/,'').replace(/\?.*$/,'');
+    if(u.charAt(u.length-1)!=='/'){u=u.replace(/[^\/]*$/,'')}
+    return u+'X.apk';
+  }catch(e){return './X.apk'}
+}
+function x42CopyApk(){
+  var u=x42ApkUrl();
+  var ok=false;
+  try{
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(u);ok=true}
+  }catch(e){}
+  if(!ok){
+    try{
+      var ta=document.createElement('textarea');
+      ta.value=u;ta.style.position='fixed';ta.style.opacity='0';
+      document.body.appendChild(ta);ta.select();
+      ok=document.execCommand('copy');
+      document.body.removeChild(ta);
+    }catch(e2){}
+  }
+  toast(ok?'🔗 نُسخ رابط التنزيل — شاركه مع زملائك':('🔗 رابط التنزيل: '+u),'info');
+}
+function x42ApkCard(){
+  return '<section class="x17-card fade-in" style="margin:16px auto 0">'+
+   '<h3 style="margin:0 0 4px">📦 تنزيل التطبيق APK مباشرة</h3>'+
+   '<p class="x17-mute" style="font-size:12.5px;margin:8px 0 10px">الأسهل والأقوى: اضغط الزر فيُنزَّل ملف التطبيق مباشرة، افتحه فيثبّت نفسه كتطبيق حقيقي — بلا متصفح وبلا إعدادات وبلا أي خطوات إضافية. ويمكنك نسخ الرابط وإرساله لزملائك لينزّلوه هم أيضًا.</p>'+
+   '<div class="btn-row" style="margin:8px 0 0">'+
+   '<a class="btn btn-sm btn-primary" href="'+x42ApkUrl()+'" download="منصة-X-التعليمية.apk" style="text-decoration:none;display:inline-block">⬇️ تنزيل التطبيق (APK)</a>'+
+   '<button class="btn btn-sm" onclick="x42CopyApk()">🔗 نسخ الرابط</button>'+
+   '</div></section>';
+}
+var __x42Settings=renderSettingsPage;
+renderSettingsPage=function(){return __x42Settings()+x42ApkCard()};
+/* 42.3 الإشعارات: تكامل جاهز مع OneSignal — يعمل تلقائيًا بمجرد وضع المعرف في X42_OSID */
+var X42_OSID='';
+function x42OSID(){return (''+X42_OSID).replace(/\s+/g,'')}
+function x42AskPush(){
+  try{
+    if(window.OneSignal){window.OneSignal.Slidedown.promptPush();return}
+  }catch(e){}
+  toast('🔔 خدمة الإشعارات تُفعَّل من المالك في خطوة واحدة — عندها يصلك إشعار الدرس الجديد حتى والتطبيق مغلق','info');
+}
+function x42InitPush(){
+  if(!x42OSID()){return}
+  try{
+    window.OneSignalDeferred=window.OneSignalDeferred||[];
+    window.OneSignalDeferred.push(function(OneSignal){OneSignal.init({appId:x42OSID(),notifyButton:{enable:false}})});
+    var s=document.createElement('script');
+    s.src='https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js';
+    s.defer=true;
+    var hd=document.getElementsByTagName('head')[0]||document.documentElement;
+    hd.appendChild(s);
+  }catch(e){}
+}
+if(x42OSID()){x42InitPush()}
+/* 42.4 بيانات الإصدار 42 */
+APP_META.ver='42.0';APP_META.date='2026-11-01';APP_META.lastUpdate='2026-11-01';
+APP_META.notes='الإصدار 42 — الإصدار المستقر: عولجت جذريًا مشكلة «جارٍ التحميل» الأبدية عند تبديل الفصل الأول/الثاني/الثالث في مكتبتي PDF والفيديو (كان الرد يصل قبل رسم الصفحة الجديدة)، وأضيف زر «تنزيل التطبيق APK مباشرة» داخل المنصة مع رابط قابل للنسخ والمشاركة، والمنصة صارت جاهزة للإشعارات الفورية التي تصل حتى والتطبيق مغلق، مع كل مزايا الإصدارات السابقة: زر الرجوع، رسائل الانقطاع، الشاشة الكاملة، والتحديث الرقمي التلقائي.';
+try{APP_META.changelog.unshift('الإصدار 42 — المستقر: تبديل الفصول في PDF والفيديو يعرض ملفاته فورًا بدل الانتظار الأبدي، زر تنزيل APK مباشر قابل للمشاركة، وجاهزية إشعارات الدروس حتى والتطبيق مغلق.')}catch(e){}
+function fallbackNews18(){
+  return [{title:'الإصدار 42 — مستقر ونهائي',
+    body:'تبديل الفصول في المكتبتين يشتغل فورًا، تنزيل التطبيق APK مباشرة من الإعدادات مع رابط للمشاركة، والمنصة جاهزة للإشعارات الفورية.',
     date:APP_META.date}];
 }
 </script><script>
