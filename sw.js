@@ -6,7 +6,7 @@
    الجديد في الإصدار 31: التخزين صار متسامحًا — أي ملف ناقص (مثل logo.jpg
    قبل رفعها) لم يعد يُعطّل التثبيت كاملًا كما كان في addAll القديمة. */
 
-var VERSION = 'x-v43';
+var VERSION = 'x-v44.2';
 var CACHE = 'x-site-' + VERSION;
 var CORE = ['./', './index.html', './manifest.json', './icon.svg', './logo.jpg'];
 
