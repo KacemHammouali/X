@@ -3,15 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>منصة X التعليمية — الإصدار 37 | المتوسط والثانوي</title>
+<title>منصة X التعليمية — الإصدار 38 | المتوسط والثانوي</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" type="image/jpeg" href="logo.jpg">
 <link rel="apple-touch-icon" href="logo.jpg">
-<meta name="theme-color" content="#0E1621">
-\<link rel="manifest" href="manifest.json">
-<link rel="icon" type="image/jpeg" href="logo.jpg">
-<link rel="apple-touch-icon" href="logo.jpg">
-<meta name="theme-color" content="#0E1621">
 <meta name="theme-color" content="#0E1621">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -45,7 +40,12 @@ if(n<50){
 }
 }catch(e){}},2500)});
 </script>
-<meta name="description" content="منصة X — مرجع السنة الثانية ثانوي شعبة رياضيات (الجزائر): 11 محورًا وفق البرنامج الرسمي و12 وحدة في العلوم الفيزيائية، بدروس مبسطة برسومات توضيحية وقوانين وتمارين محلولة وتحديات بكالوريا.">
+<meta name="description" content="منصة X التعليمية الجزائرية للطورين المتوسط والثانوي: دروس وقوانين وملخصات وتمارين وفروض واختبارات وتحديات بكالوريا وملفات PDF وشروحات فيديو — مجانية وتعمل بلا إنترنت.">
+<meta property="og:title" content="منصة X التعليمية — دروس وملازم للطورين المتوسط والثانوي (الجزائر)">
+<meta property="og:description" content="منصة جزائرية مجانية: دروس وقوانين وملخصات وتمارين وفروض واختبارات وتحديات بكالوريا وملفات PDF وشروحات فيديو — للطورين المتوسط والثانوي.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ar_DZ">
+<meta name="robots" content="index, follow">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
@@ -7477,7 +7477,7 @@ function x33GenModal(line,nm,fn){
    '<p class="x33-step"><b>1.</b> انسخ السطر التالي.</p>'+
    '<textarea class="x33-out" id="x33g-copy">'+escAttr(line)+'</textarea>'+
    '<p class="x33-step"><b>2.</b> افتح ملف <b>pdfs.json</b> في المستودع.</p>'+
-   '<p class="x33-step"><b>3.</b> الصق السطر داخل القوس المربع <b>[ ]</b> — إذا وُجدت أسطر أخرى ضع فاصلة <b>,</b> بين كل سطرين، هكذا: سطر, سطر</p>'+
+   '<p class="x33-step"><b>3.</b> الصق السطر داخل القوس المربع <b>[ ]</b> — سطر واحد لا يحتاج أي فاصلة نهائيًا، وعند وجود عدة أسطر ضع فاصلة <b>,</b> بين كل سطرين فقط.</p>'+
    '<p class="x33-step"><b>4.</b> اضغط Commit changes — سيظهر الملف «'+escAttr(nm)+'» في مكتبة شعبته مباشرة.</p>'+
    '<div class="x30-row"><button class="btn btn-primary" onclick="x33CopyTxt(document.getElementById(\'x33g-copy\').value)">📋 نسخ السطر</button></div>');
 }
@@ -7487,7 +7487,7 @@ function x33AdminSect(){
   var h='<section class="x17-card x33-admin" id="x33-admin"><h3>📚 مكتبة PDF — الطريقة السهلة الجديدة (pdfs.json)</h3>'+
    '<p class="x33-step"><b>الخطوة 1:</b> ارفع ملف الـ PDF نفسه إلى المستودع (Add file ← Upload files) بنفس طريقة رفع الصور — باسم بسيط بلا مسافات مثل <b>s2-math-1.pdf</b>.</p>'+
    '<p class="x33-step"><b>الخطوة 2:</b> افتح ملف <b>pdfs.json</b> واضغط قلم التعديل ✏️.</p>'+
-   '<p class="x33-step"><b>الخطوة 3:</b> عبّئ الخانات بالأسفل — واختر <b>الشعبة</b> الخاصة بالملف (أو «عام» لملف يشترك فيه الجميع) — ثم اضغط «📋 توليد السطر» وانسخ السطر والصقه داخل <b>[ ]</b> مع فاصلة بين كل سطرين.</p>'+
+   '<p class="x33-step"><b>الخطوة 3:</b> عبّئ الخانات بالأسفل — واختر <b>الشعبة</b> الخاصة بالملف (أو «عام» لملف يشترك فيه الجميع) — ثم اضغط «📋 توليد السطر» وانسخ السطر والصقه داخل <b>[ ]</b>: سطر واحد بلا فاصلة، وعدة أسطر ضع فاصلة <b>,</b> بين كل سطرين.</p>'+
    '<p class="x33-step"><b>الخطوة 4 (الحذف):</b> لحذف ملف من المكتبة: امسح سطره من pdfs.json واضغط Commit — ولحذفه نهائيًا احذف ملف الـ PDF نفسه من المستودع أيضًا.</p>'+
    '<div class="x33-gen">'+
    '<input class="x30-inp" id="x33g-name" placeholder="الاسم الظاهر للطلاب (مثل: ملخص الدوال)">'+
@@ -7997,7 +7997,7 @@ function x35AdminSect(){
   var h='<section class="x17-card x33-admin" id="x35-admin"><h3>🎬 مكتبة الفيديو — الطريقة السهلة (videos.json)</h3>'+
    '<p class="x33-step"><b>الخطوة 1:</b> انسخ رابط الفيديو من يوتيوب (زر «مشاركة» ← «نسخ الرابط»).</p>'+
    '<p class="x33-step"><b>الخطوة 2:</b> افتح ملف <b>videos.json</b> في المستودع واضغط قلم التعديل ✏️.</p>'+
-   '<p class="x33-step"><b>الخطوة 3:</b> عبّئ الخانات بالأسفل — واختر <b>الشعبة</b> والفصل — ثم اضغط «📋 توليد سطر الفيديو» وانسخ السطر والصقه داخل <b>[ ]</b> مع فاصلة بين كل سطرين.</p>'+
+   '<p class="x33-step"><b>الخطوة 3:</b> عبّئ الخانات بالأسفل — واختر <b>الشعبة</b> والفصل — ثم اضغط «📋 توليد سطر الفيديو» وانسخ السطر والصقه داخل <b>[ ]</b>: سطر واحد بلا فاصلة، وعدة أسطر ضع فاصلة <b>,</b> بين كل سطرين.</p>'+
    '<p class="x33-step"><b>الخطوة 4 (الحذف):</b> امسح سطر الفيديو من videos.json واضغط Commit — يختفي من المنصة فورًا.</p>'+
    '<div class="x33-gen">'+
    '<input class="x30-inp" id="x35g-title" placeholder="عنوان الفيديو الظاهر للطلاب (مثل: شرح الدوال خطوة بخطوة)">'+
@@ -8036,7 +8036,7 @@ function x35GenModal(line,ti){
    '<p class="x33-step"><b>1.</b> انسخ السطر التالي.</p>'+
    '<textarea class="x33-out" id="x35g-copy">'+escAttr(line)+'</textarea>'+
    '<p class="x33-step"><b>2.</b> افتح ملف <b>videos.json</b> في المستودع.</p>'+
-   '<p class="x33-step"><b>3.</b> الصق السطر داخل القوس المربع <b>[ ]</b> — وإذا وُجدت أسطر أخرى ضع فاصلة <b>,</b> بين كل سطرين.</p>'+
+   '<p class="x33-step"><b>3.</b> الصق السطر داخل القوس المربع <b>[ ]</b> — سطر واحد لا يحتاج أي فاصلة نهائيًا، وعند وجود عدة أسطر ضع فاصلة <b>,</b> بين كل سطرين فقط.</p>'+
    '<p class="x33-step"><b>4.</b> اضغط Commit changes — سيظهر الفيديو «'+escAttr(ti)+'» في مكتبة الفيديو فورًا.</p>'+
    '<div class="x30-row"><button class="btn btn-primary" onclick="x33CopyTxt(document.getElementById(\'x35g-copy\').value)">📋 نسخ السطر</button></div>');
 }
@@ -8242,6 +8242,268 @@ function fallbackNews18(){
 }
 </script>
 
+<style>
+/* ============ الطبقة 38 — الإصدار 38: التبويبات الاحترافية والقتل النهائي للخط الرفيع ============ */
+/* 38.أ الخط الرفيع أعلى اليمين كان مقبض شريط تمرير الصفحة — يُخفى كليًا مثل تيليجرام وفيسبوك */
+html,body{scrollbar-width:none;-ms-overflow-style:none}
+*{scrollbar-width:none}
+::-webkit-scrollbar{width:0!important;height:0!important;display:none!important}
+*::-webkit-scrollbar{width:0!important;height:0!important;display:none!important}
+/* 38.ب شريط التبويبات الاحترافي (الإعدادات + لوحة المالك) */
+.x38-tabs{display:flex;gap:6px;flex-wrap:nowrap;overflow-x:auto;margin:2px 0 14px;-webkit-overflow-scrolling:touch}
+.x38-tbtn{flex:1 0 auto;white-space:nowrap;border:1px solid rgba(140,200,240,.22);background:rgba(22,34,52,.7);color:#9fb4c9;font-family:inherit;font-weight:800;font-size:12.5px;line-height:1;padding:11px 12px;border-radius:12px;cursor:pointer;transition:background .22s ease,color .22s ease,border-color .22s ease,box-shadow .22s ease}
+.x38-tbtn.on{background:linear-gradient(180deg,rgba(42,171,238,.30),rgba(42,171,238,.10));border-color:var(--x-accent);color:#fff;box-shadow:0 4px 16px rgba(34,158,217,.28)}
+html[data-theme="light"] .x38-tbtn{background:rgba(255,255,255,.92);color:#41566c;border-color:rgba(30,60,100,.16)}
+html[data-theme="light"] .x38-tbtn.on{background:linear-gradient(180deg,rgba(34,158,217,.18),rgba(34,158,217,.06));color:#0d5c94}
+.x38-pane{display:none}
+.x38-pane.on{display:block;animation:x38in .28s ease}
+@keyframes x38in{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+/* 38.ج الدروس: عناوين تُفتح بضغطة */
+.x38-acc{border:1px solid rgba(140,200,240,.16);border-radius:16px;background:rgba(16,26,40,.5);margin:12px 0;overflow:hidden;transition:box-shadow .25s ease,border-color .25s ease}
+.x38-acc.open{border-color:rgba(42,171,238,.4);box-shadow:0 8px 26px rgba(0,0,0,.22)}
+.x38-acc-h{display:flex;width:100%;align-items:center;justify-content:space-between;gap:10px;background:none;border:0;color:inherit;font-family:inherit;font-weight:800;font-size:15px;line-height:1.7;padding:13px 16px;cursor:pointer;text-align:right}
+.x38-acc-h span{flex:1}
+.x38-acc-h:hover{background:rgba(42,171,238,.07)}
+.x38-acc-h i{font-style:normal;font-size:13px;color:var(--x-accent);transition:transform .28s ease;flex:0 0 auto}
+.x38-acc.open .x38-acc-h i{transform:rotate(180deg)}
+.x38-acc-b{display:none;padding:4px 16px 14px;border-top:1px dashed rgba(140,200,240,.16)}
+.x38-acc.open .x38-acc-b{display:block}
+.bac-card.x38-acc .x38-acc-b{padding-top:12px}
+html[data-theme="light"] .x38-acc{background:rgba(255,255,255,.85);border-color:rgba(30,60,100,.13)}
+html[data-theme="light"] .x38-acc-b{border-top-color:rgba(30,60,100,.12)}
+/* 38.د الخلاصات القابلة للفتح في آخر الدرس (خلاصة الوحدة + ماذا تحفظ) */
+.x38-foldsum{border:1px solid rgba(140,200,240,.2);border-radius:16px;margin:12px 0;background:rgba(16,26,40,.55);overflow:hidden}
+.x38-foldsum>summary{list-style:none;cursor:pointer;font-weight:800;font-size:15px;line-height:1.7;padding:13px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px;color:inherit}
+.x38-foldsum>summary::-webkit-details-marker{display:none}
+.x38-foldsum>summary:hover{background:rgba(42,171,238,.07)}
+.x38-foldsum>summary i{font-style:normal;font-size:13px;color:var(--x-accent);transition:transform .28s ease;flex:0 0 auto}
+.x38-foldsum[open]>summary{border-bottom:1px dashed rgba(140,200,240,.16)}
+.x38-foldsum[open]>summary i{transform:rotate(180deg)}
+.x38-foldsum>.kp-box,.x38-foldsum>.summary-box{margin:10px 12px 12px}
+html[data-theme="light"] .x38-foldsum{background:rgba(255,255,255,.88);border-color:rgba(30,60,100,.13)}
+@media print{.x38-tabs{display:none}.x38-pane{display:block!important}.x38-acc-b{display:block!important}}
+</style>
+<script>
+'use strict';
+/* ============ الطبقة 38 — الإصدار 38: تبويبات مثل التطبيقات العالمية + قتل الخط النهائي ============ */
+
+/* 38.1 مفتاح عام: فتح وإغلاق أي عنوان بضغطة */
+function x38Fold(btn){try{var p=btn.parentNode;if(p&&p.classList)p.classList.toggle('open')}catch(e){}}
+
+/* 38.2 الدروس: كل عنوان قسم يصير زرًا يفتح ما تحته — بلا تمرير طويل */
+var __x38Secs=secsHTML;
+secsHTML=function(list){
+  try{
+    if(!list||!list.length)return __x38Secs(list);
+    var groups=[],cur={t:null,b:[]},i;
+    for(i=0;i<list.length;i++){
+      var s=list[i];
+      if((s&&s.k==='h2')||(s&&s.k==='h3')){
+        if(cur.t!==null||cur.b.length)groups.push(cur);
+        cur={t:(''+(s.x||'')),b:[]};
+      }else{cur.b.push(s)}
+    }
+    if(cur.t!==null||cur.b.length)groups.push(cur);
+    var titled=0;for(i=0;i<groups.length;i++){if(groups[i].t!==null)titled++}
+    if(titled<1)return __x38Secs(list);
+    var h='';
+    for(i=0;i<groups.length;i++){
+      var g=groups[i];
+      if(g.t===null){h+=__x38Secs(g.b);continue}
+      h+='<div class="x38-acc"><button type="button" class="x38-acc-h" onclick="x38Fold(this)"><span>'+g.t+'</span><i>▾</i></button><div class="x38-acc-b">'+__x38Secs(g.b)+'</div></div>';
+    }
+    return h;
+  }catch(e){return __x38Secs(list)}
+};
+
+/* 38.3 تحدي البكالوريا: مغلق بضغطة ثم يظهر التمرين — والحل سرّي بضغطة ثانية */
+var __x38Bac=bacHTML;
+bacHTML=function(cid){
+  try{
+    var B=(typeof BAC!=='undefined')?BAC[cid]:null;
+    if(!B)return __x38Bac(cid);
+    return '<div class="bac-card x38-acc"><button type="button" class="x38-acc-h" onclick="x38Fold(this)"><span>🏆 تحدي البكالوريا — اضغط لعرض التمرين</span><i>▾</i></button>'+
+     '<div class="x38-acc-b">'+
+     '<p class="bac-p">'+B.p+'</p>'+
+     (B.parts||[]).map(function(pt,i){return '<div class="bac-part"><span class="pn">'+(i+1)+'</span><div>'+pt+'</div></div>'}).join('')+
+     '<details class="bac-sol"><summary>🔐 السر — اضغط ليكشف الحل النموذجي المفصل</summary><ol class="bac-steps">'+
+     (B.s||[]).map(function(st){return '<li>'+st+'</li>'}).join('')+
+     '</ol></details></div></div>';
+  }catch(e){return __x38Bac(cid)}
+};
+
+/* 38.4 الخلاصتان في آخر الدرس: تُفتحان بضغطة */
+var __x38Lesson=renderLesson;
+renderLesson=function(sid,cid){
+  var h=__x38Lesson(sid,cid);
+  try{
+    var i=h.indexOf('<div class="summary-box">');
+    var k=h.indexOf('<div class="kp-box');
+    if(k>0&&i>k){
+      h=h.slice(0,k)+'<details class="x38-foldsum"><summary>🗂️ خلاصة الوحدة — القوانين وأهم الملاحظات<i>▾</i></summary>'+h.slice(k,i)+'</details>'+h.slice(i);
+      i=h.indexOf('<div class="summary-box">');
+    }
+    if(i>0){
+      var j=h.indexOf('</ul></div>',i);
+      if(j>i){
+        h=h.slice(0,i)+'<details class="x38-foldsum" style="margin-top:12px"><summary>🧠 الخلاصة — اضغط ثم يظهر ما تحفظه من هذا الدرس<i>▾</i></summary>'+h.slice(i,j+11)+'</details>'+h.slice(j+11);
+      }
+    }
+  }catch(e){}
+  return h;
+};
+
+/* 38.5 الإعدادات: تبويبات واضحة بلا تمرير + نزع الكتابات أسفل لون التمييز + نقل قنوات الرسائل للمالك */
+var X38_SET_TAB=0,X38_ADM_TAB=0;
+function x38SetTab(i){
+  X38_SET_TAB=i;
+  try{
+    var j,b,p;
+    for(j=0;j<5;j++){
+      b=document.getElementById('x38-stab'+j);if(b)b.className='x38-tbtn'+(j===i?' on':'');
+      p=document.getElementById('x38-spane'+j);if(p)p.className='x38-pane'+(j===i?' on':'');
+    }
+  }catch(e){}
+}
+function x38AdmTab(i){
+  X38_ADM_TAB=i;
+  try{
+    var j,b,p;
+    for(j=0;j<4;j++){
+      b=document.getElementById('x38-atab'+j);if(b)b.className='x38-tbtn'+(j===i?' on':'');
+      p=document.getElementById('x38-apane'+j);if(p)p.className='x38-pane'+(j===i?' on':'');
+    }
+  }catch(e){}
+}
+function x38CutSection(h,id){
+  var a=h.indexOf('id="'+id+'"');
+  if(a<0)return h;
+  var st=h.lastIndexOf('<section',a);
+  var en=h.indexOf('</section>',a);
+  if(st<0||en<a)return h;
+  return h.slice(0,st)+h.slice(en+10);
+}
+function x38StripNotes(blk){
+  for(;;){
+    var i=blk.indexOf('<p class="set-note">');
+    if(i<0)break;
+    var j=blk.indexOf('</p>',i);
+    if(j<0)break;
+    blk=blk.slice(0,i)+blk.slice(j+4);
+  }
+  return blk;
+}
+function x38Marks(h){
+  var marks=[],pats=['<div class="set-card','<section class="contact','<section class="x17-card'],p,m,from;
+  for(p=0;p<pats.length;p++){from=0;while((m=h.indexOf(pats[p],from))>=0){marks.push(m);from=m+1}}
+  marks.sort(function(a,b){return a-b});
+  return marks;
+}
+function x38SettingsTabs(h){
+  var ids=['x22-outbox','x23-tgcard','x25-ejscard','x25-w3fcard','x27-card','x28-card'],n;
+  for(n=0;n<ids.length;n++){h=x38CutSection(h,ids[n])}
+  try{
+    var ci=h.indexOf('<section class="contact');
+    if(ci>0){var wi=h.lastIndexOf('</div>',ci);if(wi>0)h=h.slice(0,wi)+h.slice(wi+6)}
+  }catch(e){}
+  var marks=x38Marks(h),blocks=[],i;
+  for(i=0;i<marks.length;i++){
+    var end=(i+1<marks.length)?marks[i+1]:h.length;
+    blocks.push(h.slice(marks[i],end));
+  }
+  var tabs=[[],[],[],[],[]];
+  for(i=0;i<blocks.length;i++){
+    var b=blocks[i];
+    if(i===blocks.length-1&&b.length>6&&b.slice(-6)==='</div>'){b=b.slice(0,-6)}
+    if(!b)continue;
+    if(b.indexOf('عن المنصة')>=0||b.indexOf('class="contact"')>=0){tabs[4].push(b)}
+    else if(b.indexOf('المظهر')>=0||b.indexOf('المؤثرات')>=0){tabs[0].push(x38StripNotes(b))}
+    else if(b.indexOf('الصوت')>=0||b.indexOf('الإشعارات')>=0){tabs[1].push(x38StripNotes(b))}
+    else if(b.indexOf('الحساب')>=0||b.indexOf('اللغة')>=0){tabs[2].push(x38StripNotes(b))}
+    else if(b.indexOf('تطبيق')>=0){tabs[3].push(b)}
+    else{tabs[4].push(b)}
+  }
+  var names=['🎨 المظهر','🔊 الصوت','👤 الحساب','📱 التطبيق','ℹ️ حول'];
+  var out='<div class="fade-in set-wrap" id="x38-setwrap"><h2 class="sec15">⚙️ الإعدادات</h2><div class="x38-tabs">';
+  for(i=0;i<5;i++){out+='<button type="button" id="x38-stab'+i+'" class="x38-tbtn'+(i===X38_SET_TAB?' on':'')+'" onclick="x38SetTab('+i+')">'+names[i]+'</button>'}
+  out+='</div>';
+  for(i=0;i<5;i++){out+='<div id="x38-spane'+i+'" class="x38-pane'+(i===X38_SET_TAB?' on':'')+'">'+tabs[i].join('')+'</div>'}
+  return out+'</div>';
+}
+var __x38Settings=renderSettingsPage;
+renderSettingsPage=function(){
+  var h=__x38Settings();
+  try{return x38SettingsTabs(h)}catch(e){return h}
+};
+
+/* 38.6 لوحة المالك: أربع تبويبات مرتبة (نظرة عامة | مكتبة PDF | مكتبة الفيديو | الرسائل) */
+function x38ChanHTML(){
+  var h='';
+  try{h+=x22OutHTML()}catch(e){}
+  try{h+=x25EJSHTML()}catch(e){}
+  try{h+=x25W3FHTML()}catch(e){}
+  try{h+=x27HTML()}catch(e){}
+  try{h+=x28ToolsHTML()}catch(e){}
+  if(!h){h='<p class="set-note">لا توجد قنوات إرسال مهيأة.</p>'}
+  return h;
+}
+var __x38Admin=renderAdminPage18;
+renderAdminPage18=function(){
+  var h=__x38Admin();
+  try{
+    if(isAdmin()){
+      var marks=[],pats=['<div class="set-card','<section class="x17-card'],p,m,from;
+      for(p=0;p<pats.length;p++){from=0;while((m=h.indexOf(pats[p],from))>=0){marks.push(m);from=m+1}}
+      marks.sort(function(a,b){return a-b});
+      if(marks.length){
+        var prefix=h.slice(0,marks[0]),blocks=[],i;
+        var headPart=prefix,dashPart='';
+        var hEnd=prefix.indexOf('</h2>');
+        if(hEnd>0){headPart=prefix.slice(0,hEnd+5);dashPart=prefix.slice(hEnd+5)}
+        for(i=0;i<marks.length;i++){
+          var end=(i+1<marks.length)?marks[i+1]:h.length;
+          blocks.push(h.slice(marks[i],end));
+        }
+        var tabs=[[],[],[]];
+        for(i=0;i<blocks.length;i++){
+          var b=blocks[i];
+          if(i===blocks.length-1&&b.length>6&&b.slice(-6)==='</div>'){b=b.slice(0,-6)}
+          if(!b)continue;
+          if(b.indexOf('id="x35-admin"')>=0){tabs[2].push(b)}
+          else if(b.indexOf('id="x30-admin"')>=0||b.indexOf('id="x33-admin"')>=0){tabs[1].push(b)}
+          else{tabs[0].push(b)}
+        }
+        var names=['📊 نظرة عامة','📚 مكتبة PDF','🎬 مكتبة الفيديو','📡 الرسائل'];
+        var out=headPart+'<div class="x38-tabs">';
+        for(i=0;i<4;i++){out+='<button type="button" id="x38-atab'+i+'" class="x38-tbtn'+(i===X38_ADM_TAB?' on':'')+'" onclick="x38AdmTab('+i+')">'+names[i]+'</button>'}
+        out+='</div>';
+        out+='<div id="x38-apane0" class="x38-pane'+(X38_ADM_TAB===0?' on':'')+'">'+dashPart+tabs[0].join('')+'</div>';
+        for(i=1;i<3;i++){out+='<div id="x38-apane'+i+'" class="x38-pane'+(i===X38_ADM_TAB?' on':'')+'">'+tabs[i].join('')+'</div>'}
+        out+='<div id="x38-apane3" class="x38-pane'+(X38_ADM_TAB===3?' on':'')+'">'+x38ChanHTML()+'</div>';
+        h=out+'</div>';
+      }
+    }
+  }catch(e){}
+  return h;
+};
+
+/* 38.7 إصلاح: قائمة ملفات مكتبة PDF في لوحة المالك لم تكن تُفتح (خطأ في المعرّف) */
+var __x38Render=render;
+render=function(){
+  __x38Render();
+  try{var d=document.getElementById('x30-alist');if(d&&typeof x30AList==='function')x30AList()}catch(e){}
+};
+
+/* 38.8 بيانات الإصدار 38 */
+APP_META.ver='38.0';APP_META.date='2026-11-01';
+APP_META.notes='الإصدار 38 — التبويبات الاحترافية مثل التطبيقات العالمية: قُتل الخط الرفيع أعلى اليمين نهائيًا (كان مقبض شريط التمرير — أُخفي كليًا مثل تيليجرام وفيسبوك)، وصارت الإعدادات خمسة تبويبات واضحة (المظهر، الصوت، الحساب، التطبيق، حول) بلا تمرير طويل ونُزعت الكتابات أسفل «لون التمييز»، وصارت صفحة الدرس عناوين تُفتح بضغطة، والخلاصة وتحدي البكالوريا في آخر الدرس يُكشفان بضغطة (والحل سرّي بضغطة ثانية)، وأُعيد بناء لوحة المالك أربع تبويبات نظيفة (نظرة عامة، مكتبة PDF، مكتبة الفيديو، الرسائل) ونُقلت قنوات الإرسال من إعدادات الطلاب إلى لوحة المالك، وشُرحت فاصلة ملف videos.json ببساطة (سطر واحد = بلا فاصلة)، وأُصلح خلل قائمة ملفات الإدارة وأسطر الرأس المكررة، وحُسّن ظهور المنصة في محركات البحث (وصف جديد + وسوم نشر + ملف robots.txt).';
+try{APP_META.changelog.unshift('الإصدار 38 — تبويبات احترافية وفتح بالضغط: الإعدادات خمسة تبويبات ولوحة المالك أربع تبويبات مع قنوات الرسائل، والدرس عناوين تُفتح بضغطة والخلاصة وتحدي البكالوريا سرّيان بضغطة، وقتل نهائي للخط الرفيع أعلى اليمين (كان مقبض شريط التمرير)، وإصلاح قائمة ملفات الإدارة، وتحسين الظهور في محركات البحث.')}catch(e){}
+function fallbackNews18(){
+  return [{title:'الإصدار 38 — تبويبات مثل التطبيقات العالمية',
+    body:'الإعدادات ولوحة المالك صارتا تبويبات واضحة، والدرس عناوين تُفتح بضغطة، والخلاصة وتحدي البكالوريا بضغطة، وقُتل الخط الرفيع أعلى اليمين نهائيًا.',
+    date:APP_META.date}];
+}
+</script>
 <script>
 /* ============ بنك الاختبارات التفاعلية ============ */
 /* QUIZZES معرّف مسبقًا في المحرك — لا نعيد تهيئته حتى لا تُمحى البنوك الأخرى */
