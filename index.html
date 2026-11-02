@@ -9121,7 +9121,7 @@ try{
       var b=document.getElementById('x43-boot');
       if(b){b.className='x43-off';setTimeout(function(){try{if(b.parentNode){b.parentNode.removeChild(b)}}catch(e){}},550)}
     }catch(e){}
-  },x43Standalone()?150:650);
+  },5000);
 }catch(e){X43_BOOT=false}
 /* 43.5 بيانات الإصدار 43 */
 APP_META.ver='43.0';APP_META.date='2026-11-01';APP_META.lastUpdate='2026-11-01';
@@ -9698,13 +9698,79 @@ try{
    'html[data-theme="light"] body{background:var(--bg-0) !important}';
   (document.head||document.documentElement).appendChild(x47s);
 }catch(e){}
+/* 47.ب جسر المصادقة: تحميل مكتبة Supabase من CDN + قراءة مفاتيح لوحة X.HAK المحفوظة على الجهاز وتهيئة المصادقة — المفاتيح لا تُوضع في كود المنصة إطلاقًا */
+var X47_SB_TRIES=0;
+try{
+  if(typeof window.supabase==='undefined'){
+    var x47sb=document.createElement('script');
+    x47sb.src='https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/supabase.min.js';
+    x47sb.async=true;
+    (document.head||document.documentElement).appendChild(x47sb);
+  }
+}catch(e0){}
+function x47SbBridge(){
+  try{
+    var c=null;
+    try{c=JSON.parse(localStorage.getItem('x30_admin_cfg')||'null')}catch(e1){c=null}
+    if(c&&c.url&&c.anon){
+      SB_CFG.url=(''+c.url).replace(/\/+$/,'');
+      SB_CFG.anon=''+c.anon;
+    }
+    if(!SB.ready&&SB_CFG.url&&SB_CFG.anon&&typeof window.supabase!=='undefined'&&window.supabase&&typeof window.supabase.createClient==='function'){
+      try{SB.client=window.supabase.createClient(SB_CFG.url,SB_CFG.anon);SB.ready=true;try{render()}catch(e2){}}catch(e3){}
+    }
+    if(!SB.ready&&X47_SB_TRIES<40){X47_SB_TRIES++;setTimeout(x47SbBridge,750)}
+  }catch(e){}
+}
+x47SbBridge();
+/* 47.ج وصل الدخول بالرمز: عندما تكون المصادقة مهيأة، متابعة البريد ترسل رمزًا سريًا وتطلب كتابته — لا دخول بلا تحقق */
+var __x47EmailNext=x18EmailNext;
+x18EmailNext=function(){
+  try{
+    if(SB&&SB.ready){
+      var em=(''+(((gid('a-email')||{}).value)||'')).trim();
+      XAUTH18.email=em;XAUTH18.errs={};AUTH.email=em;AUTH.errs={};
+      if(!validEmail(em)){XAUTH18.errs={email:'اكتب بريدًا إلكترونيًا صالحًا'};xSound('error');render();return}
+      AUTH.busy=true;render();
+      SB.client.auth.signInWithOtp({email:em,createUser:true}).then(function(r){
+        AUTH.busy=false;
+        if(r&&r.error){XAUTH18.errs={top:(r.error.message||'تعذر إرسال الرمز — أعد المحاولة')};xSound('error');render();return}
+        AUTH.tab='x44code';AUTH.sent=true;
+        toast('📩 أُرسل رمز التحقق إلى بريدك');
+        render();
+      }).catch(function(e){AUTH.busy=false;XAUTH18.errs={top:'انقطع الاتصال بالخدمة — تحقق من الإنترنت وأعد المحاولة'};xSound('error');render()});
+      return;
+    }
+  }catch(e){}
+  __x47EmailNext();
+};
+var __x47Auth18=renderAuth18;
+renderAuth18=function(){
+  try{
+    if(SB&&SB.ready&&typeof x44CodeScreen==='function'&&(AUTH.tab==='x44code')){
+      return authWrap(x44CodeScreen(),2,2);
+    }
+  }catch(e){}
+  return __x47Auth18();
+};
+/* 47.د زر «متابعة عبر جوجل» في بطاقة البريد عندما تكون المصادقة مهيأة */
+var __x47EmailCard=x18EmailCard;
+x18EmailCard=function(){
+  var h=__x47EmailCard();
+  try{
+    if(SB&&SB.ready&&typeof x45vGoogle==='function'&&h.indexOf('x45vGoogle')<0){
+      h=h.split('<p class="auth-alt">').join('<button class="btn btn-block" style="background:#fff;color:#1a1a2e;border:1px solid rgba(0,0,0,.14);font-weight:700;margin-top:10px" onclick="x45vGoogle()">🔗 متابعة عبر جوجل</button><p class="auth-alt">');
+    }
+  }catch(e1){}
+  return h;
+};
 /* 47 بيانات الإصدار 47 */
-APP_META.ver='47.0';APP_META.date='2026-11-02';APP_META.lastUpdate='2026-11-02';
-APP_META.notes='الإصدار 47 — الهوية الرسمية: مجموعة الألوان الرسمية المعتمدة كاملة (داكن: خلفية #080D18 وأساسي سماوي #35BDF2 وبنفسجي #8B6CFF ونص #F5F7FC — فاتح: #F4F7FC وأساسي #168EBF) مطبقة على كل صفحات المنصة بالوضعين، وافتتاحية جديدة بهالة سماوية حول الشعار وعبارة «تعلمك يبدأ من هنا» فوق توقيع «من X.HAK»، مع كل إصلاحات 46: الأيقونة الموحدة icon-512 في كل مكان، الافتتاحية الذكية التي لا تتكرر عند إعادة فتح التطبيق، الشريط العلوي الأنحف، خلفية المعرض الواضحة، الإشعارات التلقائية من أول زيارة، حركة الاختفاء الطائرة مثل تيليجرام، بند الملكية الفكرية، وتعريف مؤسسة X.HAK ومؤسسها HAMMOUALI Kacem.';
-try{APP_META.changelog.unshift('الإصدار 47 — الهوية الرسمية المعتمدة: ألوان رسمية موحدة للوضعين الداكن والفاتح بكل الصفحات، افتتاحية بهالة سماوية وعبارة «تعلمك يبدأ من هنا»، مع كامل إصلاحات الإصدار 46.')}catch(e){}
+APP_META.ver='47.1';APP_META.date='2026-11-02';APP_META.lastUpdate='2026-11-02';
+APP_META.notes='الإصدار 47.1 — إصلاح المصادقة الجذري: المنصة كانت تدخل مباشرة بعد البريد دون أي رمز تحقق لأن شاشة الدخول الفعلية لم تكن موصولة بخدمة المصادقة. الآن: مكتبة Supabase تُحمَّل تلقائيًا، ومفاتيح لوحة X.HAK المحفوظة على جهازك تُوصَل بالمصادقة فورًا (بلا وضعها في الكود)، والضغط على «متابعة» بعد البريد يرسل رمزًا سريًا إلى البريد ويطلب كتابته قبل الدخول — لا دخول بلا تحقق، مع زر «متابعة عبر جوجل» وزر «تغيير البريد» وإعادة الإرسال. يضاف إلى ذلك: الهوية الرسمية المعتمدة (ألوان #080D18 و#35BDF2 داكنًا و#F4F7FC و#168EBF فاتحًا في كل الصفحات)، الافتتاحية بهالة سماوية وعبارة «تعلمك يبدأ من هنا»، وكل إصلاحات 46 (الأيقونة الموحدة، الافتتاحية الذكية، الشريط الأنحف، خلفية المعرض الواضحة، الإشعارات التلقائية، حركة الاختفاء الطائرة، بند الملكية، وتعريف مؤسسة X.HAK ومؤسسها HAMMOUALI Kacem).';
+try{APP_META.changelog.unshift('الإصدار 47.1 — إصلاح جسر المصادقة: رمز التحقق السري يُطلب فعلًا قبل الدخول (كان الدخول يتخطاه)، مكتبة Supabase تُحمَّل تلقائيًا والمفاتيح تُقرأ من إعداد لوحة X.HAK على الجهاز، مع الهوية الرسمية المعتمدة وافتتاحية «تعلمك يبدأ من هنا» وكامل إصلاحات 46.')}catch(e){}
 function fallbackNews18(){
-  return [{title:'الإصدار 47 — الهوية الرسمية',
-    body:'الألوان الرسمية المعتمدة في كل الصفحات بالوضعين الداكن والفاتح، وافتتاحية راقية بهالة سماوية حول الشعار وعبارة «تعلمك يبدأ من هنا»، مع كل إصلاحات الإصدار 46.',
+  return [{title:'الإصدار 47.1 — إصلاح المصادقة الجذري',
+    body:'رمز التحقق السري يُطلب فعلًا من بريدك قبل الدخول، والمصادقة تقرأ مفاتيح لوحة X.HAK من جهازك تلقائيًا، مع الهوية الرسمية الجديدة وكل إصلاحات الإصدار 46.',
     date:APP_META.date}];
 }
 </script><script>
@@ -9878,6 +9944,10 @@ QUIZZES.ph9={qs:[
 ]};
 
 /* ============ تشغيل المنصة ============ */
+/* ============ الطبقة 47.2 — الإصدار 47.2: الافتتاحية 5 ثوانٍ ============ */
+APP_META.ver='47.2';APP_META.date='2026-11-02';APP_META.lastUpdate='2026-11-02';
+APP_META.notes='الإصدار 47.2 — شاشة الافتتاحية (الشعار المتوهج مع «تعلمك يبدأ من هنا») تبقى الآن 5 ثوانٍ كاملة ثم تنتقل إلى الصفحة الرئيسية بدل الاختفاء السريع. ويؤكد هذا الإصدار منطق التحديث: إشعار التحديث يظهر لك وتختار بنفسك «تحديث الآن» أو «لاحقًا»، والتحديث لا يحدث أبدًا إلا بضغطك على الزر، وبعد 10 أيام من توفر الإصدار الجديد يتوقف التطبيق بشاشة «تحديث إلزامي» حتى تضغط «تحديث الآن» بنفسك. ويشمل ذلك كل إصلاحات 47.1 (رمز التحقق إلزامي قبل الدخول، جسر Supabase التلقائي من مفاتيح لوحة X.HAK، زر «متابعة عبر جوجل»، الهوية الرسمية المعتمدة) وكل إصلاحات 46.';
+try{APP_META.changelog.unshift('الإصدار 47.2 — الافتتاحية تدوم 5 ثوانٍ ثم تدخل الرئيسية، والتحديث بضغط المستخدم فقط (لا تحديث تلقائي أبدًا)، وتوقف التطبيق بعد 10 أيام من تجاهل التحديث.')}catch(e){}
 boot();
 </script>
 </body>
