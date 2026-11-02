@@ -3,10 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>منصة X التعليمية — الإصدار 45 | المتوسط والثانوي</title>
+<!--
+  ══════════════════════════════════════════════════════════
+  منصة X التعليمية — الإصدار 46
+  © 2026 مؤسسة X.HAK (HAMMOUALI Kacem) — جميع الحقوق محفوظة.
+  هذا الملف ومحتواه مملوك لمؤسسة X.HAK. يُمنع نسخه أو
+  إعادة نشره أو استغلاله تجاريًا بدون إذن كتابي من المؤسسة.
+  ══════════════════════════════════════════════════════════
+-->
+<title>منصة X التعليمية — المتوسط والثانوي</title>
 <link rel="manifest" href="manifest.json">
-<link rel="icon" type="image/jpeg" href="logo.jpg">
-<link rel="apple-touch-icon" href="logo.jpg">
+<link rel="icon" type="image/png" href="icon-512.png">
+<link rel="apple-touch-icon" href="icon-512.png">
 <meta name="theme-color" content="#0E1621">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -188,12 +196,12 @@ button:focus-visible,a:focus-visible,summary:focus-visible,[role=button]:focus-v
 .mobile-menu.show{display:flex}
 
 /* ===== Hero ===== */
-.hero{margin:14px 16px 8px;padding:clamp(28px,5vw,54px) clamp(18px,4vw,44px);text-align:center;border-radius:26px;border:1px solid rgba(140,200,240,.22);background:radial-gradient(ellipse at 20% 0%,rgba(82,136,193,.2),transparent 55%),radial-gradient(ellipse at 95% 80%,rgba(139,92,246,.22),transparent 45%),linear-gradient(135deg,#0a1525,#0b2340 55%,#10152d);box-shadow:0 18px 50px rgba(0,0,0,.3),0 0 35px rgba(82,136,193,.08);position:relative;overflow:hidden}
+.hero{margin:10px 14px 6px;padding:clamp(16px,3vw,30px) clamp(14px,3.5vw,34px);text-align:center;border-radius:22px;border:1px solid rgba(140,200,240,.22);background:radial-gradient(ellipse at 20% 0%,rgba(82,136,193,.2),transparent 55%),radial-gradient(ellipse at 95% 80%,rgba(139,92,246,.22),transparent 45%),linear-gradient(135deg,#0a1525,#0b2340 55%,#10152d);box-shadow:0 14px 42px rgba(0,0,0,.3),0 0 35px rgba(82,136,193,.08);position:relative;overflow:hidden}
 .ver-badge{display:inline-block;margin-bottom:12px;padding:5px 16px;border-radius:999px;font-size:12px;font-weight:900;letter-spacing:.5px;color:#a8d4f5;background:rgba(82,136,193,.1);border:1px solid rgba(140,200,240,.35)}
-.hero h1{font-size:clamp(26px,5vw,52px);font-weight:900;line-height:1.25;background:linear-gradient(105deg,#f5f7ff 0%,#71f6ff 23%,#9ea2ff 53%,#f0b95e 78%,#fff 100%);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:14px}
-.hero p{color:#cbd4f7;font-size:clamp(14px,2vw,18px);max-width:800px;margin:0 auto 24px}
+.hero h1{font-size:clamp(24px,4.5vw,42px);font-weight:900;line-height:1.25;background:linear-gradient(105deg,#f5f7ff 0%,#71f6ff 23%,#9ea2ff 53%,#f0b95e 78%,#fff 100%);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:10px}
+.hero p{color:#cbd4f7;font-size:clamp(13px,1.9vw,16px);max-width:800px;margin:0 auto 16px}
 .hero-cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.hero-stats{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:22px}
+.hero-stats{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px}
 .hstat{padding:10px 18px;border-radius:14px;background:rgba(5,9,17,.5);border:1px solid var(--line);font-size:13px;color:var(--text-dim)}
 .hstat b{color:var(--cyan);font-size:16px;margin-inline-end:6px}
 
@@ -1108,8 +1116,12 @@ function restartQuiz(sid,cid){QZ=null;__QZREC__(null);render()}
 /* ---------------- 8. أدوات ---------------- */
 function toast(msg,cls){
   var t=document.createElement('div');t.className='toast '+(cls||'');t.textContent=msg;
+  try{t.style.transition='transform .3s cubic-bezier(.34,1.2,.44,1),opacity .3s ease'}catch(e0){}
   document.getElementById('toasts').appendChild(t);
-  setTimeout(function(){t.style.transition='opacity .4s';t.style.opacity='0';setTimeout(function(){t.remove()},400)},2200);
+  setTimeout(function(){
+    try{t.style.transform='translateY(-30px) scale(.55)'}catch(e1){}
+    t.style.opacity='0';setTimeout(function(){t.remove()},320)
+  },2200);
 }
 function confetti(){
   if(!STATE.fx)return;
@@ -1935,7 +1947,17 @@ function xModal(title,html){
   d.innerHTML='<div class="xmodal-bg" onclick="xCloseModal()"></div><div class="xmodal-card glass-strong"><h3>'+title+'</h3><div class="xmodal-body">'+html+'</div><button class="btn btn-primary btn-block" onclick="xCloseModal()">فهمت</button></div>';
   document.body.appendChild(d);
 }
-function xCloseModal(){var d=gid('xmodal');if(d)d.remove()}
+function xCloseModal(){
+  var d=gid('xmodal');
+  if(d){
+    try{
+      var c=d.querySelector('.xmodal-card');
+      if(c){c.style.transition='transform .26s cubic-bezier(.4,.1,.9,.4),opacity .26s ease';c.style.transform='translateY(-24px) scale(.7)';c.style.opacity='0'}
+      d.style.transition='opacity .26s ease';d.style.opacity='0';
+      setTimeout(function(){if(d&&d.parentNode){d.parentNode.removeChild(d)}},280);
+    }catch(e){if(d)d.remove()}
+  }
+}
 function xShowDoc(which){
   if(which==='privacy'){
     xModal('🔒 سياسة الخصوصية',
@@ -2751,12 +2773,14 @@ function xShowDoc(which){
     '<ul><li>المنصة مخصصة للدعم الدراسي لتلاميذ الطورين المتوسط والثانوي (الجزائر)، والمحتوى يقدم كما هو لخدمة التلميذ.</li>'+
     '<li>بياناتك الشخصية على جهازك أمانتك — لا تترك جهازك مفتوحًا على حسابك في يد أحد.</li>'+
     '<li>يُمنع إساءة الاستخدام: محاولات الاختراق أو إغراق بريد المالك برسائل آلية.</li>'+
+    '<li><b>الملكية الفكرية:</b> منصة X ومحتواها وهييتها البرمجية ملك لمؤسسة X.HAK — يُمنع نسخ المنصة أو محاكاتها أو إعادة نشر محتواها تحت أي اسم آخر بدون إذن كتابي من المؤسسة.</li>'+
     '<li>قد تُحدَّث المنصة وتُضاف ميزات، وستظهر لك إعلانات التحديث داخلها.</li></ul>');
   }else{
     xModal('ℹ️ عن منصة X',
     '<p><b>منصة X</b> — الإصدار '+APP_META.ver+' · آخر تحديث '+APP_META.lastUpdate+'</p>'+
     '<p>منصة تعليمية جزائرية مجانية للطورين المتوسط والثانوي بكل المواد والشعب: دروس وملخصات وقوانين وتمارين وفروض واختبارات تفاعلية، مع مكتبة ملفات PDF ومكتبة فيديو ومتابعة التقدم خطوة بخطوة.</p>'+
     '<p>تديرها مؤسسة X.HAK، وتعمل كتطبيق (PWA) يثبّت على هاتفك ويعمل بلا إنترنت، مع إشعارات تصل حتى والتطبيق مغلق.</p>'+
+    '<p><b>عن المؤسسة:</b> X.HAK — مؤسسة جزائرية مستقلة أسسها المبرمج <b dir="ltr">HAMMOUALI Kacem</b>، تعمل في تطوير الحلول البرمجية والتطبيقات التعليمية الرقمية، وتقود مشروع «منصة X التعليمية» لخدمة تلاميذ الطورين المتوسط والثانوي في الجزائر بمحتوى مجاني بالكامل.</p>'+
     '<p class="set-note">حالة الخدمات: التخزين المحلي '+(x18StorageOK()?'جاهز ✅':'غير متاح ⚠️')+' — البيانات محفوظة على جهازك.</p>');
   }
 }
@@ -6306,7 +6330,7 @@ xBuildManifest=function(){
 /* ============ الطبقة 30 — منصة X التعليمية: الطوران + مكتبة PDF ============ */
 /* 30.1 الهوية الرسمية والشعار الجديد (logo.jpg يُرفع للمستودع بنفس الاسم) */
 var X30_BRAND={name:'منصة X التعليمية',desc:'منصة X التعليمية للطورين المتوسط والثانوي'};
-var X30_LOGO='<img src="./logo.jpg" alt="شعار منصة X التعليمية" class="x30-logo">';
+var X30_LOGO='<img src="./icon-512.png" alt="شعار منصة X التعليمية" class="x30-logo">';
 /* 30.2 بنية الطور ← السنة ← المادة (الشعبة تُضاف مستقبلًا دون هدم) */
 var X30_CYCLES=[
  {id:'mid',name:'الطور المتوسط',icon:'book',desc:'السنوات الأربع + قسم شهادة التعليم المتوسط',years:['m1','m2','m3','m4']},
@@ -6774,7 +6798,7 @@ function x30LogoFail(el){
     el.parentNode.replaceChild(d,el);
   }catch(e){try{el.style.display='none'}catch(e2){}}
 }
-var X30_LOGO='<img src="./logo.jpg" alt="شعار منصة X التعليمية" class="x30-logo" onerror="x30LogoFail(this)">';
+var X30_LOGO='<img src="./icon-512.png" alt="شعار منصة X التعليمية" class="x30-logo" onerror="x30LogoFail(this)">';
 /* 31.2 الشريط السفلي: كانت فئة glass-strong ساقطة في الإصدار 30 فبدا شاحبًا شبه شفاف — نعيدها */
 renderBottomNav=function(){
   if(ROUTE.page==='auth')return '';
@@ -9097,7 +9121,7 @@ try{
       var b=document.getElementById('x43-boot');
       if(b){b.className='x43-off';setTimeout(function(){try{if(b.parentNode){b.parentNode.removeChild(b)}}catch(e){}},550)}
     }catch(e){}
-  },650);
+  },x43Standalone()?150:650);
 }catch(e){X43_BOOT=false}
 /* 43.5 بيانات الإصدار 43 */
 APP_META.ver='43.0';APP_META.date='2026-11-01';APP_META.lastUpdate='2026-11-01';
@@ -9302,6 +9326,24 @@ function x44InitCustomPush(){
   }catch(e){}
 }
 if(X44_PUSH_SRC){x44InitCustomPush()}
+/* 46.أ الإشعارات التلقائية: أول دخول للمنصة يفعّل الاشتراك مباشرة دون أي زر — مرة واحدة لكل جهاز */
+var X46_PUSHAUTO='x46_pushauto';
+function x46AutoPush(){
+  try{
+    if(stGet(X46_PUSHAUTO,false)===true){return}
+    stSet(X46_PUSHAUTO,true);
+    setTimeout(function(){
+      try{
+        if(window.wpPush&&typeof window.wpPush.openPrompt==='function'){window.wpPush.openPrompt();return}
+        if(window.wpPush&&window.wpPush.openDialog){window.wpPush.openDialog();return}
+      }catch(e1){}
+      try{
+        if(window.Notification&&Notification.permission==='default'){Notification.requestPermission(function(){})}
+      }catch(e2){}
+    },2500);
+  }catch(e){}
+}
+try{x46AutoPush()}catch(e){}
 /* 44.ي الدخول الأول: البريد ← رمز سري يصلك بالبريد ← معلوماتك ← حسابك — مثل التطبيقات العالمية */
 function x44CodeScreen(){
   return '<h3>📩 أدخل رمز التحقق</h3>'+
@@ -9445,7 +9487,7 @@ function x45vBgApply(){
     var css='';
     if(X45V_BGMODE==='black'){css='body{background:#000 !important}html{background:#000 !important}'}
     else if(X45V_BGMODE==='img'&&X45V_BGIMG){
-      css='body{background:linear-gradient(rgba(8,14,24,.87),rgba(8,14,24,.92)),url("'+X45V_BGIMG.split('"').join('%22')+'") center/cover fixed no-repeat !important}';
+      css='body{background:linear-gradient(rgba(8,14,24,.38),rgba(8,14,24,.52)),url("'+X45V_BGIMG.split('"').join('%22')+'") center/cover no-repeat !important}html{background:#0e1621 !important}';
     }
     el.textContent=css;
   }catch(e){}
@@ -9629,13 +9671,13 @@ renderAdminPage18=function(){
   }catch(e){}
   return h;
 };
-/* 45.ز بيانات الإصدار 45 */
-APP_META.ver='45.0';APP_META.date='2026-11-01';APP_META.lastUpdate='2026-11-01';
-APP_META.notes='الإصدار 45 — «X.HAK»: افتتاحية سوداء أنيقة كتطبيقات العالم بشعار المنصة وتوقيع «من X.HAK»، خلفية قابلة للتغيير من الإعدادات (أسود نقي أو صورة من معرض هاتفك)، زر «متابعة عبر جوجل» في الدخول الأول، تنظيف شامل لكل النصوص القديمة فصار وصف المنصة للطورين المتوسط والثانوي بكل المواد والشعب، لوحة الإدارة باسم مؤسسة X.HAK بأزرار تعمل جميعها ومركز رسائل واضح، وسياسة خصوصية محدثة توضح وصول معلومات التسجيل الدراسية إلى المؤسسة دون أي كلمات مرور، والإشعارات تعمل كما في الإصدار 44.2.';
-try{APP_META.changelog.unshift('الإصدار 45 — «X.HAK»: افتتاحية سوداء بتوقيع المؤسسة، خلفية قابلة للتغيير (أسود نقي أو صورة من الهاتف)، متابعة عبر جوجل، تنظيف شامل للنصوص القديمة، لوحة إدارة X.HAK تعمل جميع أزرارها، ومركز رسائل واضح.')}catch(e){}
+/* 46 بيانات الإصدار 46 */
+APP_META.ver='46.0';APP_META.date='2026-11-02';APP_META.lastUpdate='2026-11-02';
+APP_META.notes='الإصدار 46 — إصدار الصقل العالمي: أيقونة المنصة الجديدة icon-512 في كل مكان (المتصفح والتثبيت وعن المنصة — وداعًا لكل صورة قديمة)، شاشة الافتتاح ذكية لا تتكرر عند إعادة فتح التطبيق المثبت (تشطيف فوري بدل الظهور من جديد)، الشريط العلوي للرئيسية أضيق وأكثر احترافية، صورة الخلفية من المعرض تظهر واضحة بعد أن خففنا الطبقة الداكنة، الإشعارات تتفعل تلقائيًا في أول زيارة دون أي زر، الرسائل والنوافذ تختفي بحركة الطيران لأعلى مثل تيليجرام، بند حماية الملكية الفكرية في الشروط، وتعريف احترافي بمؤسسة X.HAK ومؤسسها HAMMOUALI Kacem في «عن المنصة».';
+try{APP_META.changelog.unshift('الإصدار 46 — صقل عالمي: أيقونة موحدة في كل المنصة، افتتاحية بلا تكرار عند إعادة الفتح، شريط علوي أنحف، خلفية معرض أوضح، تفعيل تلقائي للإشعارات، حركة حذف مثل تيليجرام، بند حماية الملكية، وتعريف بالمؤسسة ومؤسسها.')}catch(e){}
 function fallbackNews18(){
-  return [{title:'الإصدار 45 — مؤسسة X.HAK',
-    body:'افتتاحية سوداء أنيقة بتوقيع «من X.HAK»، خلفية قابلة للتغيير من تبويب المظهر في الإعدادات، زر «متابعة عبر جوجل» في الدخول، ونُظّفت كل النصوص القديمة.',
+  return [{title:'الإصدار 46 — الصقل العالمي',
+    body:'أيقونة موحدة في كل مكان، افتتاحية بلا تكرار عند إعادة الفتح، شريط علوي أنحف، خلفية المعرض أوضح، إشعارات تلقائية من أول زيارة، وحركة اختفاء مثل تيليجرام.',
     date:APP_META.date}];
 }
 </script><script>
