@@ -9464,16 +9464,20 @@ var X45V_ORG='X.HAK';
 try{
   var x45vSb=document.createElement('style');
   x45vSb.textContent=
-   '#x43-boot{background:#000 !important;flex-direction:column !important;justify-content:center}'+
-   '#x43-boot img{width:128px !important;height:128px !important;object-fit:contain !important;object-position:center !important;border-radius:28px !important;box-shadow:0 14px 44px rgba(70,140,230,.4)}'+
-   '#x43-boot .x45v-brand{color:#fff;font-size:20px;font-weight:800;letter-spacing:.4px;margin-top:16px}'+
-   '#x43-boot .x45v-org{color:rgba(255,255,255,.6);font-size:13px;margin-top:3px}';
+   '#x43-boot{background:#080D18 !important;flex-direction:column !important;justify-content:center;overflow:hidden}'+
+   '#x43-boot .x45v-halo{position:absolute;top:50%;left:50%;width:320px;height:320px;border-radius:50%;transform:translate(-50%,-62%);background:radial-gradient(circle,rgba(53,189,242,.30),rgba(139,108,255,.14) 55%,transparent 78%);pointer-events:none}'+
+   '#x43-boot img{width:128px !important;height:128px !important;object-fit:contain !important;object-position:center !important;border-radius:28px !important;box-shadow:0 14px 44px rgba(53,189,242,.35)}'+
+   '#x43-boot .x45v-brand{color:#fff;font-size:20px;font-weight:700;letter-spacing:.4px;margin-top:16px}'+
+   '#x43-boot .x45v-org{color:rgba(255,255,255,.6);font-size:13px;margin-top:3px}'+
+   '#x43-boot .x45v-tag{color:rgba(255,255,255,.45);font-size:12px;margin-top:14px;letter-spacing:.3px}';
   (document.head||document.documentElement).appendChild(x45vSb);
   var x45vBt=document.getElementById('x43-boot');
   if(x45vBt){
-    x45vBt.innerHTML='<img src="./icon-512.png" alt="منصة X التعليمية">'+
+    x45vBt.innerHTML='<div class="x45v-halo"></div>'+
+     '<img src="./icon-512.png" alt="منصة X التعليمية">'+
      '<div class="x45v-brand">منصة X التعليمية</div>'+
-     '<div class="x45v-org">من '+X45V_ORG+'</div>';
+     '<div class="x45v-org">من '+X45V_ORG+'</div>'+
+     '<div class="x45v-tag">تعلمك يبدأ من هنا</div>';
   }
 }catch(e){}
 /* 45.ب الخلفية القابلة للتغيير: الافتراضية أو أسود نقي أو صورة من معرض هاتفك — تُحفظ على الجهاز */
@@ -9671,13 +9675,36 @@ renderAdminPage18=function(){
   }catch(e){}
   return h;
 };
-/* 46 بيانات الإصدار 46 */
-APP_META.ver='46.0';APP_META.date='2026-11-02';APP_META.lastUpdate='2026-11-02';
-APP_META.notes='الإصدار 46 — إصدار الصقل العالمي: أيقونة المنصة الجديدة icon-512 في كل مكان (المتصفح والتثبيت وعن المنصة — وداعًا لكل صورة قديمة)، شاشة الافتتاح ذكية لا تتكرر عند إعادة فتح التطبيق المثبت (تشطيف فوري بدل الظهور من جديد)، الشريط العلوي للرئيسية أضيق وأكثر احترافية، صورة الخلفية من المعرض تظهر واضحة بعد أن خففنا الطبقة الداكنة، الإشعارات تتفعل تلقائيًا في أول زيارة دون أي زر، الرسائل والنوافذ تختفي بحركة الطيران لأعلى مثل تيليجرام، بند حماية الملكية الفكرية في الشروط، وتعريف احترافي بمؤسسة X.HAK ومؤسسها HAMMOUALI Kacem في «عن المنصة».';
-try{APP_META.changelog.unshift('الإصدار 46 — صقل عالمي: أيقونة موحدة في كل المنصة، افتتاحية بلا تكرار عند إعادة الفتح، شريط علوي أنحف، خلفية معرض أوضح، تفعيل تلقائي للإشعارات، حركة حذف مثل تيليجرام، بند حماية الملكية، وتعريف بالمؤسسة ومؤسسها.')}catch(e){}
+/* ============ الطبقة 47 — الهوية الرسمية المعتمدة: الألوان الرسمية للوضعين الداكن والفاتح ============ */
+try{
+  var x47s=document.createElement('style');
+  x47s.textContent=
+   ':root{--bg-0:#080D18 !important;--bg-1:#0D1625 !important;--bg-2:#111D2D !important;'+
+   '--glass:rgba(17,29,45,.82) !important;--glass-strong:rgba(13,22,37,.96) !important;'+
+   '--border:rgba(38,56,77,.55) !important;--border-strong:rgba(53,189,242,.45) !important;'+
+   '--cyan:#35BDF2 !important;--cyan-glow:#167EAD !important;--blue:#35BDF2 !important;--blue-deep:#167EAD !important;'+
+   '--purple:#8B6CFF !important;--purple-deep:#B19AFF !important;'+
+   '--text:#F5F7FC !important;--text-dim:#A2AEC0 !important;--text-mute:#748399 !important;'+
+   '--line:#26384D !important;--success:#39B98A !important;--warning:#E7B65F !important;--danger:#E16F7C !important;'+
+   '--x-accent:#35BDF2 !important;--x-accent-deep:#167EAD !important;--x-border:#26384D !important}'+
+   'html[data-theme="light"]{--bg-0:#F4F7FC !important;--bg-1:#EDF2F8 !important;--bg-2:#FFFFFF !important;'+
+   '--glass:rgba(255,255,255,.94) !important;--glass-strong:rgba(255,255,255,.98) !important;'+
+   '--cyan:#168EBF !important;--cyan-glow:#136E93 !important;--blue:#168EBF !important;--blue-deep:#136E93 !important;'+
+   '--purple:#7657DB !important;--purple-deep:#9D86EA !important;'+
+   '--text:#172437 !important;--text-dim:#64748B !important;--text-mute:#8A97A8 !important;'+
+   '--line:#DFE6EF !important;--border:rgba(223,230,239,.9) !important;'+
+   '--x-accent:#168EBF !important;--x-accent-deep:#136E93 !important;--x-border:#DFE6EF !important}'+
+   'body{background:var(--bg-0) !important}'+
+   'html[data-theme="light"] body{background:var(--bg-0) !important}';
+  (document.head||document.documentElement).appendChild(x47s);
+}catch(e){}
+/* 47 بيانات الإصدار 47 */
+APP_META.ver='47.0';APP_META.date='2026-11-02';APP_META.lastUpdate='2026-11-02';
+APP_META.notes='الإصدار 47 — الهوية الرسمية: مجموعة الألوان الرسمية المعتمدة كاملة (داكن: خلفية #080D18 وأساسي سماوي #35BDF2 وبنفسجي #8B6CFF ونص #F5F7FC — فاتح: #F4F7FC وأساسي #168EBF) مطبقة على كل صفحات المنصة بالوضعين، وافتتاحية جديدة بهالة سماوية حول الشعار وعبارة «تعلمك يبدأ من هنا» فوق توقيع «من X.HAK»، مع كل إصلاحات 46: الأيقونة الموحدة icon-512 في كل مكان، الافتتاحية الذكية التي لا تتكرر عند إعادة فتح التطبيق، الشريط العلوي الأنحف، خلفية المعرض الواضحة، الإشعارات التلقائية من أول زيارة، حركة الاختفاء الطائرة مثل تيليجرام، بند الملكية الفكرية، وتعريف مؤسسة X.HAK ومؤسسها HAMMOUALI Kacem.';
+try{APP_META.changelog.unshift('الإصدار 47 — الهوية الرسمية المعتمدة: ألوان رسمية موحدة للوضعين الداكن والفاتح بكل الصفحات، افتتاحية بهالة سماوية وعبارة «تعلمك يبدأ من هنا»، مع كامل إصلاحات الإصدار 46.')}catch(e){}
 function fallbackNews18(){
-  return [{title:'الإصدار 46 — الصقل العالمي',
-    body:'أيقونة موحدة في كل مكان، افتتاحية بلا تكرار عند إعادة الفتح، شريط علوي أنحف، خلفية المعرض أوضح، إشعارات تلقائية من أول زيارة، وحركة اختفاء مثل تيليجرام.',
+  return [{title:'الإصدار 47 — الهوية الرسمية',
+    body:'الألوان الرسمية المعتمدة في كل الصفحات بالوضعين الداكن والفاتح، وافتتاحية راقية بهالة سماوية حول الشعار وعبارة «تعلمك يبدأ من هنا»، مع كل إصلاحات الإصدار 46.',
     date:APP_META.date}];
 }
 </script><script>
