@@ -6,9 +6,9 @@
    الجديد في الإصدار 31: التخزين صار متسامحًا — أي ملف ناقص (مثل logo.jpg
    قبل رفعها) لم يعد يُعطّل التثبيت كاملًا كما كان في addAll القديمة. */
 
-var VERSION = 'x-v51.0';
+var VERSION = 'x-v52.0';
 var CACHE = 'x-site-' + VERSION;
-var CORE = ['./', './index.html', './manifest.json', './icon.svg', './logo.jpg'];
+var CORE = ['./', './index.html', './manifest.json', './icon.svg', './logo.jpg', './icon-512.png', './versions.json'];
 
 /* التثبيت: نخزّن كل ملف على حدة، وغياب أي ملف لا يوقف بقية التخزين */
 self.addEventListener('install', function (e) {
