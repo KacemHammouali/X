@@ -6,7 +6,7 @@
    الجديد في الإصدار 31: التخزين صار متسامحًا — أي ملف ناقص (مثل logo.jpg
    قبل رفعها) لم يعد يُعطّل التثبيت كاملًا كما كان في addAll القديمة. */
 
-var VERSION = 'x-v49.0';
+var VERSION = 'x-v50.0';
 var CACHE = 'x-site-' + VERSION;
 var CORE = ['./', './index.html', './manifest.json', './icon.svg', './logo.jpg'];
 
@@ -63,7 +63,7 @@ self.addEventListener('fetch', function (e) {
 
   if (req.mode === 'navigate') {
     e.respondWith(
-      fetch(req).then(function (res) {
+      fetch(req.url, { cache: 'no-store', credentials: 'same-origin' }).then(function (res) {
         var copy = res.clone();
         caches.open(CACHE).then(function (c) {
           c.put('./index.html', copy);
@@ -83,7 +83,7 @@ self.addEventListener('fetch', function (e) {
      (الخارج من الشبكة يُخزن احتياطًا لعمل الفحص بلا إنترنت) */
   if (req.url.indexOf('versions.json') >= 0) {
     e.respondWith(
-      fetch(req).then(function (res) {
+      fetch(req.url, { cache: 'no-store' }).then(function (res) {
         if (res && res.ok) {
           var copy = res.clone();
           caches.open(CACHE).then(function (c) { c.put(req, copy); });
