@@ -10807,9 +10807,9 @@ function fallbackNews18(){
     body:'زر «تحديث الآن» صار يمسح كل الذواكر المؤقتة ويفتح النسخة الجديدة فورًا برابط يتجاوز الذاكرة — لا يعود التطبيق يعلن تحديثًا بعد أن حدّثته.',
     date:APP_META.date}];
 }
-/* ===================== طبقة 52.0 - منصة X ===================== */
+/* ===================== طبقة 52.1 - منصة X ===================== */
 /* 52.0 بيانات الاصدار */
-try{APP_META.ver='52.0';APP_META.date='2026-11-03';APP_META.lastUpdate='2026-11-03'}catch(eX0){}
+try{APP_META.ver='52.1';APP_META.date='2026-11-03';APP_META.lastUpdate='2026-11-03'}catch(eX0){}
 /* 52.أ القناة الفعالة: تطبيق أم موقع */
 function x52Ch(){
   try{if(typeof x51Channel==='function'){var c=x51Channel();if(c==='app'||c==='web'){return c}}}catch(eX1){}
@@ -10985,6 +10985,148 @@ window.addEventListener('offline',function(){try{toast('📡 انقطع الإن
 window.addEventListener('online',function(){try{toast('📡 عاد الاتصال بالإنترنت')}catch(eX34){}});
 if(!navigator.onLine){try{setTimeout(function(){try{toast('📡 أنت الآن بلا إنترنت - الدروس التي فتحتها سابقًا تعمل بلا مشكلة')}catch(eX35){}},1500)}catch(eX36){}}
 }catch(eX37){}
+/* 52.ي التحقق بلا مكتبات خارجية: شاشة رمز التحقق تظهر دائمًا حتى لو حُجب CDN -
+       إرسال الرمز والتحقق منه عبر REST مباشرة بمفتاح anon العام (تحميه سياسات RLS) */
+function x52Keys(){
+  try{
+    var u=(SB_CFG&&SB_CFG.url)?SB_CFG.url:((typeof X49_SB_DEF!=='undefined'&&X49_SB_DEF)?X49_SB_DEF.url:'');
+    var a=(SB_CFG&&SB_CFG.anon)?SB_CFG.anon:((typeof X49_SB_DEF!=='undefined'&&X49_SB_DEF)?X49_SB_DEF.anon:'');
+    if(u&&a){
+      if(typeof x49Url==='function'){u=x49Url(u)}
+      u=(''+u).replace(/\/+$/,'');
+      return {url:u,anon:''+a};
+    }
+  }catch(eK1){}
+  return null;
+}
+function x52ErrTxt(st,msg){
+  try{
+    if(st===429){return 'طلبت رموزًا كثيرة - انتظر دقيقة ثم أعد المحاولة'}
+    if(st===400||st===401){return 'الرمز غير صحيح أو انتهت صلاحيته - اطلب رمزًا جديدًا'}
+    if(st===422){return 'تحقق من كتابة البريد بشكل صحيح'}
+  }catch(eK2){}
+  return (''+(msg||('HTTP '+st)));
+}
+function x52SendOtp(em){
+  var k=x52Keys();
+  if(!k){return false}
+  AUTH.busy=true;try{render()}catch(eK3){}
+  fetch(k.url+'/auth/v1/otp',{method:'POST',headers:{'apikey':k.anon,'Authorization':'Bearer '+k.anon,'Content-Type':'application/json'},body:JSON.stringify({email:em,create_user:true})}).then(function(r){
+    AUTH.busy=false;
+    if(r.ok){
+      AUTH.tab='x44code';AUTH.sent=true;XAUTH18.step=1;XAUTH18.errs={};AUTH.errs={};
+      toast('📩 أُرسل رمز التحقق إلى بريدك');
+      try{render()}catch(eK4){}
+      return;
+    }
+    return r.json().catch(function(){return {}}).then(function(j){
+      var m=(j&&(j.msg||j.error_description||j.error||j.message))||('HTTP '+r.status);
+      XAUTH18.errs={top:x52ErrTxt(r.status,m)};AUTH.errs={top:x52ErrTxt(r.status,m)};
+      try{xSound('error')}catch(eK5){}
+      try{render()}catch(eK6){}
+    });
+  }).catch(function(){
+    AUTH.busy=false;XAUTH18.errs={top:'انقطع الاتصال بخدمة التحقق - تحقق من الإنترنت وأعد المحاولة'};AUTH.errs={top:'انقطع الاتصال بخدمة التحقق - تحقق من الإنترنت وأعد المحاولة'};
+    try{xSound('error')}catch(eK7){}
+    try{render()}catch(eK8){}
+  });
+  return true;
+}
+function x52AfterVerify(){
+  if(SB&&SB.ready){try{loadUserProfile(true);return}catch(eK9){}}
+  var k=x52Keys();
+  if(!k){XAUTH18.step=2;try{render()}catch(eK10){}return}
+  var uid=(USER.session&&USER.session.user&&USER.session.user.id)||'';
+  fetch(k.url+'/rest/v1/profiles?id=eq.'+encodeURIComponent(uid)+'&select=*',{headers:{'apikey':k.anon,'Authorization':'Bearer '+USER.session.access_token}}).then(function(r){return r.json()}).then(function(arr){
+    if(arr&&arr.length){
+      var d=arr[0];
+      USER.profile=d;
+      try{AUTH.form={fn:d.first_name||'',ln:d.last_name||'',by:(d.birth_year||'')+'',level:d.level||'ثانوي',year:d.study_year||'',branch:d.branch||'',gender:d.gender||'',avatar:''}}catch(eK11){}
+      toast('✅ تم التحقق من بريدك');
+      navigate('home');
+    }else{
+      toast('✅ تم التحقق من بريدك - أكمل ملفك الشخصي');
+      XAUTH18.step=2;XAUTH18.errs={};
+      try{render()}catch(eK12){}
+    }
+  }).catch(function(){
+    toast('✅ تم التحقق من بريدك - أكمل ملفك الشخصي');
+    XAUTH18.step=2;
+    try{render()}catch(eK13){}
+  });
+}
+try{
+var __x52EN=x18EmailNext;
+x18EmailNext=function(){
+  try{
+    var em=(''+(((gid('a-email')||{}).value)||'')).trim();
+    XAUTH18.errs={};AUTH.errs={};
+    if(!validEmail(em)){XAUTH18.errs={email:'اكتب بريدًا إلكترونيًا صالحًا'};AUTH.errs={email:'اكتب بريدًا إلكترونيًا صالحًا'};try{xSound('error')}catch(eK14){}try{render()}catch(eK15){}return}
+    if(x52SendOtp(em)){return}
+  }catch(eK16){}
+  try{return __x52EN()}catch(eK17){}
+};
+}catch(eK18){}
+try{
+var __x52OS=x44OtpSend;
+x44OtpSend=function(){
+  try{
+    var em=((''+(((gid('a-email')||{}).value)||'')).trim())||AUTH.email||XAUTH18.email||'';
+    AUTH.email=em;XAUTH18.email=em;AUTH.errs={};
+    if(!validEmail(em)){AUTH.errs={email:'اكتب بريدًا إلكترونيًا صالحًا'};XAUTH18.errs={email:'اكتب بريدًا إلكترونيًا صالحًا'};try{xSound('error')}catch(eK19){}try{render()}catch(eK20){}return}
+    if(x52SendOtp(em)){return}
+  }catch(eK21){}
+  try{return __x52OS()}catch(eK22){}
+};
+}catch(eK23){}
+try{
+var __x52OC=x44OtpCheck;
+x44OtpCheck=function(){
+  try{
+    var code=(''+((gid('a-code')||{}).value||'')).replace(/\s+/g,'');
+    AUTH.errs={};
+    if(code.length<4){aErr('code','اكتب رمز التحقق كما وصل إلى بريدك');try{xSound('error')}catch(eK24){}try{render()}catch(eK25){}return}
+    var k=x52Keys();
+    if(!k){return __x52OC()}
+    var em=AUTH.email||XAUTH18.email||'';
+    AUTH.busy=true;try{render()}catch(eK26){}
+    fetch(k.url+'/auth/v1/verify',{method:'POST',headers:{'apikey':k.anon,'Authorization':'Bearer '+k.anon,'Content-Type':'application/json'},body:JSON.stringify({email:em,token:code,type:'email'})}).then(function(r){
+      AUTH.busy=false;
+      if(!r.ok){
+        return r.json().catch(function(){return {}}).then(function(j){
+          var m=(j&&(j.msg||j.error_description||j.error||j.message))||('HTTP '+r.status);
+          aErr('top',x52ErrTxt(r.status,m));try{xSound('error')}catch(eK27){}
+          try{render()}catch(eK28){}
+        });
+      }
+      return r.json().then(function(j){
+        if(j&&j.access_token&&j.user){
+          USER.session={access_token:j.access_token,refresh_token:j.refresh_token,token_type:(j.token_type||'bearer'),expires_at:Math.floor(new Date().getTime()/1000)+(j.expires_in||3600),user:j.user};
+          x52AfterVerify();
+        }else{
+          aErr('top','تعذر إكمال التحقق - أعد المحاولة');try{render()}catch(eK29){}
+        }
+      });
+    }).catch(function(){
+      AUTH.busy=false;aErr('top','انقطع الاتصال بالخدمة - أعد المحاولة');try{xSound('error')}catch(eK30){}
+      try{render()}catch(eK31){}
+    });
+    return;
+  }catch(eK32){}
+  try{return __x52OC()}catch(eK33){}
+};
+}catch(eK34){}
+try{
+var __x52RA=renderAuth18;
+renderAuth18=function(){
+  try{
+    if(AUTH.tab==='x44code'&&typeof x44CodeScreen==='function'&&x52Keys()){
+      try{return authWrap(x44CodeScreen(),2,2)}catch(eK35){}
+    }
+  }catch(eK36){}
+  return __x52RA();
+};
+}catch(eK37){}
 /* 52.ط تشغيل الحبر الذكي الآن */
 try{x52AutoInkNow()}catch(eX38){}
 boot();
