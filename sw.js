@@ -1,23 +1,18 @@
-/* sw.js — عامل الخدمة لمنصة X التعليمية (الإصدار 60) */
-   مهمته: عمل الموقع بلا إنترنت بعد أول زيارة + التحديث الفوري عند إصدار جديد.
-   الرفع للنشر: جذر الموقع مع index.html و versions.json و manifest.json (كل الملفات تُرفع معًا إلى GitHub Pages).
-   عند كل إصدار جديد من المنصة: عدّل قيمة VERSION أدناه فقط،
-   فيلاحظ المتصفح التغيير ويعرض زر «تحديث الآن» داخل المنصة تلقائيًا.
-   الجديد في الإصدار 31: التخزين صار متسامحًا — أي ملف ناقص (مثل logo.jpg
-   قبل رفعها) لم يعد يُعطّل التثبيت كاملًا كما كان في addAll القديمة. */
-
-var VERSION = 'x-v66.0';
+/* sw.js - منصة X التعليمية (الإصدار 67)
+   عمل كامل بلا إنترنت بعد أول فتح + تحكم كامل بالتحديث:
+   - الموقع في المتصفح: يتحدث نفسه تلقائيًا (الشبكة أولًا).
+   - التطبيق المثبت: لا يحدث نفسه أبدًا - يخدم النسخة المخزنة حتى يضغط المستخدم تحديث الآن.
+   - الفيديو وملفات PDF وطلبات قاعدة البيانات لا تُخزن (تحتاج إنترنت). */
+var VERSION = 'x-v67.0';
 var CACHE = 'x-site-' + VERSION;
 var CORE = ['./', './index.html', './manifest.json', './icon.svg', './logo.jpg', './icon-512.png', './versions.json'];
+var MODES = {};
 
-/* التثبيت: نخزّن كل ملف على حدة، وغياب أي ملف لا يوقف بقية التخزين */
 self.addEventListener('install', function (e) {
   e.waitUntil(
     caches.open(CACHE).then(function (c) {
       return Promise.all(CORE.map(function (u) {
-        return c.add(u).catch(function () {
-          /* ملف ناقص مؤقتًا: نكمل بلا تعطيل */
-        });
+        return c.add(u).catch(function () {});
       }));
     }).then(function () {
       return self.skipWaiting();
@@ -25,7 +20,6 @@ self.addEventListener('install', function (e) {
   );
 });
 
-/* التفعيل: حذف أي ذاكرة قديمة من إصدارات سابقة ثم السيطرة على كل الصفحات */
 self.addEventListener('activate', function (e) {
   e.waitUntil(
     caches.keys().then(function (keys) {
@@ -38,16 +32,18 @@ self.addEventListener('activate', function (e) {
   );
 });
 
-/* الاستماع لأمر «skipWaiting» من المنصة عند نقر المستخدم «تحديث الآن» */
 self.addEventListener('message', function (e) {
+  try {
+    if (e.data && typeof e.data === 'object' && e.data.t === 'mode') {
+      MODES[e.source.id] = e.data.m;
+      return;
+    }
+  } catch (err) {}
   if (e.data === 'skipWaiting') {
     self.skipWaiting();
   }
 });
 
-/* فحص أن الطلب من نفس الموقع ونوعه GET — كل ما عدا ذلك نتجاهله:
-   لا نلمس طلبات CDN (الخطوط و KaTeX)،
-   فتلك تحتاج إنترنت حيًا دائمًا ولا يجب تقديمها من الذاكرة. */
 function shouldHandle(req) {
   if (req.method !== 'GET') { return false; }
   var u;
@@ -55,19 +51,32 @@ function shouldHandle(req) {
   return u.origin === self.location.origin;
 }
 
-/* التنقل (فتح الصفحة): الشبكة أولًا، وعند انقطاع الإنترنت نقدم النسخة المخزنة.
-   الملفات والأصول: نقدم المخزن فورًا ونحدّثه في الخلفية (stale-while-revalidate). */
 self.addEventListener('fetch', function (e) {
   var req = e.request;
   if (!shouldHandle(req)) { return; }
 
   if (req.mode === 'navigate') {
+    var m = 'site';
+    try { m = MODES[e.clientId] || 'site'; } catch (err) {}
+    if (m === 'app') {
+      /* التطبيق المثبت: النسخة المخزنة أولًا حتى يضغط المستخدم تحديث الآن */
+      e.respondWith(
+        caches.match('./index.html').then(function (hit) {
+          if (hit) { return hit; }
+          return fetch(req.url, { cache: 'no-store', credentials: 'same-origin' }).then(function (res) {
+            var copy = res.clone();
+            caches.open(CACHE).then(function (c) { c.put('./index.html', copy); });
+            return res;
+          });
+        }).catch(function () { return caches.match('./'); })
+      );
+      return;
+    }
+    /* الموقع: الشبكة أولًا (تحديث تلقائي) مع الاحتياط المخزن عند انقطاع الإنترنت */
     e.respondWith(
       fetch(req.url, { cache: 'no-store', credentials: 'same-origin' }).then(function (res) {
         var copy = res.clone();
-        caches.open(CACHE).then(function (c) {
-          c.put('./index.html', copy);
-        });
+        caches.open(CACHE).then(function (c) { c.put('./index.html', copy); });
         return res;
       }).catch(function () {
         return caches.match('./index.html').then(function (r) {
@@ -79,8 +88,6 @@ self.addEventListener('fetch', function (e) {
     return;
   }
 
-  /* versions.json: الشبكة أولًا دائمًا — حتى لا يُعلن إصدار قديم من الذاكرة
-     (الخارج من الشبكة يُخزن احتياطًا لعمل الفحص بلا إنترنت) */
   if (req.url.indexOf('versions.json') >= 0) {
     e.respondWith(
       fetch(req.url, { cache: 'no-store' }).then(function (res) {
