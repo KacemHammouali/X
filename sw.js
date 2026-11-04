@@ -1,10 +1,10 @@
-/* sw.js - منصة X التعليمية (الإصدار 67)
-   عمل كامل بلا إنترنت بعد أول فتح + تحكم كامل بالتحديث:
-   - الموقع في المتصفح: يتحدث نفسه تلقائيًا (الشبكة أولًا).
-   - التطبيق المثبت: لا يحدث نفسه أبدًا - يخدم النسخة المخزنة حتى يضغط المستخدم تحديث الآن.
-   - الفيديو وملفات PDF وطلبات قاعدة البيانات لا تُخزن (تحتاج إنترنت). */
-var VERSION = 'x-v67.0';
+/* sw.js - منصة X التعليمية (الإصدار 68)
+   التطبيق المثبت (توقيع android-app) لا يتحدث نفسه نهائيًا: يُخدم من ذاكرة التطبيق المجمدة (x68-app) حتى يضغط المستخدم «تحديث الآن».
+   الموقع في المتصفح يتحدث تلقائيًا (الشبكة أولًا) مع احتياط مخزن عند انقطاع الإنترنت. */
+var VERSION = 'x-v68.0';
 var CACHE = 'x-site-' + VERSION;
+var APPCACHE = 'x68-app';
+var MODECACHE = 'x68-mode';
 var CORE = ['./', './index.html', './manifest.json', './icon.svg', './logo.jpg', './icon-512.png', './versions.json'];
 var MODES = {};
 
@@ -24,7 +24,7 @@ self.addEventListener('activate', function (e) {
   e.waitUntil(
     caches.keys().then(function (keys) {
       return Promise.all(keys.map(function (k) {
-        if (k !== CACHE) { return caches.delete(k); }
+        if (k !== CACHE && k !== APPCACHE && k !== MODECACHE) { return caches.delete(k); }
       }));
     }).then(function () {
       return self.clients.claim();
@@ -36,9 +36,16 @@ self.addEventListener('message', function (e) {
   try {
     if (e.data && typeof e.data === 'object' && e.data.t === 'mode') {
       MODES[e.source.id] = e.data.m;
+      try {
+        if (e.data.m === 'app') {
+          caches.open(MODECACHE).then(function (c) {
+            c.put('./x68mode', new Response('app'));
+          });
+        }
+      } catch (err) {}
       return;
     }
-  } catch (err) {}
+  } catch (err2) {}
   if (e.data === 'skipWaiting') {
     self.skipWaiting();
   }
@@ -51,33 +58,60 @@ function shouldHandle(req) {
   return u.origin === self.location.origin;
 }
 
+function x68ServeApp(req) {
+  return caches.open(APPCACHE).then(function (c) {
+    return c.match('./index.html');
+  }).then(function (hit) {
+    if (hit) { return hit; }
+    return fetch(req.url, { cache: 'no-store', credentials: 'same-origin' }).then(function (res) {
+      var copy = res.clone();
+      caches.open(APPCACHE).then(function (c2) { c2.put('./index.html', copy); });
+      return res;
+    });
+  }).catch(function () {
+    return caches.match('./').then(function (r) { if (r) { return r; } return caches.match('./index.html'); });
+  });
+}
+
+function x68ServeSite(req) {
+  return fetch(req.url, { cache: 'no-store', credentials: 'same-origin' }).then(function (res) {
+    var copy = res.clone();
+    caches.open(CACHE).then(function (c) { c.put('./index.html', copy); });
+    return res;
+  }).catch(function () {
+    return caches.match('./index.html').then(function (r) {
+      if (r) { return r; }
+      return caches.match('./');
+    });
+  });
+}
+
 self.addEventListener('fetch', function (e) {
   var req = e.request;
   if (!shouldHandle(req)) { return; }
 
   if (req.mode === 'navigate') {
-    var m = 'site';
-    try { m = MODES[e.clientId] || 'site'; } catch (err) {}
-    if (m === 'app') {
-      /* التطبيق المثبت: النسخة المخزنة أولًا حتى يضغط المستخدم تحديث الآن */
-      e.respondWith(
-        caches.match('./index.html').then(function (hit) {
-          if (hit) { return hit; }
-          return fetch(req.url, { cache: 'no-store', credentials: 'same-origin' }).then(function (res) {
-            var copy = res.clone();
-            caches.open(CACHE).then(function (c) { c.put('./index.html', copy); });
-            return res;
-          });
-        }).catch(function () { return caches.match('./'); })
-      );
+    var isApp = false;
+    try {
+      var rf = '' + (e.request.referrer || '');
+      if (rf.indexOf('android-app://') === 0) { isApp = true; }
+    } catch (err3) {}
+    if (!isApp) {
+      try { if (MODES[e.clientId] === 'app') { isApp = true; } } catch (err4) {}
+    }
+    if (isApp) {
+      e.respondWith(x68ServeApp(req));
       return;
     }
-    /* الموقع: الشبكة أولًا (تحديث تلقائي) مع الاحتياط المخزن عند انقطاع الإنترنت */
     e.respondWith(
-      fetch(req.url, { cache: 'no-store', credentials: 'same-origin' }).then(function (res) {
-        var copy = res.clone();
-        caches.open(CACHE).then(function (c) { c.put('./index.html', copy); });
-        return res;
+      caches.open(MODECACHE).then(function (mc) {
+        return mc.match('./x68mode');
+      }).then(function (mr) {
+        if (mr) { return mr.text(); }
+        return '';
+      }).then(function (mk) {
+        if (mk === 'app') { return x68ServeApp(req); }
+        return x68ServeSite(req);
       }).catch(function () {
         return caches.match('./index.html').then(function (r) {
           if (r) { return r; }
