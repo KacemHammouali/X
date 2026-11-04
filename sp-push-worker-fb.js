@@ -1,1 +1,2 @@
-importScripts('https://web.webpushs.com/sp-push-worker-fb.js?ver=2.0');
+/* منصة X التعليمية — عامل موحد: يعمل بلا إنترنت ويستقبل إشعارات SendPulse معًا */
+importScripts('sw.js');

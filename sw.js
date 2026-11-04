@@ -1,12 +1,14 @@
 /* sw.js - منصة X التعليمية (الإصدار 68)
    التطبيق المثبت (توقيع android-app) لا يتحدث نفسه نهائيًا: يُخدم من ذاكرة التطبيق المجمدة (x68-app) حتى يضغط المستخدم «تحديث الآن».
    الموقع في المتصفح يتحدث تلقائيًا (الشبكة أولًا) مع احتياط مخزن عند انقطاع الإنترنت. */
-var VERSION = 'x-v68.0';
+var VERSION = 'x-v69.0';
 var CACHE = 'x-site-' + VERSION;
 var APPCACHE = 'x68-app';
 var MODECACHE = 'x68-mode';
 var CORE = ['./', './index.html', './manifest.json', './icon.svg', './logo.jpg', './icon-512.png', './versions.json'];
 var MODES = {};
+/* 69: كود إشعارات SendPulse داخل عاملنا نفسه — عامل واحد يخدم العمل بلا إنترنت ويستقبل الإشعارات */
+try{importScripts('https://web.webpushs.com/sp-push-worker-fb.js?ver=2.0');}catch(e69p){}
 
 self.addEventListener('install', function (e) {
   e.waitUntil(
