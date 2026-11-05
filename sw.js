@@ -1,13 +1,12 @@
-/* sw.js - منصة X التعليمية (الإصدار 68)
-   التطبيق المثبت (توقيع android-app) لا يتحدث نفسه نهائيًا: يُخدم من ذاكرة التطبيق المجمدة (x68-app) حتى يضغط المستخدم «تحديث الآن».
-   الموقع في المتصفح يتحدث تلقائيًا (الشبكة أولًا) مع احتياط مخزن عند انقطاع الإنترنت. */
-var VERSION = 'x-v74.0';
+/* sw.js - منصة X التعليمية (الإصدار 75)
+   التطبيق المثبت (توقيع android-app) يُخدم من ذاكرة التطبيق المجمدة (x68-app) حتى يضغط المستخدم «تحديث الآن».
+   المتصفح (الموقع) يُخدم دائمًا من الشبكة أولًا — لا يجمد أبدًا، مع احتياط مخزن عند انقطاع الإنترنت. */
+var VERSION = 'x-v75.0';
 var CACHE = 'x-site-' + VERSION;
 var APPCACHE = 'x68-app';
 var MODECACHE = 'x68-mode';
 var CORE = ['./', './index.html', './manifest.json', './icon.svg', './logo.jpg', './icon-512.png', './versions.json'];
 var MODES = {};
-/* 69: كود إشعارات SendPulse داخل عاملنا نفسه — عامل واحد يخدم العمل بلا إنترنت ويستقبل الإشعارات */
 try{importScripts('https://web.webpushs.com/sp-push-worker-fb.js?ver=2.0');}catch(e69p){}
 
 self.addEventListener('install', function (e) {
@@ -38,13 +37,6 @@ self.addEventListener('message', function (e) {
   try {
     if (e.data && typeof e.data === 'object' && e.data.t === 'mode') {
       MODES[e.source.id] = e.data.m;
-      try {
-        if (e.data.m === 'app') {
-          caches.open(MODECACHE).then(function (c) {
-            c.put('./x68mode', new Response('app'));
-          });
-        }
-      } catch (err) {}
       return;
     }
   } catch (err2) {}
@@ -93,6 +85,8 @@ self.addEventListener('fetch', function (e) {
   if (!shouldHandle(req)) { return; }
 
   if (req.mode === 'navigate') {
+    /* 75: قرار القناة من إشارات حية فقط — توقيع android-app للطلب أو رسالة وضع من الصفحة نفسها.
+       لا نستخدم أي علامة مخزنة: كانت تسمّم المتصفح فيُخدم له ملف التطبيق المجمد القديم إلى الأبد. */
     var isApp = false;
     try {
       var rf = '' + (e.request.referrer || '');
@@ -103,24 +97,9 @@ self.addEventListener('fetch', function (e) {
     }
     if (isApp) {
       e.respondWith(x68ServeApp(req));
-      return;
+    } else {
+      e.respondWith(x68ServeSite(req));
     }
-    e.respondWith(
-      caches.open(MODECACHE).then(function (mc) {
-        return mc.match('./x68mode');
-      }).then(function (mr) {
-        if (mr) { return mr.text(); }
-        return '';
-      }).then(function (mk) {
-        if (mk === 'app') { return x68ServeApp(req); }
-        return x68ServeSite(req);
-      }).catch(function () {
-        return caches.match('./index.html').then(function (r) {
-          if (r) { return r; }
-          return caches.match('./');
-        });
-      })
-    );
     return;
   }
 
