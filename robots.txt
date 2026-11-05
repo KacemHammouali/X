@@ -1,3 +1,4 @@
 # robots.txt لمنصة X التعليمية — ارفعه بجوار index.html
 User-agent: *
 Allow: /
+Sitemap: https://kacemhammouali.github.io/X/sitemap.xml
