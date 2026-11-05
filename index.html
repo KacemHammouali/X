@@ -15476,6 +15476,236 @@ try{if(APP_META.changelog&&APP_META.changelog.unshift){APP_META.changelog.unshif
 try{if(typeof fallbackNews18==='function'){fallbackNews18()}}catch(eV3){}
 }catch(eV1){}
 
+/* ===== طبقة 76: احترافية أزرار الرجوع + موقع أنقى + لمسات إبهار ===== */
+function x76Svg(){
+  return '<svg class="x76arw" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>';
+}
+function x76Arrowify(b){
+  if(!b){return}
+  try{
+    if(b.getAttribute&&b.getAttribute('data-x76')){return}
+    b.innerHTML='<span class="x76sp">'+x76Svg()+'</span>';
+    if(b.setAttribute){b.setAttribute('data-x76','1')}
+  }catch(e0){}
+}
+function x76Arrows(){
+  try{
+    var b=null;try{b=gid('x69-back')}catch(e1){b=null}
+    x76Arrowify(b);
+    try{
+      var els=document.querySelectorAll('.x71-backbtn,.x72sec-b');
+      for(var i=0;i<els.length;i++){x76Arrowify(els[i])}
+    }catch(e2){}
+    try{
+      var sb=document.querySelector('.x51-back');
+      if(sb&&(!sb.getAttribute||!sb.getAttribute('data-x76'))){
+        var t=(''+(sb.textContent||''));t=t.replace('‹','');t=t.replace(/^[\s]+|[\s]+$/g,'');
+        sb.innerHTML='<span class="x51-bic">'+x76Svg()+'</span>'+t;
+        if(sb.setAttribute){sb.setAttribute('data-x76','1')}
+      }
+    }catch(e3){}
+  }catch(e4){}
+}
+function x76IsApp(){
+  try{if(typeof x68Mode==='function'){if(x68Mode()==='app'){return true}}}catch(e0){}
+  try{if(typeof x51Channel==='function'){if(x51Channel()==='app'){return true}}}catch(e1){}
+  try{if(navigator&&navigator.standalone===true){return true}}catch(e2){}
+  try{if(window.matchMedia&&window.matchMedia('(display-mode: standalone)').matches){return true}}catch(e3){}
+  return false;
+}
+function x76ChSync(){
+  try{
+    var b=document.body;
+    if(!b||!b.classList){return}
+    if(x76IsApp()){try{b.classList.remove('x76web')}catch(e5){}}
+    else{try{b.classList.add('x76web')}catch(e6){}}
+    var has=false;
+    try{has=!!document.querySelector('.x51-back')}catch(e7){}
+    if(has){try{b.classList.add('x76sec')}catch(e8){}}
+    else{try{b.classList.remove('x76sec')}catch(e9){}}
+  }catch(e4){}
+}
+var __x76BN=renderBottomNav;
+renderBottomNav=function(){
+  var h='';try{h=__x76BN()}catch(e0){h=''}
+  try{
+    if(!x76IsApp()&&h){
+      var parts=(''+h).split('<button'),out=[parts[0]];
+      for(var i=1;i<parts.length;i++){
+        var p=parts[i];
+        if(p.indexOf("navigate('settings')")>=0){continue}
+        if(p.indexOf("navigate('profile')")>=0){continue}
+        out.push(p);
+      }
+      h=out.join('<button');
+    }
+  }catch(e1){}
+  return h;
+};
+function x76Prog(){
+  try{
+    var d=null;try{d=gid('x76prog')}catch(e1){d=null}
+    if(!d){return}
+    var sc=0;
+    try{sc=(document.documentElement&&document.documentElement.scrollTop)||document.body.scrollTop||window.pageYOffset||0}catch(e2){sc=0}
+    var sh=0;
+    try{sh=Math.max(document.body.scrollHeight||0,document.documentElement.scrollHeight||0)}catch(e3){sh=0}
+    var wh=0;
+    try{wh=window.innerHeight||0}catch(e4){wh=0}
+    var p=(sh>wh&&wh>0)?(sc/((sh-wh)||1)):0;
+    if(!(p>=0)){p=0}
+    if(p>1){p=1}
+    d.style.width=(''+Math.round(p*100))+'%';
+  }catch(e0){}
+}
+var __x76R=render;
+render=function(){
+  try{__x76R()}catch(e0){}
+  try{x76Arrows()}catch(e1){}
+  try{x76ChSync()}catch(e2){}
+  try{x76Prog()}catch(e3){}
+};
+try{(function(){
+  var st76=document.createElement('style');
+  st76.id='x76-style';
+  st76.textContent=
+   '.x51-back{position:fixed!important;top:calc(10px + env(safe-area-inset-top,0px))!important;right:14px!important;left:auto!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:9px;margin:0!important;padding:13px 24px!important;border-radius:16px!important;border:1px solid rgba(255,255,255,.28)!important;background:linear-gradient(135deg,#2A7DE1,#229ED9)!important;color:#fff!important;font-size:16.5px!important;font-weight:800!important;line-height:1!important;cursor:pointer;z-index:9600!important;box-shadow:0 10px 30px rgba(20,90,160,.42)!important;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);transition:transform .15s ease!important}'+
+   'html[dir="ltr"] .x51-back{left:14px!important;right:auto!important}'+
+   '.x51-back:active{transform:scale(.94)}'+
+   '.x51-bic{display:inline-flex!important;align-items:center!important;justify-content:center!important;width:28px!important;height:28px!important;line-height:1!important;margin:0!important}'+
+   '.x76sec .x48-page{padding-top:calc(72px + env(safe-area-inset-top,0px))!important}'+
+   '.x69-backbtn,#x69-back,.x71-backbtn,.x72sec-b{display:inline-flex!important;align-items:center!important;justify-content:center!important;padding:0!important;text-align:center!important}'+
+   '.x76sp{display:inline-flex!important;align-items:center!important;justify-content:center!important;width:100%!important;height:100%!important;line-height:1!important}'+
+   '.x76arw{display:block!important;margin:0 auto!important}'+
+   'html[dir="ltr"] .x76arw{transform:scaleX(-1)}'+
+   '.x76web .bnav button[onclick*="navigate(\'settings\')"],.x76web .bnav button[onclick*="navigate(\'profile\')"]{display:none!important}'+
+   '#x76prog{position:fixed;top:0;left:0;height:3px;width:0;z-index:99999;background:linear-gradient(90deg,#229ED9,#a08ee0,#e07f9a);border-radius:0 3px 3px 0;pointer-events:none;transition:width .1s linear}'+
+   '@media(prefers-reduced-motion:reduce){#x76prog{transition:none!important}.x51-back{transition:none!important}}'+
+   '.bnav-btn.bnav-on{background:linear-gradient(135deg,rgba(34,158,217,.24),rgba(42,125,225,.13))!important;box-shadow:inset 0 4px 16px rgba(34,158,217,.2)}'+
+   '.bnav-btn:active{transform:scale(.88)}'+
+   '.x51-row:active{transform:scale(.985);background:rgba(42,125,225,.08)}'+
+   'html[data-theme="light"] .x51-back{color:#fff!important}';
+  (document.head||document.documentElement).appendChild(st76);
+  var pr76=document.createElement('div');
+  pr76.id='x76prog';
+  (document.body||document.documentElement).appendChild(pr76);
+  try{window.addEventListener('scroll',function(){try{x76Prog()}catch(e0){}},true)}catch(e5){}
+  try{window.addEventListener('resize',function(){try{x76Prog()}catch(e1){}},true)}catch(e6){}
+})();}catch(e76s){}
+var x76t=null;
+function x76Kick(){
+  if(x76t){return}
+  x76t=setTimeout(function(){x76t=null;try{x76Arrows()}catch(e0){}},30);
+}
+try{
+  if(typeof MutationObserver!=='undefined'&&document.body){
+    var x76mo=new MutationObserver(function(){x76Kick()});
+    x76mo.observe(document.body,{childList:true,subtree:true});
+  }
+}catch(e7){}
+try{setTimeout(function(){try{x76Arrows()}catch(e0){}try{x76ChSync()}catch(e1){}try{x76Prog()}catch(e2){}},250)}catch(e8){}
+APP_META.ver='76.0';APP_META.date='2026-11-05';APP_META.lastUpdate='2026-11-05';
+APP_META.notes='الإصدار 76 — احترافية أزرار الرجوع: زر رجوع الإعدادات أكبر وثابت في الأعلى لا يختفي أثناء التمرير، السهم متمركز تمامًا في كل الأزرار الدائرية برسم SVG حاد، وفي الموقع أُخفيت الإعدادات وملفي من الشريط السفلي (يبقيان في التطبيق)، شريط تقدم تمرير علوي أنيق، وتوهج التبويب النشط.';
+try{APP_META.changelog.unshift({ver:'76.0',date:'2026-11-05',notes:'زر رجوع الإعدادات كبير وثابت لا يختفي + سهم SVG متمركز في كل الأزرار الدائرية + إخفاء الإعدادات وملفي من شريط الموقع + شريط تقدم التمرير + توهج التبويب النشط.'})}catch(e9){}
+/* ===== طبقة 77: نشر صادق قابل للإصلاح + زر التطبيق في شريط الموقع + ثبات ===== */
+var x77Last={t:'',b:''};
+function x77Base(){try{return (''+location.origin)+(''+location.pathname).replace(/[^\/]*$/,'')}catch(e0){return ''}}
+function x77Share(){
+  try{
+    if(navigator&&navigator.share){
+      try{navigator.share({title:'منصة X التعليمية',text:'جرّب منصة X التعليمية — دروس وملاخصات وتحديات للطورين المتوسط والثانوي:',url:x77Base()}).then(function(){}).catch(function(){})}catch(e1){}
+      return;
+    }
+  }catch(e2){}
+  try{
+    if(navigator&&navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(x77Base());try{toast('✅ نُسخ رابط المنصة — الصقه لأصدقائك','success')}catch(e3){}return}
+  }catch(e4){}
+  try{toast('⚠️ المشاركة غير مدعومة في هذا المتصفح')}catch(e5){}
+}
+function x77AppSheet(){
+  try{
+    var apk='';try{apk=(typeof x42ApkUrl==='function')?x42ApkUrl():'./X.apk'}catch(e0){apk='./X.apk'}
+    var u='';try{u=x77Base()}catch(e1){u=''}
+    xModal('📲 التطبيق — شاركه أو نزّله',
+     '<div class="btn-row" style="display:flex;flex-wrap:wrap;gap:10px">'+
+     '<button class="btn btn-primary" onclick="try{x77Share()}catch(e){}" style="flex:1 1 140px">📤 مشاركة</button>'+
+     '<a class="btn btn-primary" href="'+escAttr(apk||'./X.apk')+'" download="X.apk" style="flex:1 1 140px;text-decoration:none;display:inline-flex;align-items:center;justify-content:center">⬇️ تنزيل APK</a>'+
+     '</div>'+
+     '<p class="x17-mute" style="margin-top:12px;font-size:12.5px">«مشاركة» تفتح تطبيقات هاتفك مباشرة (واتساب، تيليجرام، الرسائل...) والرابط جاهز — و«تنزيل APK» يجلب التطبيق مباشرة إلى هاتفك دون نسخ أي رابط.</p>');
+  }catch(e2){}
+}
+var __x77BN=renderBottomNav;
+renderBottomNav=function(){
+  var h='';try{h=__x77BN()}catch(e0){h=''}
+  try{
+    if(h&&(''+h).indexOf('x77-appbtn')<0){
+      var ch='web';try{ch=((typeof x76IsApp==='function')&&x76IsApp())?'app':'web'}catch(e1){ch='web'}
+      if(ch==='web'){
+        var btn='<button class="bnav-btn x77-appbtn" onclick="try{x77AppSheet()}catch(e){}" aria-label="التطبيق">📲<span>التطبيق</span></button>';
+        h=(''+h).replace('</nav>',btn+'</nav>');
+      }
+    }
+  }catch(e2){}
+  return h;
+};
+var __x77AP=adPublish;
+adPublish=function(){
+  try{
+    var t=(''+(((gid('adm-nt')||{}).value)||'')).trim();
+    var b=(''+(((gid('adm-nb')||{}).value)||'')).trim();
+    if(t&&b){x77Last={t:t,b:b}}
+  }catch(e0){}
+  try{__x77AP()}catch(e1){}
+};
+function x77RetryPub(){
+  try{
+    var t=x77Last.t||'';var b=x77Last.b||'';
+    if(!t||!b){try{toast('✍️ لا يوجد إعلان محفوظ لإعادة المحاولة')}catch(e2){}return}
+    try{if(typeof xCloseModal==='function'){xCloseModal()}}catch(e3){}
+    try{toast('⏳ إعادة محاولة النشر الآن...')}catch(e4){}
+    try{XNEWS.loaded=false}catch(e5){}
+    try{XNEWS.items=null}catch(e6){}
+    try{
+      if(typeof x66AnnWrite==='function'){
+        x66AnnWrite(t,b,function(mode,err){
+          try{
+            if(mode==='rest'){try{toast('✅ نُشر الإعلان في قاعدة البيانات — سيظهر لجميع التلاميذ','success')}catch(e7){}}
+            else if(mode==='storage'){try{toast('✅ نُشر الإعلان عبر قناة المكتبة — سيظهر لجميع التلاميذ','success')}catch(e8){}}
+            else if(mode==='local'){try{x71LocalModal(t,b)}catch(e9){}}
+            else{try{toast('❌ '+err)}catch(e10){}}
+          }catch(e11){}
+          try{render()}catch(e12){}
+        });
+      }
+    }catch(e13){}
+  }catch(e14){}
+}
+var __x77LM=x71LocalModal;
+x71LocalModal=function(t,b){
+  try{
+    var k=null;try{k=(typeof x66Keys==='function')?x66Keys():null}catch(e1){}
+    var c=null;try{c=(typeof x66StorCfg==='function')?x66StorCfg():null}catch(e2){}
+    var host='';try{host=(''+((k&&k.url)||'')).replace(/^https?:\/\//,'').split('.')[0]}catch(e3){}
+    var authed=false;try{authed=!!(USER&&USER.session&&USER.session.access_token)}catch(e4){}
+    var sql='';try{sql=(typeof X71_SQL==='string')?X71_SQL:''}catch(e5){}
+    xModal('⚠️ لم يصل الإعلان للتلاميذ — التشخيص الدقيق والحل',
+     '<p>حُفظ إعلانك («'+escAttr(t)+'») على هذا الجهاز مؤقتًا، وأُرسل تنبيه إلى بريد المنصة حتى لا يمر الأمر بصمت.</p>'+
+     '<p><b>حالة القنوات الآن على هذا الجهاز:</b></p><ul>'+
+     '<li>🔗 قاعدة البيانات <b>'+escAttr(host||'غير مهيأة')+'</b>: '+(k&&k.url?('مفتاح الاتصال موجود، لكن جدول الإعلانات غير موجود في هذا المشروع تحديدًا أو سياسة النشر تمنع الإدراج'+(authed?'':' — وأنت غير مسجل بحساب موثّق حاليًا')):'لا مفتاح اتصال محفوظ — جهّز اتصال قاعدة البيانات من الإعدادات')+'</li>'+
+     '<li>📚 مكتبة الملفات (القناة الاحتياطية): '+(c?'جاهزة':'بطاقة التجهيز svc غير محفوظة على هذا الجهاز — جهّزها من الإعدادات ← اتصال المكتبة')+'</li>'+
+     '</ul>'+
+     '<p><b>الحل في دقيقة واحدة:</b> افتح Supabase ← SQL Editor ← تأكد أن المشروع المفتوح هو <b>'+escAttr(host)+'</b> نفسه بالضبط (أشهر سبب للفشل: تشغيل السكربت في مشروع مختلف) ← الصق السكربت ← Run ← ارجع واضغط «أعد المحاولة»:</p>'+
+     (sql?('<div class="x71-sql">'+escAttr(sql)+'</div>'):'')+
+     '<div class="btn-row" style="display:flex;flex-wrap:wrap;gap:8px">'+
+     '<button class="btn btn-primary" onclick="try{x71CopySql()}catch(e){}">📋 نسخ السكربت</button>'+
+     '<a class="btn" href="https://supabase.com/dashboard/project/_/sql/new" target="_blank" rel="noopener" style="text-decoration:none">🔗 افتح SQL Editor</a>'+
+     '<button class="btn" onclick="try{x77RetryPub()}catch(e){}">↻️ أعد المحاولة</button>'+
+     '</div>');
+  }catch(e0){try{__x77LM(t,b)}catch(e6){}}
+};
+APP_META.ver='77.0';APP_META.date='2026-11-05';APP_META.lastUpdate='2026-11-05';
+APP_META.notes='الإصدار 77 — الاحتراف والثبات والاستقرار: نافذة تشخيص حية عند تعثر نشر إعلان (تظهر حالة القناتين واسم مشروعك بالضبط مع زر فتح SQL Editor وزر إعادة المحاولة من داخل المنصة)، وزر «التطبيق» جديد في شريط الموقع فقط بخانتين: مشاركة مباشرة تفتح تطبيقات هاتفك بلا نسخ رابط، وتنزيل APK فوري.';
+try{APP_META.changelog.unshift({ver:'77.0',date:'2026-11-05',notes:'نافذة تشخيص النشر الحية + إعادة المحاولة + زر التطبيق في شريط الموقع (مشاركة مباشرة + تنزيل APK) + ثبات.'})}catch(e9){}
 boot();
 </script>
 </body>
