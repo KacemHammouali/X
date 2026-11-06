@@ -16127,127 +16127,169 @@ try{x81BgFix()}catch(eI2){}
 APP_META.ver='81.0';APP_META.date='2026-11-06';APP_META.lastUpdate='2026-11-06';
 APP_META.notes='الإصدار 81 — قناة ديقة تعرف المتصفح الحقيقي فلا يظهر شكل التطبيق في الموقع، مشاركة حقيقية تفتح تطبيقات هاتفك (وقائمة واتساب عند غيابها)، خلفية المعرض لا تتحرك في الموقع أبدًا، شريط سفلي أكبر وأريح، ومراقب واحد مؤجل بدل عشرات الفحوص مع كل طفرة — سلاسة وسرعة حقيقتان.';
 try{APP_META.changelog.unshift({ver:'81.0',date:'2026-11-06',notes:'قناة ديقة (المتصفب=موقع دائمًا) + مشاركة تفتح تطبيقات الهاتف وواتساب + خلفية ثابتة في الموقع + شريط أكبر + مراقب DOM واحد مؤجل = سرعة وسلاسة.'})}catch(eV1){}
-/* ===================== طبقة 82.0 — الختام التصميمي: قوانين مرسومة حقيقة + نصوص مصححة + خصوصية صافية + حارس الرياضيات ===================== */
-/* 82.أ إصلاح قوانين الدروس من الجذر: 4 قوانين كانت تظهر نصًا خامًا (سطران بشرطة عارية لا يقبلها KaTeX) تُرسم الآن معادلات حقيقية، وتصحيح لغوي لكل نصوص الدروس */
-function x82FixText(s){
-  var r=s;
-  r=r.split('الصيغةتين').join('الصيغتين');
-  r=r.split('المجموع والفرع').join('المجموع والفرق');
-  r=r.split('لفرع المكعبات').join('لفرق المكعبات');
-  return r;
-}
-function x82Walk(node,seen){
-  if(!node||(typeof node!=='object')){return}
-  if(node.nodeType){return}
-  try{if(seen.indexOf(node)>=0){return}seen.push(node)}catch(eW0){}
+/* ===================== طبقة 82.0 — قوانين حصينة + خصوصية كاملة + تصميم احترافي + تصحيح النصوص ===================== */
+/* 82.أ القوانين الحصينة */
+function x82TexFix(tex){
+  var t=''+tex;
   try{
-    if(typeof node.m==='string'&&node.m.length&&node.m.indexOf('array')<0){
-      var m=node.m;
-      if(m.indexOf('f:\\;D\\;\\longrightarrow\\;\\mathbb{R}\\\\')>=0){
-        node.m='\\begin{array}{l}f:\\;D\\;\\longrightarrow\\;\\mathbb{R}\\\\[4pt] x\\;\\longmapsto\\;f(x)\\end{array}';
-      }else if(m.indexOf('a^3-b^3=(a-b)(a^2+ab+b^2)\\\\')>=0){
-        node.m='\\begin{array}{l}a^3-b^3=(a-b)(a^2+ab+b^2)\\\\[4pt] a^3+b^3=(a+b)(a^2-ab+b^2)\\end{array}';
-      }else if(m.indexOf('\\cos(a+b)=\\cos a\\cos b-\\sin a\\sin b\\\\')>=0){
-        node.m='\\begin{array}{l}\\cos(a+b)=\\cos a\\cos b-\\sin a\\sin b\\\\[4pt] \\sin(a+b)=\\sin a\\cos b+\\cos a\\sin b\\end{array}';
-      }else if(m.indexOf('x=-\\alpha+2k\\pi\\qquad(k\\in\\mathbb{Z})\\\\')>=0){
-        node.m='\\begin{array}{l}\\cos x=\\cos\\alpha\\;\\iff\\;x=\\alpha+2k\\pi\\;\\;\\text{or}\\;\\;x=-\\alpha+2k\\pi\\qquad(k\\in\\mathbb{Z})\\\\[4pt] \\sin x=\\sin\\alpha\\;\\iff\\;x=\\alpha+2k\\pi\\;\\;\\text{or}\\;\\;x=\\pi-\\alpha+2k\\pi\\end{array}';
+    if(t.indexOf('\\begin{')<0&&t.indexOf('\\\\')>=0){t=t.replace(/\\\\/g,'\\qquad ')}
+  }catch(e0){}
+  return t;
+}
+var __x82MB=mathBlock;
+mathBlock=function(tex){try{return __x82MB(x82TexFix(tex))}catch(e1){return __x82MB(tex)}};
+/* 82.أ1 تحسين البديل المقروء */
+var __x82TF=texFallback;
+texFallback=function(s){
+  var t=''+s;
+  try{
+    t=t.replace(/\\\\/g,'   ');
+    t=t.replace(/\\;/g,' ').replace(/\\:/g,' ').replace(/\\,/g,' ').replace(/\\!/g,'').replace(/\\ /g,' ');
+  }catch(e0){}
+  return __x82TF(t);
+};
+/* 82.أ2 المكنس */
+function x82LawSweep(){
+  try{
+    var app=document.getElementById('app');if(!app)return;
+    var els=app.querySelectorAll('.math-block');
+    if(!els||!els.length)return;
+    for(var i=0;i<els.length;i++){
+      var el=els[i],k=null,err=null,raw,tx;
+      try{k=el.querySelector('.katex')}catch(e0){k=null}
+      try{err=el.querySelector('.katex-error')}catch(e1){err=null}
+      if(k&&!err){continue}
+      raw=''+(el.textContent||'');
+      if(raw.indexOf('$$')>=0||raw.indexOf('\\frac')>=0||raw.indexOf('\\longrightarrow')>=0||raw.indexOf('\\longmapsto')>=0||raw.indexOf('\\mathbb')>=0||raw.indexOf('\\begin')>=0||raw.indexOf('\\sqrt')>=0||raw.indexOf('\\overrightarrow')>=0){
+        try{tx=el.getAttribute('data-tex')}catch(e2){tx=null}
+        if(!tx){tx=raw.replace(/\$\$/g,'')}
+        try{el.textContent=texFallback(tx);var cn=''+(el.className||'');if(cn.indexOf('math-fallback')<0){el.className=cn+' math-fallback'}el.setAttribute('data-done','1')}catch(e3){}
       }
     }
-  }catch(eM0){}
-  var ks=[];
-  try{ks=Object.keys(node)}catch(eK0){}
-  for(var i=0;i<ks.length;i++){
-    var k=ks[i],v=null;
-    try{v=node[k]}catch(eK1){continue}
-    if(typeof v==='string'){try{node[k]=x82FixText(v)}catch(eT1){}}
-    else if(v&&(typeof v==='object')&&(!v.nodeType)){x82Walk(v,seen)}
+  }catch(e4){}
+}
+/* 82.أ3 موظف المعادلات الجديد */
+var x82TSTo=null,x82KATries=0,x82Retry=null;
+function x82TSRun(){
+  var app=document.getElementById('app');if(!app)return;
+  if(typeof renderMathInElement==='function'){
+    try{KAT=true}catch(eK0){}
+    try{renderMathInElement(app,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false})}catch(e0){}
+    try{x82LawSweep()}catch(e1){}
+    return;
   }
+  if(x82KATries<5){x82KATries++;x82Retry=setTimeout(function(){x82Retry=null;try{typesetApp()}catch(eR){}},900);return}
+  try{KAT=false}catch(eK1){}
+  try{x82LawSweep()}catch(e2){}
 }
-function x82FixContent(){
-  var seen=[];
-  try{for(var a=0;a<CH_MATH.length;a++){x82Walk(CH_MATH[a],seen)}}catch(eC1){}
-  try{for(var b=0;b<CH_PHYS.length;b++){x82Walk(CH_PHYS[b],seen)}}catch(eC2){}
-  try{var qk=Object.keys(QUIZZES);for(var c=0;c<qk.length;c++){x82Walk(QUIZZES[qk[c]],seen)}}catch(eC3){}
-  try{var kk=Object.keys(KP);for(var d=0;d<kk.length;d++){x82Walk(KP[kk[d]],seen)}}catch(eC4){}
-}
-try{x82FixContent()}catch(eX82I){}
-
-/* 82.ب سياسة الخصوصية الكاملة الصافية: مدة الاحتفاظ ومكان التخزين وحقوق الحذف بوضوح تام */
-function x82PrivacyHtml(){
-  return ''+
-  '<div class="x82sum">📌 <b>القاعدة الذهبية:</b> نجمع أقل البيانات ممكن، نخزنها في مكانين فقط واضحين، ونحذفها عند طلبك — هذه السياسة مكتوبة لتفهمها في دقيقتين.</div>'+
-  '<h4 class="x82h"><span class="x82n">1</span> من نحن</h4>'+
-  '<p>منصة X التعليمية — مؤسسة تعليمية جزائرية مجانية لتلاميذ الطورين المتوسط والثانوي. لا نبيع البيانات ولا نتاجر بها أبدًا، ولا نستعمل أي تتبع دعائي.</p>'+
-  '<h4 class="x82h"><span class="x82n">2</span> البيانات التي نجمعها (ولا نجمع غيرها)</h4>'+
-  '<ul class="x82ul"><li><b>بيانات حسابك:</b> بريدك الإلكتروني المُتحقَّق منه برمز سري، اسمك ولقبك، سنتك الدراسية وشعبتك، وسنة ميلادك وصورتك إن أدخلتها طوعًا.</li>'+
-  '<li><b>بيانات تقدمك الدراسي:</b> الدروس المكتملة، نتائج اختباراتك، ما حفظته للمراجعة، وإعدادات مظهرك.</li>'+
-  '<li><b>بيانات تقنية محدودة جدًا:</b> حالة اتصالك وذاكرة التخزين المحلي الضرورية لعمل المنصة بلا إنترنت.</li></ul>'+
-  '<h4 class="x82h"><span class="x82n">3</span> أين تُخزن بياناتك؟ (مكانان فقط — لا ثالث لهما)</h4>'+
-  '<ul class="x82ul"><li><b>أولًا — جهازك أنت:</b> نسخة كاملة من تقدمك داخل ذاكرة المتصفح/التطبيق، لهذا تعمل المنصة بلا إنترنت، وهذه النسخة تحت تصرفك المباشر.</li>'+
-  '<li><b>ثانيًا — قاعدة بيانات حسابك المشفّرة في الخوادم السحابية المؤمّنة للمنصة:</b> ليعود تقدمك كاملًا من أي جهاز تدخل منه، ووصولها مقيّد بالإدارة وحدها.</li></ul>'+
-  '<h4 class="x82h"><span class="x82n">4</span> مدة الاحتفاظ — بالضبط وبلا غموض</h4>'+
-  '<ul class="x82ul"><li><b>نسخة جهازك:</b> تبقى حتى تحذفها بنفسك أو تمسح بيانات التطبيق/المتصفح.</li>'+
-  '<li><b>بيانات حسابك في الخادم:</b> تبقى طالما حسابك نشط وتستعمل المنصة.</li>'+
-  '<li><b>بعد طلبك الحذف:</b> تُمسح نهائيًا من الخوادم خلال <b>30 يومًا كحد أقصى</b> — بلا أي نسخة محفوظة بعدها.</li></ul>'+
-  '<h4 class="x82h"><span class="x82n">5</span> حقوقك كاملة وواضحة</h4>'+
-  '<ul class="x82ul"><li><b>التعديل:</b> غيّر اسمك ولقبك وشعبتك وصورتك من صفحة «ملفي» متى شئت.</li>'+
-  '<li><b>المراجعة والتصدير:</b> راجع تقدمك الكامل من صفحة «تقدّمي».</li>'+
-  '<li><b>الحذف الفوري:</b> زر «حذف الحساب» في صفحة «ملفي» يمسح نسخة جهازك في اللحظة نفسها، ويُنفَّذ حذف الخادم خلال 30 يومًا كحد أقصى.</li>'+
-  '<li><b>الإشعارات:</b> لا تصلك إلا بموافقتك الصريحة، وتوقفها من إعدادات جهازك في أي لحظة.</li></ul>'+
-  '<h4 class="x82h"><span class="x82n">6</span> حماية الأطفال</h4>'+
-  '<p>المنصة موجّهة لتلاميذ قد يكونون دون 16 سنة: صفر إعلانات تجارية، صفر محتوى غير تعليمي، وأقل البيانات ممكنة — والدخول برمز سري مؤقت يصل إلى بريدك أنت فقط.</p>'+
-  '<h4 class="x82h"><span class="x82n">7</span> أي سؤال؟</h4>'+
-  '<p>راسلنا من صفحة «أبلغ عن مشكلة» داخل المنصة — نرد على بريد حسابك المسجل.</p>'+
-  '<p class="set-note">آخر تحديث لهذه السياسة: '+(''+APP_META.lastUpdate)+'</p>';
-}
-var __x82SD=xShowDoc;
-xShowDoc=function(w){
-  var opened=false;
-  try{if(w==='privacy'){try{xModal('🔒 سياسة الخصوصية',x82PrivacyHtml());opened=true}catch(eP1){}}}catch(eP0){}
-  if(!opened){try{__x82SD(w)}catch(eP2){}}
+typesetApp=function(){
+  try{
+    if(x82TSTo){return}
+    x82TSTo=setTimeout(function(){x82TSTo=null;try{x82TSRun()}catch(e0){}},60)
+  }catch(e1){try{x82TSRun()}catch(e2){}}
 };
-
-/* 82.ج مقاسات دقيقة: نافذة المستندات أرحب للقراءة + عناوين مرقمة + بطاقة قانون أرتب */
-function x82Style(){
-  try{
-    var el=gid('x82-style');
-    if(!el){el=document.createElement('style');el.id='x82-style';(document.head||document.documentElement).appendChild(el)}
-    el.textContent=
-     '.xmodal-card{max-height:86vh!important}'+
-     '.xmodal-body{font-size:14.5px!important;line-height:2.05!important}'+
-     '.x82h{margin:17px 0 8px;font-size:15px;font-weight:900;color:#e8f1f9;display:flex;align-items:center;gap:8px}'+
-     '.x82n{flex-shrink:0;width:24px;height:24px;border-radius:8px;display:grid;place-items:center;font-size:12.5px;background:rgba(90,160,255,.14);border:1px solid rgba(140,200,255,.3);color:#9cd4ff}'+
-     'html[data-theme="light"] .x82h{color:#152238}'+
-     'html[data-theme="light"] .x82n{background:rgba(35,125,200,.10);border-color:rgba(35,125,200,.3);color:#1a66b8}'+
-     '.x82sum{background:rgba(80,140,255,.10);border:1px solid rgba(130,185,255,.28);border-radius:13px;padding:11px 13px;margin:10px 0}'+
-     'html[data-theme="light"] .x82sum{background:rgba(35,125,200,.06);border-color:rgba(35,125,200,.2)}'+
-     '.x82ul{padding-inline-start:20px;margin:6px 0 10px}'+
-     '.x82ul li{margin-bottom:7px}'+
-     '.lawcard .ln{line-height:2!important}'+
-     '.lawcard .math-block{margin:10px 0 4px}';
-  }catch(eS0){}
-}
-try{x82Style()}catch(eS1){}
-
-/* 82.د حارس الرياضيات: أي معادلة خام في أي صفحة تُرسم خلال أجزاء من الثانية — مع غلاف مزامنة المراقب */
-function x82MathSweep(){
-  try{
-    var els=document.querySelectorAll('.math-block[data-tex]:not([data-done])');
-    if(!els||!els.length){return}
-    for(var i=0;i<els.length;i++){
-      var t=''+(((els[i]||{}).textContent)||'');
-      if(t.indexOf('$$')>=0){try{typesetApp()}catch(eT0){}return}
+/* 82.ب تصحيح النصوص */
+var X82TXT=[[/حقيقى/g,'حقيقي'],[/الذى/g,'الذي'],[/التى/g,'التي'],[/هذة/g,'هذه']];
+function x82TxtNode(n,depth){
+  if(!n||depth>12)return 0;
+  var c=0,i;
+  if(n.nodeType===3){
+    var t=n.nodeValue;
+    if(t&&t.length>2){
+      var o=t;
+      for(i=0;i<X82TXT.length;i++){try{o=o.replace(X82TXT[i][0],X82TXT[i][1])}catch(e){}}
+      if(o!==t){try{n.nodeValue=o;c=1}catch(e2){}}
     }
-  }catch(eS2){}
+    return c;
+  }
+  if(n.nodeType!==1)return c;
+  var tn=(''+(n.nodeName||'')).toUpperCase();
+  if(tn==='SCRIPT'||tn==='STYLE'||tn==='TEXTAREA'||tn==='INPUT')return c;
+  var kids=n.childNodes;
+  if(kids){for(i=0;i<kids.length;i++){c+=x82TxtNode(kids[i],depth+1)}}
+  return c;
 }
-var __x82SP=x80SyncPush;
-x80SyncPush=function(){try{__x82SP()}catch(eS3){}try{x82MathSweep()}catch(eS4){}};
-
-/* 82.هـ هوية الإصدار */
+function x82TextSweep(){try{x82TxtNode(document.getElementById('app'),0)}catch(e){}}
+/* 82.ج سياسة الخصوصية الكاملة */
+var __x82Doc=xShowDoc;
+xShowDoc=function(which){
+  if(which==='privacy'){
+    var P=
+     '<h4>١) ما الذي نجمعه؟</h4>'+
+     '<ul><li><b>بيانات الحساب:</b> البريد الإلكتروني (متحقق منه)، الاسم واللقب، السنة الدراسية والشعبة، وما تدخله طوعًا: سنة الميلاد والصورة الشخصية.</li>'+
+     '<li><b>بيانات التقدم:</b> الدروس التي بدأتها وأكملتها، نتائج اختباراتك، محفوظاتك، وإعدادات تخصيصك.</li></ul>'+
+     '<h4>٢) أين تُخزَّن؟</h4>'+
+     '<ul><li><b>على جهازك:</b> إن لم تسجّل حسابًا، كل بياناتك تُحفظ داخل تخزين المتصفح على جهازك أنت وحده — لا تغادر الجهاز أبدًا.</li>'+
+     '<li><b>على الخادم:</b> إذا سجّلت حسابًا، تُخزن بيانات حسابك وتقدمك لدى مزوّد الخدمة Supabase (خارج الجزائر) في جداول مخصصة، والصورة الشخصية في مخزن إضافي محمي لأصحابك حدهم.</li>'+
+     '<li><b>كلمات المرور:</b> لا نجمعها ولا نراها إطلاقًا — الدخول برمز تحقق مؤقت يصل إلى بريدك ويُستعمل مرة واحدة.</li></ul>'+
+     '<h4>٣) كم نبقيها؟ (مدة الاحتفاظ)</h4>'+
+     '<ul><li>تبقى بياناتك ما دام حسابك نشطًا وتستعمل المنصة.</li>'+
+     '<li><b>عند طلب الحذف:</b> بيانات جهازك تُمسح فورًا، وبيانات الخادم تُحذف نهائيًا في أقرب وقت وبحد أقصى <b>30 يومًا</b> من تنفيذ طلبك من طرف الإدارة، ويشمل الحذف بيانات التقدم والصورة كلها.</li>'+
+     '<li>إذا بقي الحساب مهجورًا (سنة فأكثر بلا أي نشاط)، يحق للإدارة حذفه بعد إشعار بريدي مسبق.</li></ul>'+
+     '<h4>٤) حقوقك</h4>'+
+     '<ul><li><b>الوصول والتعديل:</b> من صفحة ملفك تعدّل اسمك وبريدك وسنتك وشعبتك وصورتك متى شئت.</li>'+
+     '<li><b>الحذف:</b> زر «حذف الحساب» في صفحة ملفك يرسل طلبًا فوريًا للإدارة، ويشمل الحذف كل بياناتك وتقدمك.</li>'+
+     '<li><b>سحب الموافقة:</b> يمكنك التوقف عن استعمال الحساب وطلب حذفه في أي وقت دون أي تبرير.</li>'+
+     '<li><b>نسخة من بياناتك:</b> يحق لك طلبها بمراسلة إدارة المنصة وتصلك خلال 30 يومًا.</li></ul>'+
+     '<h4>٥) ما لا نفعله أبدًا</h4>'+
+     '<ul><li>لا نشارك بياناتك مع أي طرف ثالث، ولا نبيعها، ولا نستعملها في إعلانات.</li>'+
+     '<li>لا نجمع كلمات المرور ولا رموز التحقق ولا محتوى بريدك.</li>'+
+     '<li>إشعار التسجيل الذي يصل مؤسسة X.HAK لا يشمل إلا الاسم والمعلومات الدراسية وتاريخ التسجيل.</li></ul>'+
+     '<h4>٦) التواصل</h4>'+
+     '<p>لأي سؤال عن خصوصيتك أو لطلب حذف بياناتك: راسل إدارة المنصة (مؤسسة X.HAK) من داخل المنصة أو عبر بريدها الرسمي.</li>'+
+     '<p class="set-note">آخر تحديث لهذه السياسة: 2026-11-06 — الإصدار '+APP_META.ver+'.</p>';
+    try{xModal('U0001F512 سياسة الخصوصية — النسخة الكاملة',P)}catch(eM){}
+    return;
+  }
+  return __x82Doc(which);
+};
+/* 82.د لمسة التصميم الاحترافية */
+try{
+  var st82=document.createElement('style');
+  st82.id='x82-style';
+  st82.textContent=
+   'button,.btn,.bnav-btn,.option,.x48-pill,.x48-sech,.x48-gitem{touch-action:manipulation!important;-webkit-user-select:none!important;user-select:none!important}'+
+   '.btn{min-height:48px;padding:11px 22px;letter-spacing:.2px}'+
+   '.btn:active{transform:scale(.965)}'+
+   '.btn:focus-visible{outline:2px solid #35BDF2!important;outline-offset:2px}'+
+   '.option{min-height:52px;margin:10px 0;border-radius:14px;font-size:15.5px;line-height:1.6;transition:transform .15s ease,background .2s,border-color .2s}'+
+   '.option:active{transform:scale(.985)}'+
+   '.option:focus-visible{outline:2px solid #35BDF2!important;outline-offset:2px}'+
+   '.bnav-btn{border-radius:15px;transition:color .2s,background .25s,transform .15s}'+
+   '.bnav-btn:active{transform:scale(.94)}'+
+   '.bnav-btn:focus-visible{outline:2px solid #35BDF2!important;outline-offset:2px}'+
+   '.bnav-btn.bnav-on{background:linear-gradient(135deg,rgba(53,189,242,.16),rgba(139,108,255,.14))!important;font-weight:800}'+
+   '.x48-sech{min-height:58px}'+
+   '.x48-sech:focus-visible{outline:2px solid #35BDF2!important;outline-offset:-2px}'+
+   '.x48-row{min-height:54px}'+
+   '.x48-pill{min-height:40px;border-radius:12px;font-weight:700}'+
+   '.x48-pill:focus-visible{outline:2px solid #35BDF2!important;outline-offset:2px}'+
+   '.x48-range{accent-color:#35BDF2}'+
+   '.x48-sec.open{box-shadow:0 6px 18px rgba(2,10,20,.25)}'+
+   'html[data-theme="light"] .x48-sec,html[data-theme="light"] .x48-qcard{background:#ffffff!important;border-color:#E3E9F0!important}'+
+   'html[data-theme="light"] .x48-sech .x48-ic{background:#F0F5FB!important;color:#1E7FC4!important}'+
+   'html[data-theme="light"] .x48-sech span,html[data-theme="light"] .x48-row span,html[data-theme="light"] .x48-lbl,html[data-theme="light"] .x48-note{color:#5B6B80!important}'+
+   'html[data-theme="light"] .x48-sech b,html[data-theme="light"] .x48-row b{color:#172437!important}'+
+   '*{scrollbar-width:thin;scrollbar-color:rgba(120,150,190,.35) transparent}'+
+   '::-webkit-scrollbar{width:8px;height:8px}'+
+   '::-webkit-scrollbar-thumb{background:rgba(120,150,190,.35);border-radius:8px}'+
+   '::-webkit-scrollbar-track{background:transparent}'+
+   '.lawcard{transition:box-shadow .2s}'+
+   '.lawcard:hover{box-shadow:0 6px 16px rgba(2,10,20,.18)}';
+  var hd82=document.head||document.documentElement;
+  if(hd82&&hd82.appendChild){hd82.appendChild(st82)}
+}catch(eSt82){}
+/* 82.هـ غلاف render */
+var __x82R=render;
+render=function(){
+  try{__x82R()}catch(e0){}
+  try{x82TextSweep()}catch(e1){}
+  try{setTimeout(function(){try{x82LawSweep()}catch(e2){}try{x82TextSweep()}catch(e3){}},350)}catch(e4){}
+};
+/* 82.و هوية الإصدار */
 APP_META.ver='82.0';APP_META.date='2026-11-06';APP_META.lastUpdate='2026-11-06';
-APP_META.notes='الإصدار 82 — الختام التصميمي: قوانين الدروس تُرسم معادلات حقيقية دائمًا (إصلاح أربعة قوانين كانت تظهر نصًا خامًا)، نصوص الدروس مصححة لغويًا، سياسة خصوصية كاملة صافية (مدة الاحتفاظ ومكان التخزين وحقوق الحذف بوضوح تام)، نافذة المستندات أرحب للقراءة، حارس رياضيات يعالج أي معادلة في أي صفحة تلقائيًا، تدقيق آلي كامل لكل الأزرار والمفاتيح، وREADME احترافي جديد للمستودع.';
-try{APP_META.changelog.unshift({ver:'82.0',date:'2026-11-06',notes:'قوانين مرسومة حقيقة + نصوص مصححة + خصوصية صافية كاملة + حارس رياضيات + نافذة مستندات أوضح + README احترافي + تدقيق آلي لكل الأزرار.'})}catch(eV1){}
-
+APP_META.notes='الإصدار 82 — الاحترافية الكاملة: قوانين الدروس تعمل دائمًا حتى مع أعقب المعادلات، سياسة خصوصية كاملة بمدة الاحتفاظ ومكان التخزين وحقوق الحذف، لمسة تصميم احترافية مقاسة بالميكروسكوب، وتصحيح تلقائي للأغلاط في النصوص.';
+try{APP_META.changelog.unshift({ver:'82.0',date:'2026-11-06',notes:'قوانين حصينة تعمل دائمًا + سياسة خصوصية كاملة + لمسة تصميم احترافية + تصحيح النصوص + README جديد.'})}catch(eV1){}
 boot();
 </script>
 </body>
