@@ -6,7 +6,7 @@
   "dir": "rtl",
   "start_url": "./?source=pwa",
   "scope": "./",
-  "display": "standalone",
+  "display": "fullscreen",
   "orientation": "portrait",
   "background_color": "#0E1621",
   "theme_color": "#0E1621",
