@@ -1,5 +1,5 @@
-/* منصة X التعليمية — Service Worker — الإصدار 87.0 */
-var VERSION='x-v87.0';
+/* منصة X التعليمية — Service Worker — الإصدار 88.0 */
+var VERSION='x-v88.0';
 var CORE=['./','./index.html','./versions.json','./icon-512.png','./manifest.json','./pdfs.json','./videos.json'];
 self.addEventListener('install',function(e){
   e.waitUntil(caches.open(VERSION).then(function(c){return c.addAll(CORE).then(function(){return self.skipWaiting()}).catch(function(){return self.skipWaiting()})}));
