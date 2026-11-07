@@ -18341,6 +18341,7 @@ try{APP_META.changelog.unshift('الإصدار 96.0 — فتح فوري + لوح
 window.x96t={libBack:x96LibBack,jget:x96JGet,volPrev:x96VolPrev,vidlib:renderX35Vid,normList:x96NormList,ns:x96NS};
 })();
 }catch(eW96){}
+boot();
 
 /* ================= الطبقة 97 — الإصدار 97.0: الشعار الكامل والواجهة الأنقى ================= */
 try{
@@ -18567,106 +18568,6 @@ try{
   window.x97t={sweep:x97Sweep,vol:x97VolShow,avView:x97AvView,avLetter:x97AvLetter,avClose:x97AvClose,avFail:x97AvFail,toast:x97Toast};
 })();
 }catch(eW97){}
-
-/* ================= الطبقة 99 — الإصدار 99.0: الاستقرار والثبات والاحترافية (انطلاق نظيف من 97) ================= */
-try{
-(function(){
-  /* 99.أ CSS: خط التبويب داخل الشريط متوهج + سهم المكتبات دائري مطابق لزر الرجوع السفلي + صورة شخصية حادة + شعار بلا أي قص */
-  var x99Css=document.createElement('style');
-  x99Css.textContent=
-   '#x93pill{top:auto!important;bottom:7px!important;height:4.5px!important;border-radius:99px!important;background:linear-gradient(90deg,#35BDF2,#8B6CFF)!important;box-shadow:0 0 10px rgba(53,189,242,.95),0 0 22px rgba(53,189,242,.6),0 0 36px rgba(139,108,255,.38)!important;opacity:1!important}'+
-   'html[data-theme="light"] #x93pill{background:linear-gradient(90deg,#168EBF,#7657DB)!important;box-shadow:0 0 10px rgba(22,142,191,.95),0 0 20px rgba(22,142,191,.55)!important}'+
-   '#x95back{width:48px!important;height:48px!important;border-radius:50%!important;border:2px solid rgba(255,255,255,.4)!important;background:linear-gradient(135deg,#2f7ae5,#229ED9)!important;font-size:21px!important;font-weight:900!important;line-height:1!important;padding:0!important;box-shadow:0 8px 22px rgba(15,60,115,.45)!important}'+
-   '#x95back:active{transform:scale(.9)}'+
-   'html[data-theme="light"] #x95back{background:linear-gradient(135deg,#168EBF,#2f7ae5)!important}'+
-   '#x97avv .x97avc img{width:auto!important;height:auto!important;max-width:86%!important;max-height:86%!important;object-fit:contain!important}'+
-   'img.x30-logo{border-radius:0!important;object-fit:contain!important}'+
-   '.about-x .x30-logo{object-fit:contain!important;border-radius:0!important}'+
-   '.about-x .logo-mark .x30-logo{object-fit:contain!important;border-radius:0!important}'+
-   '.x54-authlogo{clip-path:none!important}'+
-   '.x54-authlogo .logo-mark{overflow:visible!important;clip-path:none!important}'+
-   '.x54-authlogo .x30-logo{border-radius:0!important;object-fit:contain!important}';
-  (document.head||document.documentElement).appendChild(x99Css);
-
-  /* 99.ب سجل تنقل موثوق خاص: كل صفحة تُدفع بعد العرض، والرجوع يأخذ الصفحة السابقة فعلًا */
-  var X99_HIST=[];
-  function x99Snap(){
-    var o={};
-    try{
-      var r=(window.ROUTE)||{};
-      for(var k in r){if(Object.prototype.hasOwnProperty.call(r,k)){o[k]=r[k]}}
-    }catch(e){}
-    return o;
-  }
-  function x99Track(){
-    try{
-      var r=(window.ROUTE)||{};
-      var pg=''+(r.page||'');
-      if(!pg||pg==='auth'){return}
-      var last=(X99_HIST.length?X99_HIST[X99_HIST.length-1]:null);
-      if(last&&(''+(last.page||''))===pg){return}
-      X99_HIST.push(x99Snap());
-      if(X99_HIST.length>26){X99_HIST.shift()}
-    }catch(e){}
-  }
-  function x99Back(){
-    try{if(typeof gid==='function'&&gid('xmodal')){try{xCloseModal()}catch(eM){}return}}catch(eM2){}
-    var cur='';
-    try{cur=''+((window.ROUTE&&ROUTE.page)||'')}catch(e0){}
-    while(X99_HIST.length){
-      var p=X99_HIST.pop();
-      var pp=''+((p&&p.page)||'');
-      if(pp&&pp!==cur){
-        try{X30_HASH=p}catch(e1){}
-        try{render()}catch(e2){}
-        try{window.scrollTo(0,0)}catch(e3){}
-        return;
-      }
-    }
-    try{x96LibBack();return}catch(e4){}
-    try{x41Back()}catch(e5){}
-    try{navigate('home')}catch(e6){}
-  }
-
-  /* 99.ج «الخدمة» بدل «المنتج» في كل عقدة نصية (تطابق تام فقط) */
-  function x99Sweep(){
-    var app=null;
-    try{app=document.getElementById('app')}catch(e0){}
-    if(!app){return}
-    try{
-      var w=document.createTreeWalker(app,4,null,false),nd;
-      while((nd=w.nextNode())){
-        if(nd.nodeValue&&nd.nodeValue==='المنتج'){try{nd.nodeValue='الخدمة'}catch(e1){}}
-      }
-    }catch(e2){}
-  }
-
-  /* 99.د غلاف العرض الأخير: تسجيل الصفحة + ربط سهم المكتبات بسلوك 99 + تنظيف النص */
-  var __x99R=window.render;
-  window.render=function(){
-    var rr;
-    try{rr=__x99R.apply(this,arguments)}catch(eR1){}
-    try{x99Track()}catch(eT1){}
-    try{
-      var pg=''+((window.ROUTE&&ROUTE.page)||'');
-      if(pg==='vidlib'||pg==='pdflib'){
-        var bb=document.getElementById('x95back');
-        if(bb){bb.onclick=function(){try{x99Back()}catch(eB1){}}}
-      }
-    }catch(eR2){}
-    try{x99Sweep()}catch(eS1){}
-    return rr;
-  };
-
-  /* 99.هـ بيانات الإصدار */
-  try{APP_META.ver='99.0'}catch(eV1){}
-  try{APP_META.notes='الإصدار 99.0 — الاستقرار والثبات والاحترافية (انطلاق من 97): خط التبويب السفلي داخل الشريط متوهج بوضوح تحت التبويب النشط، سهم رجوع مكتبتي الفيديو وPDF دائري أزرق بإطار أبيض مطابق تمامًا لزر الرجوع السفلي ويعيدك إلى الصفحة السابقة فعلًا عبر سجل تنقل موثوق، عرض الصورة الشخصية المكبر حاد بحجمها الطبيعي داخل الدائرة بلا ضبابية، الشعار بلا أي قص في كل الشاشات (تسجيل الدخول والترحيب والتحديث الإجباري وبطاقة عن المؤسسة) بإصلاح كود القص نهائيًا، و«الخدمة» بدل «المنتج» في كل مكان.'}catch(eV2){}
-  try{APP_META.lastUpdate='2026-11-07'}catch(eV3){}
-  try{if(APP_META.changelog&&APP_META.changelog.unshift){APP_META.changelog.unshift('الإصدار 99.0 — انطلاق من 97: خط التبويب داخل الشريط متوهج + سهم المكتبات دائري مطابق للزر السفلي يرجع للصفحة السابقة فعلًا + صورة شخصية حادة بحجمها الطبيعي + شعار كامل غير مقصوص في كل الشاشات + «الخدمة» بدل «المنتج» في كل مكان.')}}catch(eV4){}
-  window.x99t={back:x99Back,sweep:x99Sweep,track:x99Track,hist:X99_HIST};
-})();
-}catch(eW99){}
-boot();
 </script>
 </body>
 </html>
