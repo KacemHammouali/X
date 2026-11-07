@@ -1,5 +1,5 @@
-/* منصة X التعليمية — Service Worker — الإصدار 89.0 */
-var VERSION='x-v90.0';
+/* منصة X التعليمية — Service Worker — الإصدار 91.0 */
+var VERSION='x-v91.0';
 var CORE=['./','./index.html','./versions.json','./icon-512.png','./manifest.json','./pdfs.json','./videos.json'];
 self.addEventListener('install',function(e){
   e.waitUntil(caches.open(VERSION).then(function(c){return c.addAll(CORE).then(function(){return self.skipWaiting()}).catch(function(){return self.skipWaiting()})}));
@@ -8,7 +8,7 @@ self.addEventListener('activate',function(e){
   e.waitUntil(caches.keys().then(function(ks){return Promise.all(ks.map(function(k){if(k!==VERSION){return caches.delete(k)}}))}).then(function(){return self.clients.claim()}));
 });
 self.addEventListener('message',function(e){
-  if(e.data&&e.data.action==='skipWaiting'){self.skipWaiting()}
+  if(e.data==='skipWaiting'||(e.data&&e.data.action==='skipWaiting')){self.skipWaiting()}
 });
 self.addEventListener('fetch',function(e){
   var req=e.request;
