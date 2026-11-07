@@ -1082,7 +1082,7 @@ function renderDash(){
     return '<div class="done-item"><span onclick="navigate(\'lesson\',\''+sid+'\',\''+id+'\')">'+c.icon+' '+c.title+'</span>'+(STATE.quiz[id]?'<span class="pill">أفضل نتيجة: '+STATE.quiz[id].best+'/'+STATE.quiz[id].total+'</span>':'<span class="pill">لم تختبر بعد</span>')+'</div>';
   }).join('')};
   return '<div class="dashboard fade-in" style="max-width:1000px;margin:0 auto;padding:22px 16px">'+
-   '<div class="section-header" style="padding:10px 0 20px"><h2>📊 تقدّمي</h2><p>إحصائيات دراستك ونتائج اختباراتك.</p></div>'+
+   '<div class="section-header" style="padding:10px 0 20px"><h2>'+xi('chart',22)+' تقدّمي</h2><p>إحصائيات دراستك ونتائج اختباراتك.</p></div>'+
    '<div class="dash-grid">'+
      '<div class="stat-card glass"><div class="label">الدروس المكتملة</div><div class="value">'+doneIds.length+' / '+totalLessons()+'</div><div class="sub">'+Math.round(100*doneIds.length/totalLessons())+'% من المنهاج</div></div>'+
      '<div class="stat-card glass"><div class="label">الاختبارات المنجزة</div><div class="value">'+qKeys.length+'</div><div class="sub">من '+totalLessons()+' اختبارًا متاحًا</div></div>'+
@@ -5795,7 +5795,7 @@ x25SelfTest=function(){
 };
 
 /* ---- 27.0 نظام الحصص الذكي + حد الرسالة اليومي — «الأقوى والأثبت» ----
-   رسالة واحدة لكل زائر كل 24 ساعة (رسالة التسجيل تحسب منها).
+   رسالة واحدة لكل زائر كل 12 ساعة (رسالة التسجيل تحسب منها).
    توزيع تلقائي للحصة الشهرية: تبدأ المنصة بالقناة الأولى (Web3Forms — 250/شهر)
    حتى حدها الشهري ثم تنتقل تلقائيًا للثانية (EmailJS — 200/شهر)، وفي مطلع كل
    شهر يُعاد العد من جديد. وإن أبلغ الخادم بنفاد حصة قناة (رمز 429 أو رسالة
@@ -5843,7 +5843,7 @@ function x27Kill(ch){
 function x27DayOK(){
   var last=stGet(X27_DAY_KEY,0)||0;
   var now=Date.now();
-  var rest=86400000-(now-last);
+  var rest=43200000-(now-last);
   if(last>0&&rest>0){
     return {ok:false,h:Math.ceil(rest/3600000)};
   }
@@ -5886,7 +5886,7 @@ function x27SendRaw(ch,subject,body,from,cb){
 x19Send=function(subject,body,from,onResult){
   var d=x27DayOK();
   if(!d.ok){
-    toast('⏳ رسالة واحدة كل 24 ساعة — تنطلق رسالتك القادمة بعد نحو '+d.h+' ساعة','error');
+    toast('⏳ رسالة واحدة كل 12 ساعة — تنطلق رسالتك القادمة بعد نحو '+d.h+' ساعة','error');
     if(typeof onResult==='function'){try{onResult(false,false)}catch(e){}}
     return;
   }
@@ -5988,7 +5988,7 @@ function x27HTML(){
   var h='<section class="x17-card fade-in" id="x27-card" style="margin:16px auto 0">';
   h+='<h3 style="margin:0 0 4px">📊 نظام الحصص الذكي + حد الرسالة اليومي (الإصدار 27)</h3>';
   h+='<span class="x22-badge '+(c?'x22-ok':'x22-wait')+'">'+(c?('⚡ القناة الفعالة الآن: '+(c==='w3f'?'Web3Forms (250/شهر)':'EmailJS (200/شهر)')):'⏳ اكتملت الحصتان لهذا الشهر — يعمل الاحتياط المضمون')+'</span>';
-  h+='<p class="x17-mute" style="font-size:12.5px;margin:8px 0 10px">رسالة واحدة لكل زائر كل 24 ساعة (رسالة التسجيل تحسب منها)، وتوزيع تلقائي للحصة الشهرية: تبدأ المنصة بالقناة الأولى حتى حدها الشهري ثم تنتقل للثانية في نفس اللحظة، وفي مطلع كل شهر يُعاد العد من جديد. وإن أبلغ الخادم بنفاد حصة قناة قبل العدّاد المحلي تنتقل المنصة فورًا للأخرى بلا أي رسالة مفقودة.</p>';
+  h+='<p class="x17-mute" style="font-size:12.5px;margin:8px 0 10px">رسالة واحدة لكل زائر كل 12 ساعة (رسالة التسجيل تحسب منها)، وتوزيع تلقائي للحصة الشهرية: تبدأ المنصة بالقناة الأولى حتى حدها الشهري ثم تنتقل للثانية في نفس اللحظة، وفي مطلع كل شهر يُعاد العد من جديد. وإن أبلغ الخادم بنفاد حصة قناة قبل العدّاد المحلي تنتقل المنصة فورًا للأخرى بلا أي رسالة مفقودة.</p>';
   h+='<div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0">'+
     '<span class="x22-badge '+(q.dead.w3f?'x22-wait':'x22-ok')+'" dir="rtl">Web3Forms: استُخدم '+(q.w3f||0)+' / '+(q.capW3F||250)+(q.dead.w3f?' (بلغت الحد)':'')+'</span>'+
     '<span class="x22-badge '+(q.dead.ejs?'x22-wait':'x22-ok')+'" dir="rtl">EmailJS: استُخدم '+(q.ejs||0)+' / '+(q.capEJS||200)+(q.dead.ejs?' (بلغت الحد)':'')+'</span>'+
@@ -6037,7 +6037,7 @@ x25SelfTest=function(){
   function row(name,ok,note){rows.push({n:name,ok:!!ok,note:(note||'')})}
   try{row('واجهة المنصة',(typeof render==='function'&&typeof navigate==='function'),'الإصدار '+APP_META.ver)}catch(e){}
   try{var qp=x27Pick();row('نظام الحصص الذكي (27)',true,(qp?('القناة الفعالة: '+(qp==='w3f'?'Web3Forms':'EmailJS')):'اكتملت الحصتان — يعمل الاحتياط المضمون'))}catch(e){}
-  try{var dd=x27DayOK();row('حد الرسالة اليومي (24 ساعة)',true,(dd.ok?'متاح — يمكنك إرسال رسالتك الآن':'بقيت '+dd.h+' ساعة على رسالتك القادمة'))}catch(e){}
+  try{var dd=x27DayOK();row('حد الرسالة اليومي (12 ساعة)',true,(dd.ok?'متاح — يمكنك إرسال رسالتك الآن':'بقيت '+dd.h+' ساعة على رسالتك القادمة'))}catch(e){}
   try{row('محرك الإرسال الفوري الأول (EmailJS)',x25EJSReady(),(x25EJSReady()?'مهيأ — الإرسال فوري داخل المنصة':'غير مهيأ — يعمل الوضع الاحتياطي المضمون'))}catch(e){}
   try{row('محرك الإرسال الفوري الثاني (Web3Forms)',x25W3FReady(),(x25W3FReady()?'مهيأ — قناة فورية إضافية جاهزة':'غير مهيأ — اختياري: مفتاح واحد من web3forms.com'))}catch(e){}
   try{row('نافذة البريد الشخصي (احتياط)',typeof x24ComposerOpen==='function','جاهزة دائمًا')}catch(e){}
@@ -6068,7 +6068,7 @@ x22OutHTML=function(){
 /* ---- 28.0 حماية الهوية: لا مفاتيح ولا أسماء خدمات ولا أدلة تهيئة أمام الزوار ----
    نُزعت بطاقتا الإعداد القديمتان (كانتا تعرضان المفاتيح وسطر النشر — موجهتان للمالك فقط)،
    وتتحدث الواجهة الآن بلغة نظيفة: «القناة الأساسية / القناة الاحتياطية».
-   كل منطق الإصدار 27 باقٍ كما هو: حد 24 ساعة، الحصص الشهرية، الانتقال التلقائي. */
+   كل منطق الإصدار 27 باقٍ كما هو: حد 12 ساعة، الحصص الشهرية، الانتقال التلقائي. */
 x25EJSHTML=function(){return ''};
 x25W3FHTML=function(){return ''};
 x25EJSLine=function(){return ''};
@@ -6111,7 +6111,7 @@ x27HTML=function(){
   var h='<section class="x17-card fade-in" id="x27-card" style="margin:16px auto 0">';
   h+='<h3 style="margin:0 0 4px">📊 حالة الإرسال والحدود</h3>';
   h+='<span class="x22-badge '+(c?'x22-ok':'x22-wait')+'">'+(c?('⚡ القناة الفعالة الآن: '+(c==='w3f'?'الأساسية (250 رسالة/شهر)':'الاحتياطية (200 رسالة/شهر)')):'⏳ اكتملت الحصتان لهذا الشهر — يعمل الاحتياط المضمون')+'</span>';
-  h+='<p class="x17-mute" style="font-size:12.5px;margin:8px 0 10px">رسالة واحدة لكل زائر كل 24 ساعة (رسالة التسجيل تحسب منها)، وتوزيع تلقائي للحصة الشهرية: تبدأ المنصة بالقناة الأساسية حتى حدها الشهري ثم تنتقل للقناة الاحتياطية في نفس اللحظة، وفي مطلع كل شهر يُعاد العد من جديد. وإن أبلغ الخادم بنفاد حصة قناة قبل العدّاد المحلي تنتقل المنصة فورًا للأخرى بلا أي رسالة مفقودة.</p>';
+  h+='<p class="x17-mute" style="font-size:12.5px;margin:8px 0 10px">رسالة واحدة لكل زائر كل 12 ساعة (رسالة التسجيل تحسب منها)، وتوزيع تلقائي للحصة الشهرية: تبدأ المنصة بالقناة الأساسية حتى حدها الشهري ثم تنتقل للقناة الاحتياطية في نفس اللحظة، وفي مطلع كل شهر يُعاد العد من جديد. وإن أبلغ الخادم بنفاد حصة قناة قبل العدّاد المحلي تنتقل المنصة فورًا للأخرى بلا أي رسالة مفقودة.</p>';
   h+='<div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0">'+
     '<span class="x22-badge '+(q.dead.w3f?'x22-wait':'x22-ok')+'" dir="rtl">القناة الأساسية: استُخدم '+(q.w3f||0)+' / '+(q.capW3F||250)+(q.dead.w3f?' (بلغت الحد)':'')+'</span>'+
     '<span class="x22-badge '+(q.dead.ejs?'x22-wait':'x22-ok')+'" dir="rtl">القناة الاحتياطية: استُخدم '+(q.ejs||0)+' / '+(q.capEJS||200)+(q.dead.ejs?' (بلغت الحد)':'')+'</span>'+
@@ -6141,7 +6141,7 @@ x25SelfTest=function(){
   function row(name,ok,note){rows.push({n:name,ok:!!ok,note:(note||'')})}
   try{row('واجهة المنصة',(typeof render==='function'&&typeof navigate==='function'),'الإصدار '+APP_META.ver)}catch(e){}
   try{var qp=x27Pick();row('نظام الحصص الذكي',true,(qp?('القناة الفعالة: '+(qp==='w3f'?'الأساسية':'الاحتياطية')):'اكتملت الحصتان — يعمل الاحتياط المضمون'))}catch(e){}
-  try{var dd=x27DayOK();row('حد الرسالة اليومي (24 ساعة)',true,(dd.ok?'متاح — يمكنك إرسال رسالتك الآن':'بقيت '+dd.h+' ساعة على رسالتك القادمة'))}catch(e){}
+  try{var dd=x27DayOK();row('حد الرسالة اليومي (12 ساعة)',true,(dd.ok?'متاح — يمكنك إرسال رسالتك الآن':'بقيت '+dd.h+' ساعة على رسالتك القادمة'))}catch(e){}
   try{row('قناة الإرسال الفوري الأولى',x25EJSReady(),(x25EJSReady()?'مهيأة — الإرسال فوري داخل المنصة':'غير مهيأة — يعمل الوضع الاحتياطي المضمون'))}catch(e){}
   try{row('قناة الإرسال الفوري الثانية',x25W3FReady(),(x25W3FReady()?'مهيأة — قناة فورية إضافية جاهزة':'غير مهيأة — يعمل الوضع الاحتياطي المضمون'))}catch(e){}
   try{row('نافذة البريد الشخصي (احتياط)',typeof x24ComposerOpen==='function','جاهزة دائمًا')}catch(e){}
@@ -6206,7 +6206,7 @@ renderBottomNav=function(){
 x22OutHTML=function(){return ''};
 x27HTML=function(){return ''};
 x28ToolsHTML=function(){return ''};
-/* ---- 29.4 العدّ التنازلي الحي: رسالة واحدة كل 24 ساعة مع مؤقت HH:MM:SS يصمد عبر التحديثات ---- */
+/* ---- 29.4 العدّ التنازلي الحي: رسالة واحدة كل 12 ساعة مع مؤقت HH:MM:SS يصمد عبر التحديثات ---- */
 var X29_CD=null;
 function x29CountdownStop(){if(X29_CD){try{clearInterval(X29_CD)}catch(e){}X29_CD=null}}
 function x29CountdownOpen(){
@@ -6215,7 +6215,7 @@ function x29CountdownOpen(){
   x29CountdownStop();
   xModal('⏳ رسالتك القادمة',
     '<div style="text-align:center;padding:4px 0 2px">'+
-    '<p style="margin:0 0 12px;font-size:14px;line-height:1.9">وصلت رسالتك السابقة بنجاح — رسالة واحدة لكل زائر كل 24 ساعة، وتُفتح رسالتك القادمة بعد:</p>'+
+    '<p style="margin:0 0 12px;font-size:14px;line-height:1.9">وصلت رسالتك السابقة بنجاح — رسالة واحدة لكل زائر كل 12 ساعة، وتُفتح رسالتك القادمة بعد:</p>'+
     '<div id="x29-cd" dir="ltr" style="font-size:38px;font-weight:900;letter-spacing:2px;color:var(--x-accent);font-variant-numeric:tabular-nums">--:--:--</div>'+
     '<p style="margin:12px 0 0;font-size:12px;color:var(--text-mute);line-height:1.9">يُحفظ هذا العدّ على جهازك ويستمر من حيث توقف — حتى لو أعدت تحميل الصفحة أو صدر تحديث جديد للمنصة.</p>'+
     '</div>');
@@ -6223,7 +6223,7 @@ function x29CountdownOpen(){
     var el=gid('x29-cd');
     if(!el){x29CountdownStop();return}
     var last=stGet(X27_DAY_KEY,0)||0;
-    var rest=86400000-(Date.now()-last);
+    var rest=43200000-(Date.now()-last);
     if(rest<=0){
       el.textContent='00:00:00';
       x29CountdownStop();
@@ -7171,7 +7171,7 @@ function x32DaysLeft(){
     var now=Date.now(),seen=0;
     try{seen=parseInt((localStorage.getItem('x32_upd_seen')||'0'),10)||0}catch(e){seen=0}
     if(!seen)return 10;
-    var left=10-Math.floor((now-seen)/86400000);
+    var left=10-Math.floor((now-seen)/43200000);
     return Math.max(0,left);
   }catch(e){return -1}
 }
@@ -7182,7 +7182,7 @@ function x32Blocked(){
     var now=Date.now(),seen=0;
     try{seen=parseInt((localStorage.getItem('x32_upd_seen')||'0'),10)||0}catch(e){seen=0}
     if(!seen)return false;
-    return (now-seen)>10*86400000;
+    return (now-seen)>10*43200000;
   }catch(e){return false}
 }
 var __x32UB=updBanner;
@@ -16817,6 +16817,312 @@ APP_META.ver='88.0';APP_META.date='2026-11-06';APP_META.lastUpdate='2026-11-06';
 APP_META.notes='الإصدار 88 — الاستقرار والاحترافية النهائية: مؤشر التبويب موسّط بدقة، تنقل «أهم الملاحظات/القوانين» بتبديل مباشر يعمل دائمًا، أيقونة ظاهرة بجانب «المواد الدراسية»، وواجهة أنظف بلا نصوص زائدة.';
 try{if(APP_META.changelog&&APP_META.changelog.length&&typeof APP_META.changelog[0]==='object'){APP_META.changelog[0]='الإصدار 87.0 (2026-11-06): زر مشاركة واحد + تنظيف الشروح الداخلية + مؤشر تبويب شريطي + أيقونات مواد كبيرة + إصلاح تنقل الخلاصة + تثبيت الخلفية في الموقع.'}}catch(eC87){}
 try{APP_META.changelog.unshift('الإصدار 88.0 (2026-11-06): مؤشر التبويب السفلي موسّط بدقة + إصلاح تنقل الملاحظات/القوانين نهائيًا بتبديل مباشر + إظهار أيقونة «المواد الدراسية» + إزالة «النسخة الكاملة» من سياسة الخصوصية + إزالة شرح الإبلاغ + إزالة بطاقة «المظهر الحالي» المكررة.')}catch(eV88){}
+
+/* ===================== طبقة الإصدار 89.0 — الإصلاحات الجذرية النهائية ===================== */
+
+/* 89.أ CSS: جذر مؤشر التبويب + تباين بلا انزياح + إخفاء بطاقة المظهر الحالية الفعلية + تنقل سلس */
+function x89Style(){
+  try{
+    var el=gid('x89-style');
+    if(!el){el=document.createElement('style');el.id='x89-style';(document.head||document.documentElement).appendChild(el)}
+    el.textContent=
+     '/* 89: الجذر الحقيقي لمركزية المؤشر — الزر نفسه هو مرجع التموضع */'+
+     '.bnav-btn{position:relative!important}'+
+     '.bnav-btn.bnav-on:before{content:""!important;position:absolute!important;top:0!important;left:0!important;right:0!important;margin:0 auto!important;margin-left:0!important;width:42px!important;height:4.5px!important;border:0!important;border-radius:99px!important;background:linear-gradient(90deg,#35BDF2,#8B6CFF)!important;box-shadow:0 0 10px rgba(53,189,242,.5)!important}'+
+     'html[data-theme="light"] .bnav-btn.bnav-on:before{background:linear-gradient(90deg,#168EBF,#7657DB)!important;box-shadow:none!important}'+
+     '/* 89: زيادة التباين بلا filter على body — الفلتر كان يفك تموضع العناصر الثابتة ويسبب انزياح الشاشة */'+
+     'body.x48-hc{filter:none!important;--text:#ffffff!important;--text-dim:#e8eef8!important;--text-mute:#c3cfdf!important}'+
+     'html[data-theme="light"] body.x48-hc{--text:#0a1220!important;--text-dim:#243349!important;--text-mute:#42536d!important}'+
+     'html,body{overflow-x:hidden!important}'+
+     '/* 89: بطاقة «المظهر الحالي» الحقيقية في الإعدادات (x51) + القديمة */'+
+     '.x51-card,.x48-qcard{display:none!important}'+
+     '/* 89: دخول الصفحات: حركة ناعمة مميزة عند التنقل */'+
+     '#app.x89-enter>*:not(nav){animation:x89in .28s cubic-bezier(.21,.68,.35,1) both}'+
+     '@keyframes x89in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}'+
+     '@media (prefers-reduced-motion:reduce){#app.x89-enter>*{animation:none!important}}'+
+     '/* 89: خلاصة الدرس — شريحة واحدة ظاهرة في كل مرة */'+
+     '#kptrack{display:block!important;transform:none!important;transition:none!important;width:100%!important}'+
+     '.kp-slide{display:block!important;width:100%!important;min-width:100%!important;box-sizing:border-box}';
+  }catch(eS0){}}
+try{x89Style()}catch(eS1){}
+
+/* 89.ب خلاصة الدرس: إعادة بناء كاملة — المحتوى الفعال يُولَّد وقت بناء HTML حسب التبويب المختار،
+   فلا يعتمد على transform ولا display ولا أي CSS — يصمد أمام أي إعادة رسم مهما كان مصدرها */
+function x89KpInner(cid,idx){
+  var kp=KP[cid];if(!kp)return '';
+  var pts=(kp.pts||[]).map(function(t){return '<li>'+t+'</li>'}).join('');
+  var laws=(kp.laws||[]).map(function(l){return '<div class="kp-law"><div class="kp-lt">📌 '+l.t+'</div>'+(l.m?mathBlock(l.m):(l.x?'<div class="kp-lx">'+l.x+'</div>':''))+'</div>'}).join('');
+  var content=(idx===1)?('<div class="kp-slide"><div class="kp-ch">📜 القوانين الواجب حفظها</div>'+laws+'</div>'):('<div class="kp-slide"><div class="kp-ch">🧠 أهم الملاحظات</div><ul class="kp-pts">'+pts+'</ul></div>');
+  return '<div class="kp-head">🗂️ خلاصة الدرس — أهم الملاحظات والقوانين التي يجب أن تتذكرها</div>'+
+   '<div class="kp-tabs">'+
+   '<button id="kpt0" class="kpt'+(idx===0?' kpt-on':'')+'" onclick="kpTab(0)">🧠 أهم الملاحظات <span class="kpt-n">'+(kp.pts||[]).length+'</span></button>'+
+   '<button id="kpt1" class="kpt'+(idx===1?' kpt-on':'')+'" onclick="kpTab(1)">📜 القوانين <span class="kpt-n">'+(kp.laws||[]).length+'</span></button>'+
+   '</div>'+
+   '<div class="kp-vp" id="kpvp"><div class="kp-track" id="kptrack">'+content+'</div></div>'+
+   '<div class="kp-nav"><button class="kp-ar" onclick="kpMove(-1)" aria-label="السابق">◀</button><div class="kp-dots" id="kpdots"><span class="kpd'+(idx===0?' kpd-on':'')+'">●</span><span class="kpd'+(idx===1?' kpd-on':'')+'">●</span></div><button class="kp-ar" onclick="kpMove(1)" aria-label="التالي">▶</button></div>';
+}
+window.kpHTML=function(cid){
+  var kp=KP[cid];if(!kp)return '';
+  if(!(kp.pts||[]).length&&!(kp.laws||[]).length)return '';
+  return '<div class="kp-box fade-in" id="kpbox" data-cid="'+cid+'">'+x89KpInner(cid,(KPI===1)?1:0)+'</div>';
+};
+window.kpTab=function(i){
+  var idx=(i===1)?1:0;
+  try{KPI=idx}catch(eK){}
+  try{
+    var box=gid('kpbox');
+    if(box){
+      var cid=(''+(box.getAttribute('data-cid')||''));
+      if(cid&&KP[cid]){box.innerHTML=x89KpInner(cid,idx);return}
+    }
+  }catch(e0){}
+  try{render()}catch(e1){}
+};
+window.kpMove=function(d){try{kpTab(((KPI||0)+d+2)%2)}catch(e){}};
+window.kpSync=function(){};
+window.x88KpShow=function(i){try{kpTab(i)}catch(e){}};
+try{
+  document.addEventListener('click',function(e){
+    try{
+      var t=e.target;var guard=0;
+      while(t&&t.nodeType===1&&guard<12){
+        if(t.id==='kpt0'){window.kpTab(0);break}
+        if(t.id==='kpt1'){window.kpTab(1);break}
+        t=t.parentNode;guard++;
+      }
+    }catch(eC){}
+  },true);
+}catch(eL){}
+
+/* 89.ج الإرسال الحقيقي إلى الإدارة — مسار واحد واضح وصادق: FormSubmit مباشرة إلى بريد الإدارة،
+   لا حصص ولا بوابات ولا مفاتيح، مع مسار احتياطي صادق (نسخ) إن تعذر الاتصال */
+function x89Send(subject,body,from,onResult){
+  var em='';try{em=''+XOWNER_MAIL}catch(eM){em=''}
+  var full=body+'\n\n'+((from)?('— من: '+from+'\n'):'')+'— أُرسلت من منصة X الإصدار '+APP_META.ver;
+  try{toast('⏳ جارٍ إرسال رسالتك إلى الإدارة…')}catch(e0){}
+  var okFn=function(){try{toast('✅ وصلت رسالتك إلى الإدارة بنجاح','success')}catch(e1){}if(typeof onResult==='function'){try{onResult(true,false)}catch(e2){}}};
+  var failFn=function(msg){
+    try{navigator.clipboard.writeText('[منصة X] '+subject+'\n\n'+full)}catch(e3){}
+    try{
+      if(msg&&(''+msg).toLowerCase().indexOf('activat')>=0){
+        toast('📩 يتطلب الإرسال تفعيلًا لمرة واحدة: افتح بريد الإدارة واضغط زر التفعيل في رسالة FormSubmit ثم أعد المحاولة','info');
+      }else{
+        toast('⚠️ تعذر الإرسال التلقائي — تحقق من اتصال الإنترنت ثم أعد المحاولة (نُسخ نص رسالتك للحفظ)','error');
+      }
+    }catch(e4){}
+    if(typeof onResult==='function'){try{onResult(false,true)}catch(e5){}}
+  };
+  try{
+    fetch('https://formsubmit.co/ajax/'+encodeURIComponent(em),{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({_subject:'[منصة X] '+subject,name:(from?('مستخدم منصة X — '+from):'زائر منصة X'),email:(from||em),_replyto:(from||em),message:full})})
+    .then(function(r){return r.json()})
+    .then(function(j){
+      if(j&&(j.success===true||j.success==='true')){okFn()}
+      else{failFn((j&&j.message)||'')}
+    })
+    .catch(function(err){failFn('')});
+  }catch(eX){failFn('')}
+}
+window.x19Send=function(subject,body,from,onResult){try{x89Send(subject,body,from,onResult)}catch(e0){if(typeof onResult==='function'){try{onResult(false,false)}catch(e1){}}}};
+window.x67ReportSend=function(){
+  var t=(''+(((gid('x67-rt')||{}).value)||'')).trim();
+  var s=(''+(((gid('x67-rs')||{}).value)||'رسالة'));
+  var b=(''+(((gid('x67-rb')||{}).value)||'')).trim();
+  var em=x67MyMail();
+  if(!t){try{toast('✍️ اكتب عنوان المشكلة أولًا')}catch(e){}return}
+  if(b.length<5){try{toast('✍️ اكتب تفاصيل المشكلة')}catch(e){}return}
+  if(!em){try{toast('ℹ️ سجّل دخولك أولًا — البلاغ يُرسل من حسابك المسجل')}catch(e){}return}
+  var body='عنوان البلاغ: '+t+' — النوع: '+s+' — من حساب: '+em+' — الإصدار: '+APP_META.ver+' — التفاصيل: '+b;
+  x19Send('بلاغ من منصة X: '+t,body,em,function(ok){
+    if(ok){
+      try{
+        var rr=gid('x67-rb');if(rr){rr.value=''}
+        var rt2=gid('x67-rt');if(rt2){rt2.value=''}
+      }catch(e){}
+    }
+  });
+};
+
+/* 89.د تنقل سلس ومميز: دخول الصفحة بحركة ناعمة + تصحيح فوري لأعلى عند التنقل */
+var __x89NAV=navigate;
+var x89nav=false;
+navigate=function(a,b,c){x89nav=true;try{__x89NAV(a,b,c)}catch(e0){}};
+var __x89R=render;
+render=function(){
+  var nv=x89nav;x89nav=false;
+  try{__x89R()}catch(e0){}
+  try{
+    if(nv){
+      try{window.scrollTo(0,0)}catch(e1){}
+      var ap=document.getElementById('app');
+      if(ap){ap.classList.remove('x89-enter');void ap.offsetWidth;ap.classList.add('x89-enter')}
+    }
+  }catch(e2){}
+};
+
+/* 89.هو هوية الإصدار */
+APP_META.ver='89.0';APP_META.date='2026-11-07';APP_META.lastUpdate='2026-11-07';
+APP_META.notes='الإصدار 89 — الاستقرار والاحترافية الجذرية: مؤشر التبويب مركز تمامًا فوق زره (إصلاح جذر التموضع)، تنقل الملاحظات/القوانين مُعاد البناء كليًا، إرسال حقيقي إلى الإدارة بلا بوابات، تباين بلا انزياح الشاشة، وتنقل سلس بين الصفحات.';
+try{APP_META.changelog.unshift('الإصدار 89.0 (2026-11-07): جذر مركزية المؤشر (position:relative) + إعادة بناء خلاصة الدرس بتبديل وقت التوليد + إرسال البلاغ والتسجيل فعليًا إلى بريد الإدارة + إصلاح انزياح التباين + إخفاء بطاقة المظهر الحالية الحقيقية + أيقونة تقدّمي مرسومة + انتقالات صفحات ناعمة.')}catch(eV89){}
+
+
+/* ===== طبقة 89.1: قناتا المالك للإرسال إلى الإدارة + توزيع الحصة الشهرية الذكي =====
+   Web3Forms (250 رسالة/شهر — الحصة الأكبر) أولًا، ثم EmailJS (200 رسالة/شهر).
+   عند نفاد حصة قناة من الخادم (رمز 429 أو رسالة الحد) تُعلَّم القناة لهذا الشهر
+   وينتقل الإرسال فورًا للأخرى، وفي مطلع كل شهر يُعاد العد من القناة الأكبر.
+   بلا بوابة «رسالة كل 12 ساعة»: البلاغ والتسجيل يرسلان فورًا دائمًا.
+   الطوارئ: إن اكتملت الحصتان يعمل FormSubmit بلا حصة شهرية. */
+
+/* 89.1.أ تثبيت مفاتيح المالك (نفسها المخبأة في الأساس) في تخزين الجهاز
+   كي يعمل المحركان بالقيم الصحيحة مهما كان المخزن القديم */
+try{
+  stSet('x25_emailjs',{service:'service_kvr39ms',template:'template_rmyruhm',key:'82bMO1V13gj-GXgte'});
+  stSet('x25_w3f',{key:'df136111-7a8e-4f35-9480-c3f77db614c6'});
+}catch(eK891){}
+
+/* 89.1.ب نزع بوابة الـ12 ساعة نهائيًا — لا شيء يمنع البلاغ أو التسجيل */
+window.x27DayOK=function(){return {ok:true,h:0}};
+
+/* 89.1.ج المحاولة عبر قناة واحدة (محركات الأساس x27SendRaw/x25) */
+function x891Try(ch,subject,fullBody,from,cb){
+  var done=false;
+  function fin(ok,ex){if(done){return}done=true;try{cb(!!ok,!!ex)}catch(e){}}
+  try{
+    x27SendRaw(ch,subject,fullBody,from,function(ok,ex){
+      if(ok){try{x27Count(ch)}catch(eC){}}
+      fin(ok,ex);
+    });
+  }catch(eX){fin(false,false)}
+}
+
+/* 89.1.د سلسلة الإرسال الموحدة: الأكبر أولًا ثم الثانية ثم طوارئ FormSubmit */
+window.x19Send=function(subject,body,from,onResult){
+  var fullBody=body+'\n\n'+((from)?('— من: '+from+'\n'):'')+'— أُرسلت من منصة X الإصدار '+APP_META.ver;
+  var finish=function(success,queued){if(typeof onResult==='function'){try{onResult(!!success,!!queued)}catch(e){}}};
+  var handled=false;
+  function okDone(){if(handled){return}handled=true;finish(true,false)}
+  var emergencyStarted=false;
+  function emergency(){
+    if(emergencyStarted||handled){return}
+    emergencyStarted=true;
+    try{x89Send(subject,body,from,function(ok,qd){finish(ok,qd)})}catch(eE){finish(false,false)}
+  }
+  var c1='';
+  try{c1=x27Pick()}catch(eP){}
+  if(!c1){
+    try{toast('ℹ️ اكتملت حصة القناتين لهذا الشهر — يعمل الآن مسار الطوارئ المضمون','info')}catch(eT0){}
+    emergency();
+    return;
+  }
+  try{toast('⏳ جارٍ إرسال رسالتك إلى الإدارة…')}catch(eT1){}
+  x891Try(c1,subject,fullBody,from,function(ok1,ex1){
+    if(handled){return}
+    if(ok1){
+      try{toast('✅ وصلت رسالتك إلى الإدارة بنجاح ('+(c1==='w3f'?'Web3Forms':'EmailJS')+')','success')}catch(eS){}
+      okDone();return;
+    }
+    if(ex1){try{x27Kill(c1)}catch(eK){}}
+    var c2=(c1==='w3f')?'ejs':'w3f';
+    var q=null;
+    try{q=x27QuotaRaw()}catch(eQ){}
+    var left2=0;
+    try{left2=x27Left(q,c2)}catch(eL){left2=0}
+    if(!(c2&&left2>0)){emergency();return}
+    x891Try(c2,subject,fullBody,from,function(ok2,ex2){
+      if(handled){return}
+      if(ok2){
+        try{toast('✅ وصلت رسالتك إلى الإدارة بنجاح ('+(c2==='w3f'?'Web3Forms':'EmailJS')+')','success')}catch(eS2){}
+        okDone();return;
+      }
+      if(ex2){try{x27Kill(c2)}catch(eK2){}}
+      emergency();
+    });
+  });
+};
+
+/* 89.1.هـ هوية الإصدار */
+APP_META.ver='89.1';
+APP_META.date='2026-11-07';
+APP_META.lastUpdate='2026-11-07';
+APP_META.notes='الإصدار 89.1 — إرسال الإدارة عبر قناتيك: Web3Forms (250 رسالة/شهر — الأكبر) أولًا ثم EmailJS (200 رسالة/شهر)، بتبديل تلقائي عند نفاد حصة الشهر، وتجديد شهري يعيد العد من القناة الأكبر، وبلا أي بوابة تمنع البلاغ أو التسجيل.';
+try{APP_META.changelog.unshift('الإصدار 89.1 (2026-11-07): تفعيل قناتي المالك (Web3Forms + EmailJS) بمفاتيحهما الجاهزة + توزيع الحصة الشهرية الذكي (الأكبر 250 أولًا ثم 200، النفاد من الخادم = تبديل فوري، تجديد شهري تلقائي) + إزالة بوابة الرسالة/12 ساعة التي كانت تحبس التسجيل والبلاغ + FormSubmit مسار طوارئ بلا حصة.')}catch(eV891){}
+
+
+/* ===== طبقة 89.2: إعادة بوابة المالك — رسالة واحدة كل 12 ساعة =====
+   بوابة «رسالة واحدة لكل زائر كل 12 ساعة (رسالة التسجيل تُحسب منها)»
+   بمدة 12 ساعة بدل 24 كما طلب المالك، مع العدّ التنازلي الحي،
+   وقناتا الإرسال (Web3Forms ثم EmailJS) وتوزيع الحصة الشهرية كما هما. */
+
+/* 89.2.أ بوابة 12 ساعة (تُلغي تحييد 89.1 وتعيد المنطق الحقيقي بمدة 12 ساعة) */
+window.x27DayOK=function(){
+  var last=0;
+  try{last=stGet('x27_day',0)||0}catch(eG892){last=0}
+  var now=Date.now();
+  var rest=43200000-(now-last);
+  if(last>0&&rest>0){return {ok:false,h:Math.ceil(rest/3600000)}}
+  return {ok:true};
+};
+
+/* 89.2.ب سلسلة الإرسال: البوابة أولًا ثم الأكبر فالأصغر ثم الطوارئ،
+   والنجاح من أي مسار يعلّم بوابة الـ12 ساعة */
+window.x19Send=function(subject,body,from,onResult){
+  var fullBody=body+'\n\n'+((from)?('— من: '+from+'\n'):'')+'— أُرسلت من منصة X الإصدار '+APP_META.ver;
+  var finish=function(success,queued){
+    if(success){try{x27DayMark()}catch(eM){}}
+    if(typeof onResult==='function'){try{onResult(!!success,!!queued)}catch(e){}}
+  };
+  var d=null;
+  try{d=x27DayOK()}catch(eD){d={ok:true,h:0}}
+  if(d&&!d.ok){
+    try{toast('⏳ رسالة واحدة كل 12 ساعة — تنطلق رسالتك القادمة بعد نحو '+(d.h||1)+' ساعة','error')}catch(eT0){}
+    try{x29CountdownOpen()}catch(eC0){}
+    if(typeof onResult==='function'){try{onResult(false,false)}catch(e1){}}
+    return;
+  }
+  var handled=false;
+  function okDone(){if(handled){return}handled=true;finish(true,false)}
+  var emergencyStarted=false;
+  function emergency(){
+    if(emergencyStarted||handled){return}
+    emergencyStarted=true;
+    try{x89Send(subject,body,from,function(ok,qd){finish(ok,qd)})}catch(eE){finish(false,false)}
+  }
+  var c1='';
+  try{c1=x27Pick()}catch(eP){}
+  if(!c1){
+    try{toast('ℹ️ اكتملت حصة القناتين لهذا الشهر — يعمل الآن مسار الطوارئ المضمون','info')}catch(eT1){}
+    emergency();
+    return;
+  }
+  try{toast('⏳ جارٍ إرسال رسالتك إلى الإدارة…')}catch(eT2){}
+  x891Try(c1,subject,fullBody,from,function(ok1,ex1){
+    if(handled){return}
+    if(ok1){
+      try{toast('✅ وصلت رسالتك إلى الإدارة بنجاح ('+(c1==='w3f'?'Web3Forms':'EmailJS')+')','success')}catch(eS1){}
+      okDone();return;
+    }
+    if(ex1){try{x27Kill(c1)}catch(eK1){}}
+    var c2=(c1==='w3f')?'ejs':'w3f';
+    var q=null;try{q=x27QuotaRaw()}catch(eQ){}
+    var left2=0;try{left2=x27Left(q,c2)}catch(eL){left2=0}
+    if(!(c2&&left2>0)){emergency();return}
+    x891Try(c2,subject,fullBody,from,function(ok2,ex2){
+      if(handled){return}
+      if(ok2){
+        try{toast('✅ وصلت رسالتك إلى الإدارة بنجاح ('+(c2==='w3f'?'Web3Forms':'EmailJS')+')','success')}catch(eS2){}
+        okDone();return;
+      }
+      if(ex2){try{x27Kill(c2)}catch(eK2){}}
+      emergency();
+    });
+  });
+};
+
+/* 89.2.ج هوية الإصدار */
+APP_META.ver='89.2';
+APP_META.date='2026-11-07';
+APP_META.lastUpdate='2026-11-07';
+APP_META.notes='الإصدار 89.2 — إعادة بوابة المالك برسالة واحدة كل 12 ساعة (التسجيل يُحسب منها) مع بقاء قناتي الإرسال Web3Forms (250/شهر) ثم EmailJS (200/شهر) بتوزيع الحصة الشهرية الذكي والعدّ التنازلي الحي.';
+try{APP_META.changelog.unshift('الإصدار 89.2 (2026-11-07): إعادة بوابة «رسالة واحدة كل 12 ساعة» بتصميم المالك (بدل 24) — كل النصوص والعدّ التنازلي والمنطق أصبحت 12 ساعة، والنجاح من أي مسار (قناتا المالك أو الطوارئ) يعلّم البوابة، مع بقاء توزيع الحصة الشهرية كاملًا.')}catch(eV892){}
 
 boot();
 </script>
