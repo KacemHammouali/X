@@ -1,5 +1,5 @@
-/* منصة X التعليمية — Service Worker — الإصدار 93.0 */
-var VERSION='x-v95.0';
+/* منصة X التعليمية — Service Worker — الإصدار 96.0 — فتح فوري + تحديث خلفي */
+var VERSION='x-v96.0';
 var CORE=['./','./index.html','./versions.json','./icon-512.png','./manifest.json','./pdfs.json','./videos.json'];
 self.addEventListener('install',function(e){
   e.waitUntil(caches.open(VERSION).then(function(c){return c.addAll(CORE).then(function(){return self.skipWaiting()}).catch(function(){return self.skipWaiting()})}));
@@ -19,9 +19,17 @@ self.addEventListener('fetch',function(e){
     return;
   }
   if(req.mode==='navigate'){
-    e.respondWith(fetch(req.url,{cache:'no-store',credentials:'same-origin'}).then(function(r){
-      var cl=r.clone();caches.open(VERSION).then(function(c){c.put('./index.html',cl)});return r;
-    }).catch(function(){return caches.match('./index.html').then(function(r){return r||caches.match('./')})}));
+    /* 96: الفتح فوري من الذاكرة + تحديث خلفي صامت للزيارة التالية —
+       (كانت الطبقة السابقة تنتظر الشبكة كاملة عند كل فتح فكان التطبيق والموقع بطيئين) */
+    e.respondWith(caches.match('./index.html').then(function(cached){
+      try{
+        fetch(req.url,{cache:'no-store',credentials:'same-origin'}).then(function(r){
+          if(r&&r.ok){var cl=r.clone();caches.open(VERSION).then(function(c){c.put('./index.html',cl)})}
+        }).catch(function(){});
+      }catch(eBG1){}
+      if(cached){return cached}
+      return fetch(req.url,{cache:'no-store',credentials:'same-origin'}).catch(function(){return caches.match('./')});
+    }));
     return;
   }
   e.respondWith(caches.match(req).then(function(r){
