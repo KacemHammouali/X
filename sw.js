@@ -1,5 +1,5 @@
-/* منصة X التعليمية — Service Worker — الإصدار 98.0 — تطبيق حقيقي يعمل بلا إنترنت + فتح فوري + تحديث خلفي */
-var VERSION='x-v98.0';
+/* منصة X التعليمية — Service Worker — الإصدار 99.0 — تطبيق حقيقي يعمل بلا إنترنت + فتح فوري + تحديث خلفي */
+var VERSION='x-v99.0';
 var CORE=['./','./index.html','./versions.json','./icon-512.png','./manifest.json','./pdfs.json','./videos.json'];
 /* 98: فشل التثبيت (بلا إنترنت) لا يُفعّل العامل الجديد — يبقى العامل القديم يخدم المحتوى المحفوظ */
 self.addEventListener('install',function(e){
