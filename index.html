@@ -19473,6 +19473,42 @@ window.fallbackNews18=function(){
 window.x101t={ver:APP_META.ver,pulse:x101Pulse,a11y:x101BodyA11y,pick:window.xPickAvatar};
 })();
 }catch(eW101){}
+try{
+
+/* 101.ل مكمّل نهائي: الصوت مع كل ضغطة + حساب تخزين صادق دائمًا */
+(function(){
+'use strict';
+try{
+  document.addEventListener('click',function(e){
+    try{
+      var t=e.target;
+      if(!t||!t.closest){return}
+      if(t.closest('button,.btn,.bnav-btn,.x51-row,.x48-sech,.x69-cdot,.x48-thc,.x48-pill,.pv98 button,.x66-card')){xSound('tap')}
+    }catch(e1){}
+  },true);
+}catch(eS0){}
+try{
+  var __x101SF=(typeof x48StorageFill==='function')?x48StorageFill:null;
+  if(__x101SF){
+    x48StorageFill=function(){
+      try{__x101SF()}catch(eS1){}
+      setTimeout(function(){
+        try{
+          var e2=gid('x48-stor2');
+          if(!e2){return}
+          var txt=e2.innerHTML||'';
+          if(txt.indexOf('0 MB')>=0||txt.indexOf('…')>=0){
+            var b=0,i,k;
+            for(i=0;i<localStorage.length;i++){k=localStorage.key(i);b+=(''+(localStorage.getItem(k)||'')).length}
+            e2.innerHTML=x48T('stor_used')+': <b>'+x48FmtMB(b)+'</b>';
+          }
+        }catch(eS2){}
+      },350);
+    };
+  }
+}catch(eS3){}
+})();
+}catch(eW101B){}
 boot();
 </script>
 </body>
