@@ -1,5 +1,5 @@
-/* منصة X التعليمية — Service Worker — الإصدار 103.0 — الدمج الاحترافي العالمي: أزرق تيليجرام للتفاعل + لمسات إنستغرام للحلقات + صوت فوري مستقر + هوية تيليجرام × إنستغرام + تطبيق حقيقي يعمل بلا إنترنت + فتح فوري + تحديث خلفي */
-var VERSION='x-v105.0';
+/* منصة X التعليمية — Service Worker — الإصدار 106.0 — الدمج الاحترافي العالمي: أزرق تيليجرام للتفاعل + لمسات إنستغرام للحلقات + صوت فوري مستقر + هوية تيليجرام × إنستغرام + تطبيق حقيقي يعمل بلا إنترنت + فتح فوري + تحديث خلفي */
+var VERSION='x-v106.0';
 var CORE=['./','./index.html','./css/site.css','./versions.json','./icon-512.png','./manifest.json','./pdfs.json','./videos.json',
   './js/01-diag.js',
   './js/02-katex.min.js',
@@ -94,11 +94,12 @@ var CORE=['./','./index.html','./css/site.css','./versions.json','./icon-512.png
   './js/107-ver102.js',
   './js/108-ver103.js',
   './js/108b-ver105.js',
+  './js/108c-ver106.js',
   './js/109-ver104-meta.js'
 ];
 /* 98: فشل التثبيت (بلا إنترنت) لا يُفعّل العامل الجديد — يبقى العامل القديم يخدم المحتوى المحفوظ */
 self.addEventListener('install',function(e){
-  e.waitUntil(caches.open(VERSION).then(function(c){return c.addAll(CORE)}).then(function(){return self.skipWaiting()}));
+  e.waitUntil(caches.open(VERSION).then(function(c){return c.addAll(CORE,{cache:'reload'})}).then(function(){return self.skipWaiting()}));
 });
 /* 98: لا يُحذف كاش الإصدار القديم إلا إذا اكتمل كاش الجديدة فعلاً — فلا ينكسر العمل بلا إنترنت أبدًا */
 self.addEventListener('activate',function(e){
