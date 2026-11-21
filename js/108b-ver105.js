@@ -136,12 +136,16 @@ function x105ShowTip(btn){
     var tip=document.getElementById('x105-tip');
     if(!tip){tip=document.createElement('div');tip.id='x105-tip';document.body.appendChild(tip)}
     tip.textContent=x105BtnName(btn);
+    tip.className='';
     tip.style.display='block';
     var r=btn.getBoundingClientRect();
-    var x=r.left+r.width/2,y=r.top-8;
-    if(!r.width){x=window.innerWidth/2;y=window.innerHeight-90}
-    if(x<70)x=70;
-    if(x>(window.innerWidth-70))x=window.innerWidth-70;
+    var x=r.left+r.width/2,y=window.innerHeight-120;
+    var th=tip.offsetHeight||36;
+    y=r.top-th-10;
+    if(!r.width){x=window.innerWidth/2;y=window.innerHeight-120}
+    if(x<80)x=80;
+    if(x>(window.innerWidth-80))x=window.innerWidth-80;
+    if(y<10)y=10;
     tip.style.left=x+'px';
     tip.style.top=y+'px';
     setTimeout(function(){try{tip.className='x105-on'}catch(eT1){}},10);
