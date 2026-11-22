@@ -1,6 +1,7 @@
 /* منصة X التعليمية — Service Worker — الإصدار 110.0 — الدمج الاحترافي العالمي: أزرق تيليجرام للتفاعل + لمسات إنستغرام للحلقات + صوت فوري مستقر + هوية تيليجرام × إنستغرام + تطبيق حقيقي يعمل بلا إنترنت + فتح فوري + تحديث خلفي */
-var VERSION='x-v111.0';
+var VERSION='x-v112.0';
 var CORE=['./','./index.html','./css/site.css','./versions.json','./icon-512.png','./manifest.json','./pdfs.json','./videos.json',
+  './js/00-keys.js',
   './js/01-diag.js',
   './js/02-katex.min.js',
   './js/03-katex-auto.min.js',
@@ -100,6 +101,7 @@ var CORE=['./','./index.html','./css/site.css','./versions.json','./icon-512.png
   './js/108f-ver109.js',
   './js/109f-ver110.js',
   './js/109g-ver111.js',
+  './js/109h-ver112.js',
   './js/109-ver104-meta.js'
 ];
 /* 98: فشل التثبيت (بلا إنترنت) لا يُفعّل العامل الجديد — يبقى العامل القديم يخدم المحتوى المحفوظ */
